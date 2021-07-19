@@ -11,7 +11,9 @@ func _physics_process(delta):
 	if Input.is_action_pressed("move_down"):
 		dir.y = 1.0
 	if Input.is_action_just_pressed("move_up") or Input.is_action_just_pressed("jump"):
-		apply_central_impulse(Vector2.UP * 200.0)
+		apply_central_impulse(Vector2.UP * 250.0)
 		
-	var vel = dir.normalized() * 2.0
+	var vel = dir.normalized() * speed
+#	var currVel = vel * clamp(linear_velocity.length() * 0.1 - 20.0, 0.0, 20.0)
+	
 	apply_central_impulse(vel)
