@@ -1,8 +1,7 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://res/tileset.png" type="Texture" id=1]
 [ext_resource path="res://src/player/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/Player.gd" type="Script" id=3]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -163,9 +162,6 @@ position = Vector2( 336.778, 195.093 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
 
-[node name="Player" type="RigidBody2D" parent="." instance=ExtResource( 2 )]
-position = Vector2( 380.077, 236.434 )
-mode = 2
+[node name="Player" parent="." instance=ExtResource( 2 )]
 physics_material_override = SubResource( 15 )
 gravity_scale = 6.0
-script = ExtResource( 3 )
