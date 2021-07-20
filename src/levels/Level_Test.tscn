@@ -1,19 +1,24 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/tiles/BasicTileSet.tres" type="TileSet" id=1]
 [ext_resource path="res://src/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/liquid/LiquidCell.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/levels/Level_Test.gd" type="Script" id=4]
-[ext_resource path="res://res/liquid_shader.shader" type="Shader" id=5]
+[ext_resource path="res://src/liquid/LiquidEffect.tscn" type="PackedScene" id=5]
 
-[sub_resource type="ShaderMaterial" id=1]
-shader = ExtResource( 5 )
-shader_param/mousePos = Vector2( 0, 0 )
-shader_param/globalPos = Vector2( 0, 0 )
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.398773 )
+colors = PoolColorArray( 0.0705882, 0.0392157, 0.133333, 1 )
 
-[sub_resource type="NoiseTexture" id=2]
-width = 640
-height = 360
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="Environment" id=3]
+glow_enabled = true
+glow_intensity = 0.47
+glow_strength = 0.73
+glow_blend_mode = 0
+glow_hdr_threshold = 0.21
 
 [node name="Level_Test" type="Node2D"]
 script = ExtResource( 4 )
@@ -21,6 +26,11 @@ script = ExtResource( 4 )
 [node name="DebugTimer" type="Timer" parent="."]
 wait_time = 0.03
 autostart = true
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 333.474, 190.44 )
+scale = Vector2( 0.339388, 434.322 )
+texture = SubResource( 2 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -40,8 +50,10 @@ zoom = Vector2( 0.5, 0.5 )
 
 [node name="LiquidCell" parent="Liquid" instance=ExtResource( 3 )]
 
-[node name="LiquidEffect" type="Sprite" parent="."]
-material = SubResource( 1 )
-position = Vector2( 17, 15 )
-texture = SubResource( 2 )
-centered = false
+[node name="LiquidEffect" type="Node2D" parent="."]
+
+[node name="LiquidEffect" parent="LiquidEffect" instance=ExtResource( 5 )]
+position = Vector2( 14.6189, 14.8531 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="LiquidEffect/LiquidEffect"]
+environment = SubResource( 3 )

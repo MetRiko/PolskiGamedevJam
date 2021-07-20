@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://res/liquid_shader.shader" type="Shader" id=1]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/mousePos = Vector2( 0, 0 )
+shader_param/globalPos = Vector2( 0, 0 )
+shader_param/cellsCount = 0
+
+[sub_resource type="NoiseTexture" id=2]
+width = 640
+height = 360
+
+[node name="LiquidEffect" type="Sprite"]
+material = SubResource( 1 )
+position = Vector2( 17, 15 )
+texture = SubResource( 2 )
+centered = false
