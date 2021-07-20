@@ -5,6 +5,10 @@ func impulse(vel):
 #	var newVel = Vector2(vel.x, -abs(vel.y))
 	apply_central_impulse(vel)
 	
+	
+#func _ready():
+#	set_physics_process(false)
+	
 #func _ready():
 #	connect("body_entered", self, "onBodyEntered")
 #	$Timer.connect("timeout", self, "onTimer")

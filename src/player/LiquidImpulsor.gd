@@ -9,10 +9,9 @@ func _physics_process(delta):
 			_updateCell(body)
 
 #func onBodyEntered(body):
-#	return
 #	if body is Liquid:
 #		_updateCell(body)
-		
+
 func _updateCell(body):
 	var player = get_parent()
 	

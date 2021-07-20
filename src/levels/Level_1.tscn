@@ -151,7 +151,9 @@ friction = 0.0
 
 [node name="Level_1" type="Node2D"]
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TileMap" type="TileMap" parent="." groups=[
+"Tile",
+]]
 tile_set = SubResource( 14 )
 cell_size = Vector2( 16, 16 )
 collision_mask = 0
