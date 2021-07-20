@@ -4,7 +4,7 @@
 [ext_resource path="res://src/Player.gd" type="Script" id=2]
 
 [sub_resource type="PhysicsMaterial" id=15]
-friction = 0.1
+friction = 0.0
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 7.33953
@@ -13,10 +13,10 @@ radius = 7.33953
 position = Vector2( 380.077, 236.434 )
 mode = 2
 physics_material_override = SubResource( 15 )
-gravity_scale = 6.5
+gravity_scale = 7.0
 contacts_reported = 5
 contact_monitor = true
-linear_damp = 2.0
+linear_damp = 3.0
 script = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": ""

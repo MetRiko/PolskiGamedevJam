@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 var speed := 140.0
-var jumpPower := 320.0
+var jumpPower := 330.0
 
 var isOnFloor := false
 
@@ -43,10 +43,11 @@ func setIsOnFloor(flag : bool):
 		if flag == true:
 			isOnFloor = true
 		else:
-			yield(get_tree().create_timer(0.1), "timeout")
+			yield(get_tree().create_timer(0.25), "timeout")
 			isOnFloor = false
 
 func _updateJump():
+	print(isOnFloor)
 	if isOnFloor == true:
 		if Input.is_action_just_pressed("move_up") or Input.is_action_just_pressed("jump"):
 			apply_central_impulse(Vector2.UP * jumpPower)
