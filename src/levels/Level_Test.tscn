@@ -47,6 +47,7 @@ current = true
 zoom = Vector2( 0.5, 0.5 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 378.043, 220.74 )
 
 [node name="Liquid" type="Node2D" parent="."]
 

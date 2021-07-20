@@ -88,10 +88,10 @@ position = Vector2( 24.9782, 19.1795 )
 collision_layer = 2
 mode = 2
 physics_material_override = SubResource( 1 )
-gravity_scale = 7.0
+gravity_scale = 6.0
 contacts_reported = 5
 contact_monitor = true
-linear_damp = 3.0
+angular_damp = 10.0
 script = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": ""
@@ -131,3 +131,7 @@ anims/Fall = SubResource( 6 )
 anims/Idle = SubResource( 4 )
 anims/Jump = SubResource( 7 )
 anims/Running = SubResource( 5 )
+
+[node name="JumpTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
