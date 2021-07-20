@@ -84,7 +84,7 @@ tracks/0/keys = {
 }
 
 [node name="Player" type="RigidBody2D"]
-position = Vector2( 380.077, 236.434 )
+position = Vector2( 24.9782, 19.1795 )
 collision_layer = 2
 mode = 2
 physics_material_override = SubResource( 1 )

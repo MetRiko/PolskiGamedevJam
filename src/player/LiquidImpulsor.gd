@@ -3,6 +3,9 @@ extends Area2D
 #func _ready():
 #	connect("body_entered", self, "onBodyEntered")
 
+onready var player = get_parent()
+onready var liquidImpulsor = player.get_node("LiquidImpulsor")
+
 func _physics_process(delta):
 	for body in get_overlapping_bodies():
 		if body is Liquid:
@@ -13,9 +16,8 @@ func _physics_process(delta):
 #		_updateCell(body)
 
 func _updateCell(body):
-	var player = get_parent()
 	
-	var cellVec = body.global_position - player.global_position
+	var cellVec = body.global_position - liquidImpulsor.global_position
 	var velVec = player.linear_velocity
 #	velVec.y *= 2.0
 	

@@ -44,10 +44,10 @@ func _process(delta):
 	
 	$Sprite.flip_h = isMovingLeft
 	
-	if canJump == false:
-		if linear_velocity.y < -0.1:
+	if isOnFloor == false:
+		if linear_velocity.y < 0.0:
 			$Anim.play("Jump", -1, 1.0)
-		elif linear_velocity.y > 0.1:
+		else:
 			$Anim.play("Fall", -1, 1.0)
 	else:
 		if isMoving == true:
@@ -70,7 +70,7 @@ func _process(delta):
 #	setIsOnFloor(stateIsOnFloor)
 		
 func setIsOnFloor(flag : bool):
-	if flag != isOnFloor:
+	if flag != canJump:
 		if flag == true:
 			isOnFloor = true
 			canJump = true

@@ -32,17 +32,17 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 4, 0, 4 )
 [sub_resource type="ConvexPolygonShape2D" id=10]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
-[sub_resource type="ConcavePolygonShape2D" id=11]
-segments = PoolVector2Array( 0, 4, 12, 4, 12, 4, 12, 0, 12, 0, 16, 0, 16, 0, 16, 16, 16, 16, 0, 16, 0, 16, 0, 4 )
+[sub_resource type="ConvexPolygonShape2D" id=11]
+points = PoolVector2Array( 0, 4, 12, 4, 12, 0, 16, 0, 16, 16, 0, 16 )
 
-[sub_resource type="ConcavePolygonShape2D" id=12]
-segments = PoolVector2Array( 0, 0, 16, 0, 16, 0, 16, 16, 16, 16, 12, 16, 12, 16, 12, 4, 12, 4, 0, 4, 0, 4, 0, 0 )
+[sub_resource type="ConvexPolygonShape2D" id=12]
+points = PoolVector2Array( 4, 4, 16, 4, 16, 16, 0, 16, 0, 0, 4, 0 )
 
-[sub_resource type="ConcavePolygonShape2D" id=13]
-segments = PoolVector2Array( 0, 16, 0, 0, 0, 0, 16, 0, 16, 0, 16, 4, 16, 4, 4, 4, 4, 4, 4, 16, 4, 16, 0, 16 )
+[sub_resource type="ConvexPolygonShape2D" id=13]
+points = PoolVector2Array( 0, 16, 0, 0, 16, 0, 16, 4, 4, 4, 4, 16 )
 
-[sub_resource type="ConcavePolygonShape2D" id=14]
-segments = PoolVector2Array( 4, 4, 16, 4, 16, 4, 16, 16, 16, 16, 0, 16, 0, 16, 0, 0, 0, 0, 4, 0, 4, 0, 4, 4 )
+[sub_resource type="ConvexPolygonShape2D" id=14]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 12, 16, 12, 4, 0, 4 )
 
 [resource]
 0/name = "tilemap.png 0"
@@ -134,7 +134,7 @@ segments = PoolVector2Array( 4, 4, 16, 4, 16, 4, 16, 16, 16, 16, 0, 16, 0, 16, 0
 "shape": SubResource( 11 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
-"autotile_coord": Vector2( 5, 0 ),
+"autotile_coord": Vector2( 3, 2 ),
 "one_way": false,
 "one_way_margin": 1.0,
 "shape": SubResource( 12 ),
@@ -146,7 +146,7 @@ segments = PoolVector2Array( 4, 4, 16, 4, 16, 4, 16, 16, 16, 16, 0, 16, 0, 16, 0
 "shape": SubResource( 13 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
-"autotile_coord": Vector2( 3, 2 ),
+"autotile_coord": Vector2( 5, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
 "shape": SubResource( 14 ),
