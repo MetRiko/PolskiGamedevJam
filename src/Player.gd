@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 var speed := 160.0
-var jumpPower := 200.0
+var jumpPower := 150.0
 
 var isOnFloor := false
 
@@ -32,16 +32,19 @@ func _physics_process(delta):
 		var vel = Vector2(-linear_velocity.x, 0.0)
 		apply_central_impulse(vel * 0.12)
 		
-#	if isOnFloor == true and isMoving == false:
-#		linear_damp = 4.0
-#	else:
-#		linear_damp = -1.0
-	
 	currSpeed = sqrt(abs(speed - abs(linear_velocity.x)))
 	if sign(linear_velocity.x) != sign(dir.x):
 		currSpeed = speed * 0.12
 	var vel = dir.normalized() * currSpeed
 	
+#
+#	if abs(linear_velocity.x) < 4.0:
+#		apply_central_impulse(Vector2(sign(dir.x) * speed, 0.0))
+#	else:
+#		var velSign = sign(linear_velocity.x)
+#		var boost = clamp(abs(linear_velocity.x) / 10.0, 0.0, 1.0)
+#		var vel = Vector2(boost * dir.x * speed * 0.05, 0.0)
+#
 #	var currVel = vel * clamp(linear_velocity.length() * 0.1 - 20.0, 0.0, 20.0)
 	
 	apply_central_impulse(vel)
@@ -92,8 +95,8 @@ func _updateJump():
 #	print(isOnFloor)
 	if canJump == true:
 		if Input.is_action_just_pressed("move_up") or Input.is_action_just_pressed("jump"):
-			linear_velocity.y = 0.0
-			apply_central_impulse(Vector2.UP * jumpPower)
+			linear_velocity.y = -jumpPower
+#			apply_central_impulse(Vector2.UP * jumpPower)
 			canJump = false
 			$JumpTimer.start()
 	if not $JumpTimer.is_stopped():

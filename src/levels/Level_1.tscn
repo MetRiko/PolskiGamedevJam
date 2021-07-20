@@ -167,4 +167,3 @@ zoom = Vector2( 0.5, 0.5 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 physics_material_override = SubResource( 15 )
-gravity_scale = 6.0
