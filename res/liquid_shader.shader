@@ -75,7 +75,7 @@ void fragment() {
 	vec4 cellCol2 = vec4(235. / 255., 105. / 255., 124. / 255., 1.0) * 1.0;
 	
 	finalCol = mix(finalCol, pow(texl, vec4(0.8)) + cellCol2 * finalIntencity * 0.7, clamp(pow(finalIntencity, 0.5), 0.0, 1.0));
-	finalCol = mix(finalCol, pow(texl, vec4(0.8)) + cellCol * finalIntencity * 0.7, floor(finalIntencity * 1.6));
+	finalCol = mix(finalCol, pow(texl, vec4(0.8)) + cellCol * finalIntencity * 0.6, floor(finalIntencity * 1.6));
 	
 	COLOR = finalCol;
 	

@@ -15,8 +15,8 @@ gradient = SubResource( 1 )
 
 [sub_resource type="Environment" id=3]
 glow_enabled = true
-glow_intensity = 0.47
-glow_strength = 0.73
+glow_intensity = 1.14
+glow_strength = 0.86
 glow_blend_mode = 0
 glow_hdr_threshold = 0.21
 

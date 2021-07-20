@@ -7,7 +7,7 @@
 friction = 0.0
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 3.20106
+radius = 2.5
 
 [node name="LiquidCell" type="RigidBody2D"]
 position = Vector2( 22.7512, 23.568 )
@@ -16,7 +16,8 @@ collision_mask = 5
 mode = 2
 physics_material_override = SubResource( 1 )
 gravity_scale = 6.0
-angular_damp = 0.0
+can_sleep = false
+angular_damp = 3.0
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

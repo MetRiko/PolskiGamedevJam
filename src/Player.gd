@@ -46,6 +46,7 @@ func setIsOnFloor(flag : bool):
 			yield(get_tree().create_timer(0.25), "timeout")
 			isOnFloor = false
 
+
 func _updateJump():
 #	print(isOnFloor)
 	if isOnFloor == true:

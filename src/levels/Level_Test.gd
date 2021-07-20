@@ -43,7 +43,6 @@ func _process(delta):
 		array.append(firstHalf)
 		array.append(secondHalf)
 	
-	
 	var array_width = cellsCount * 2
 	var array_heigh = 2
 
