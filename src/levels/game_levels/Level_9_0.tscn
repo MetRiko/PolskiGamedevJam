@@ -5,7 +5,7 @@
 [ext_resource path="res://src/levels/LevelBase.gd" type="Script" id=3]
 [ext_resource path="res://src/core/Border.gd" type="Script" id=4]
 
-[node name="Level_Large" type="Node2D"]
+[node name="Level_9_0" type="Node2D"]
 script = ExtResource( 3 )
 
 [node name="DebugTimer" type="Timer" parent="."]

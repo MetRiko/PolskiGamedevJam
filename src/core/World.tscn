@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://src/levels/game_levels/Level_1_0.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/core/World.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://src/levels/game_levels/Level_3_0.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/levels/game_levels/Level_4_0.tscn" type="PackedScene" id=11]
 [ext_resource path="res://src/levels/game_levels/Level_5_0.tscn" type="PackedScene" id=12]
+[ext_resource path="res://src/levels/game_levels/Level_6_0.tscn" type="PackedScene" id=13]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.398773 )
@@ -56,7 +57,7 @@ scale = Vector2( 0.3125, 360 )
 texture = SubResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 9 )]
-position = Vector2( 358.973, 221.907 )
+position = Vector2( 351.422, 229.458 )
 
 [node name="Levels" type="Node2D" parent="."]
 
@@ -94,7 +95,39 @@ script = ExtResource( 8 )
 idxX = 1
 idxY = 3
 
-[node name="Level_Large" parent="Levels/Localizator5" instance=ExtResource( 12 )]
+[node name="Level_5_0" parent="Levels/Localizator5" instance=ExtResource( 12 )]
+
+[node name="Localizator6" type="Node2D" parent="Levels"]
+position = Vector2( 640, 1440 )
+script = ExtResource( 8 )
+idxX = 1
+idxY = 4
+
+[node name="Level_6_0" parent="Levels/Localizator6" instance=ExtResource( 13 )]
+
+[node name="Localizator7" type="Node2D" parent="Levels"]
+position = Vector2( 640, 1080 )
+script = ExtResource( 8 )
+idxX = 1
+idxY = 3
+
+[node name="Localizator8" type="Node2D" parent="Levels"]
+position = Vector2( 640, 1080 )
+script = ExtResource( 8 )
+idxX = 1
+idxY = 3
+
+[node name="Localizator9" type="Node2D" parent="Levels"]
+position = Vector2( 640, 1080 )
+script = ExtResource( 8 )
+idxX = 1
+idxY = 3
+
+[node name="Localizator10" type="Node2D" parent="Levels"]
+position = Vector2( 640, 1080 )
+script = ExtResource( 8 )
+idxX = 1
+idxY = 3
 
 [node name="Postprocess" type="Node2D" parent="."]
 script = ExtResource( 5 )
