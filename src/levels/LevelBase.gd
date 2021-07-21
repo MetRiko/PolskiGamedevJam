@@ -29,8 +29,14 @@ func enable():
 		fadeTween.interpolate_property(self, "modulate:a", null, 1.0, 0.8, Tween.TRANS_SINE, Tween.EASE_IN)
 		fadeTween.start()
 
+var debugTimer = null
+
 func _ready():
-	$DebugTimer.connect("timeout", self, "onDebugTimer")
+	debugTimer = Timer.new()
+	debugTimer.wait_time = 0.03
+	debugTimer.autostart = true
+	add_child(debugTimer)
+	debugTimer.connect("timeout", self, "onDebugTimer")
 
 	fadeTween = Tween.new()
 	add_child(fadeTween)

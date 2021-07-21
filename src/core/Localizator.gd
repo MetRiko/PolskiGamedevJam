@@ -16,4 +16,4 @@ func setIdxY(y):
 	_updatePosition()
 	
 func _updatePosition():
-	position = Vector2(1280.0, 720.0) * Vector2(idxX, idxY) * 0.5
+	position = Vector2(1280.0, 736.0) * Vector2(idxX, idxY) * 0.5

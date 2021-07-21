@@ -86,7 +86,7 @@ func _setupCamera(border, insta := false):
 		
 		var player = getPlayer()
 		
-		var levelSize = Vector2(1280.0, 720.0) * 0.5
+		var levelSize = Vector2(1280.0, 736.0) * 0.5
 		var currPos = prevIdx * levelSize
 		
 		camera.limit_left = currPos.x
@@ -154,7 +154,7 @@ func _process(delta):
 		_updateMovingBetweenLevels()
 
 func convertPosToLevelIdx(pos : Vector2):
-	var idx = pos / (Vector2(1280.0, 720.0) * 0.5)
+	var idx = pos / (Vector2(1280.0, 736.0) * 0.5)
 	idx.x = floor(idx.x)
 	idx.y = floor(idx.y)
 	return idx
