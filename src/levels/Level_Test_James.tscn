@@ -1,10 +1,16 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://src/tiles/BasicTileSet.tres" type="TileSet" id=1]
 [ext_resource path="res://src/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/liquid/LiquidCell.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/levels/Level_Test_James.gd" type="Script" id=4]
 [ext_resource path="res://src/liquid/LiquidEffect.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/entities/logical/trigger/lever/Lever.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/entities/logical/triggered/vanisher/Vanisher.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/entities/logical/FlipFlop/FlipFlop.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/levels/Triggers.gd" type="Script" id=9]
+[ext_resource path="res://src/entities/logical/triggered/vanisher/Vanisher.gd" type="Script" id=10]
+[ext_resource path="res://src/entities/logical/NotGate/NotGate.tscn" type="PackedScene" id=11]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.398773 )
@@ -58,5 +64,24 @@ position = Vector2( 378.043, 220.74 )
 [node name="LiquidEffect" parent="LiquidEffect" instance=ExtResource( 5 )]
 position = Vector2( 14.6189, 14.8531 )
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="LiquidEffect/LiquidEffect"]
+[node name="Triggers" type="Node2D" parent="."]
+script = ExtResource( 9 )
+
+[node name="FlipFlop" parent="Triggers" instance=ExtResource( 8 )]
+position = Vector2( 339.992, 238.102 )
+source = NodePath("../Lever")
+
+[node name="NotGate" parent="Triggers" instance=ExtResource( 11 )]
+position = Vector2( 521.256, 286.055 )
+source = NodePath("../Lever")
+
+[node name="Lever" parent="Triggers" instance=ExtResource( 6 )]
+position = Vector2( 430.904, 240.111 )
+
+[node name="Vanisher" parent="." instance=ExtResource( 7 )]
+position = Vector2( 536.912, 291.371 )
+script = ExtResource( 10 )
+connection = NodePath("../Triggers/NotGate")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 3 )

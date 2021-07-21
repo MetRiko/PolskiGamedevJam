@@ -1,0 +1,79 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/entities/logical/trigger/lever/Lever.gd" type="Script" id=1]
+[ext_resource path="res://res/entites/lever.png" type="Texture" id=2]
+[ext_resource path="res://src/entities/logical/trigger/lever/LeverSprite.gd" type="Script" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 64, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
+"loop": false,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0.0431373, 0, 1, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Lever" type="Node2D"]
+position = Vector2( 740.825, 319.902 )
+script = ExtResource( 1 )
+playerRef = NodePath(".")
+actionableDistance = 32.0
+
+[node name="LeverSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 4 )
+script = ExtResource( 3 )
+
+[node name="Panel" type="Panel" parent="."]
+margin_left = -26.3779
+margin_top = -74.0825
+margin_right = 13.6221
+margin_bottom = -34.0825
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+custom_colors/font_color = Color( 0, 0.121569, 1, 1 )
+text = "E"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="on_reset" from="." to="LeverSprite" method="on_off"]
+[connection signal="on_trip" from="." to="LeverSprite" method="on_on"]
