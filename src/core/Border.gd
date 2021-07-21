@@ -16,14 +16,14 @@ func _ready():
 	update()
 	
 func getRealSize():
-	var levelSize = Vector2(1280.0, 720.0) * 0.5
+	var levelSize = Vector2(1280.0, 736.0) * 0.5
 	return levelSize * Vector2(width, height)
 	
 # 80 x 45
 	
 func _draw():
 	
-	var levelSize = Vector2(1280.0, 720.0) * 0.5
+	var levelSize = Vector2(1280.0, 736.0) * 0.5
 	
 	var leftTop := Vector2(0.0, 0.0)
 	var rightTop := Vector2(levelSize.x * width, 0.0)

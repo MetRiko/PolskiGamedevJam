@@ -5,7 +5,7 @@ uniform vec2 globalPos = vec2(0.0, 0.0);
 uniform sampler2D cellsPos;
 uniform int cellsCount = 0;
 
-const vec2 screenSize = vec2(1280.0, 720.0);
+const vec2 screenSize = vec2(1280.0, 736.0);
 
 //vec4 drawCell(vec2 screenPos, vec4 sourceColor, float radius, vec4 color, ) {
 //
