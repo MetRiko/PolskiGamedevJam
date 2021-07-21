@@ -10,6 +10,9 @@ var currentIdx := Vector2(0, 0)
 var prevIdx := currentIdx
 onready var cameraTween = $CameraTween
 
+export(int, -30, 30, 1) var startIdxX := 0
+export(int, -30, 30, 1) var startIdxY := 0
+
 var map = {}
 
 func getCamera():
@@ -26,6 +29,8 @@ func _ready():
 		l.getLevel().disable()
 		
 	_updateMap()
+	
+	currentIdx = Vector2(startIdxX, startIdxY)
 		
 	switchLevel(getLevelFromIdx(currentIdx))
 #	switchLevel(level)
@@ -129,6 +134,14 @@ func _input(event):
 	if event.is_action_pressed("num_3"):
 		switchLevel($Levels.get_child(1).getLevel())
 
+func _physics_process(delta):
+	if Input.is_action_just_pressed("x"):
+#		getPlayer().global_position = pos
+		var pos = get_global_mouse_position()
+		var player = getPlayer()
+		player.global_position = pos
+#		player.sleeping = false
+
 func _process(delta):
 	$Camera2D._local_process(delta)
 	$Postprocess._local_process(delta)
@@ -153,9 +166,5 @@ func _updateMovingBetweenLevels():
 		switchLevel(getLevelFromIdx(idx))
 	else:
 		prevIdx = idx
-	
-	
-	
-	
 	
 
