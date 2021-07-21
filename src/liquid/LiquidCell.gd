@@ -5,6 +5,14 @@ func impulse(vel):
 #	var newVel = Vector2(vel.x, -abs(vel.y))
 	apply_central_impulse(vel)
 	
+func _ready():
+	linear_velocity.y = 10.0
+	
+#func _process(delta):
+#	if linear_velocity.length_squared() < 4.0:
+#		sleeping = true
+#	else:
+#		sleeping = false
 	
 #func _ready():
 #	set_physics_process(false)

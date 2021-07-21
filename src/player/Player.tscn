@@ -4,7 +4,7 @@
 [ext_resource path="res://src/Player.gd" type="Script" id=2]
 [ext_resource path="res://src/player/LiquidImpulsor.gd" type="Script" id=3]
 
-[sub_resource type="PhysicsMaterial" id=1]
+[sub_resource type="PhysicsMaterial" id=5]
 friction = 0.0
 
 [sub_resource type="CircleShape2D" id=2]
@@ -67,8 +67,7 @@ tracks/0/keys = {
 "values": [ 16 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "Running"
+[sub_resource type="Animation" id=9]
 length = 1.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -87,7 +86,7 @@ tracks/0/keys = {
 position = Vector2( 24.9782, 19.1795 )
 collision_layer = 2
 mode = 2
-physics_material_override = SubResource( 1 )
+physics_material_override = SubResource( 5 )
 gravity_scale = 4.0
 contacts_reported = 5
 contact_monitor = true
@@ -129,7 +128,7 @@ autoplay = "Idle"
 anims/Fall = SubResource( 6 )
 anims/Idle = SubResource( 4 )
 anims/Jump = SubResource( 7 )
-anims/Running = SubResource( 5 )
+anims/Running = SubResource( 9 )
 
 [node name="JumpTimer" type="Timer" parent="."]
 wait_time = 0.2
