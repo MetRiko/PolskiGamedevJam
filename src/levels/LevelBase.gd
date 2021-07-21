@@ -3,6 +3,8 @@ class_name LevelBase
 
 const sceneLiquidCell = preload("res://src/liquid/LiquidCell.tscn")
 
+var fadeTween = null
+
 var enabled = true
 
 #func getPlayer():
@@ -17,14 +19,22 @@ func disable():
 		for cell in getLiquidCells():
 			cell.get_parent().remove_child(cell)
 			cell.queue_free()
+			
+		fadeTween.interpolate_property(self, "modulate:a", null, 0.0, 0.8, Tween.TRANS_SINE, Tween.EASE_OUT)
+		fadeTween.start()
 	
 func enable():
 	if enabled == false:
 		enabled = true
+		fadeTween.interpolate_property(self, "modulate:a", null, 1.0, 0.8, Tween.TRANS_SINE, Tween.EASE_IN)
+		fadeTween.start()
 
 func _ready():
 	$DebugTimer.connect("timeout", self, "onDebugTimer")
 
+	fadeTween = Tween.new()
+	add_child(fadeTween)
+	
 #	liquidEffect.material = liquidEffect.material.duplicate()
 	disable()
 #	$Liquid/LiquidEffect.visible = true
