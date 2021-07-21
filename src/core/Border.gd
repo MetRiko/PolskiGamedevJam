@@ -11,6 +11,9 @@ func setWidth(value):
 func setHeight(value):
 	height = value
 	update()
+
+func getSize():
+	return Vector2(width, height)
 	
 func _ready():
 	update()

@@ -28,6 +28,7 @@ func _ready():
 		l.getLevel().disable()
 		
 	_updateMap()
+	_copyTilesToLevels()
 	
 	currentIdx = convertPosToLevelIdx(getPlayer().global_position)
 	prevIdx = currentIdx
@@ -69,6 +70,41 @@ func _updateMap():
 			for yo in range(border.height):
 				var idx = hashIdx(Vector2(baseIdx.x + xo, baseIdx.y + yo))
 				map[idx] = level
+		
+func _copyTilesToLevels():
+	
+	var localizators = $Levels.get_children()
+	
+	var windowSize = Vector2(1280, 736)
+	var tilesAmountOnScreen = windowSize * 0.5 / 16
+	
+	var mainTileMap = $MainTileMap
+	
+	for localizator in localizators:
+		
+		var levelIdx = localizator.getIdx()
+		var level = localizator.getLevel()
+		var border = level.getBorder()
+		var size = border.getSize()
+		
+		var tilesAmountOnLevel = tilesAmountOnScreen * size
+		var startTilesIdx = levelIdx * tilesAmountOnScreen
+		
+		var levelTileMap = level.getTileMap()
+		
+		levelTileMap.clear()
+				
+		for x in range(tilesAmountOnLevel.x + 2):
+			for y in range(tilesAmountOnLevel.y + 2):
+				var ox = x - 1
+				var oy = y - 1
+				var tileId = mainTileMap.get_cell(startTilesIdx.x + ox, startTilesIdx.y + oy)
+				levelTileMap.set_cell(ox, oy, tileId)
+				
+		levelTileMap.update_bitmask_region()
+	
+	mainTileMap.clear()
+
 		
 func hashIdx(idx : Vector2) -> int:
 	var x = idx.x

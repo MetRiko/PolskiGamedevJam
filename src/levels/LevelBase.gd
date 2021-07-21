@@ -13,6 +13,9 @@ var enabled = true
 func getLiquidCells():
 	return $Liquid/LiquidCells.get_children()
 
+func getTileMap():
+	return $TileMap
+
 func disable():
 	if enabled == true:
 		enabled = false

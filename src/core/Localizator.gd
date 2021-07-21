@@ -7,6 +7,9 @@ export(int, -30, 30, 1) var idxY := 0 setget setIdxY
 func getLevel():
 	return get_child(0)
 
+func getIdx():
+	return Vector2(idxX, idxY)
+
 func setIdxX(x):
 	idxX = x
 	_updatePosition()
