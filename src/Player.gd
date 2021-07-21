@@ -91,6 +91,12 @@ func setIsOnFloor(flag : bool):
 			yield(get_tree().create_timer(0.1), "timeout")
 			canJump = false
 
+func pauseJumpTimer():
+	$JumpTimer.paused = true
+	
+func resumeJumpTimer():
+	$JumpTimer.paused = false
+
 func _updateJump():
 #	print(isOnFloor)
 	if canJump == true:

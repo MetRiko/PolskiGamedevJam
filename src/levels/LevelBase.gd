@@ -1,4 +1,5 @@
 extends Node2D
+class_name LevelBase
 
 const sceneLiquidCell = preload("res://src/liquid/LiquidCell.tscn")
 

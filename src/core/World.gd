@@ -7,6 +7,8 @@ extends Node2D
 
 var currentLevel = null
 var currentIdx := Vector2(0, 0)
+var prevIdx := currentIdx
+onready var cameraTween = $CameraTween
 
 var map = {}
 
@@ -72,27 +74,48 @@ func _setupCamera(border, insta := false):
 	var camera = $Camera2D
 	
 	if insta == false:
-		$Tween.interpolate_property($Camera2D, "limit_left", null, pos.x, 0.8, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-		$Tween.start()
-		$Tween.interpolate_property($Camera2D, "limit_top", null, pos.y, 0.8, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-		$Tween.start()
-		$Tween.interpolate_property($Camera2D, "limit_right", null, pos.x + size.x, 0.8, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-		$Tween.start()
-		$Tween.interpolate_property($Camera2D, "limit_bottom", null, pos.y + size.y, 0.8, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-		$Tween.start()
 		
 		var player = getPlayer()
+		
+		var levelSize = Vector2(1280.0, 720.0) * 0.5
+		var currPos = prevIdx * levelSize
+		
+		camera.limit_left = currPos.x
+		camera.limit_top = currPos.y
+		camera.limit_right = currPos.x + levelSize.x
+		camera.limit_bottom = currPos.y + levelSize.y
+		
+		var nextPos = currentIdx * levelSize
+		
+		cameraTween.interpolate_property($Camera2D, "limit_left", null, nextPos.x, 0.8, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+		cameraTween.start()
+		cameraTween.interpolate_property($Camera2D, "limit_top", null, nextPos.y, 0.8, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+		cameraTween.start()
+		cameraTween.interpolate_property($Camera2D, "limit_right", null, nextPos.x + levelSize.x, 0.8, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+		cameraTween.start()
+		cameraTween.interpolate_property($Camera2D, "limit_bottom", null, nextPos.y + levelSize.y, 0.8, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+		cameraTween.start()
+		
 		player.set_physics_process(false)
 		player.set_process(false)
 		var gravScaleMem = player.gravity_scale
 		player.gravity_scale = 0.0
+		var velMem = player.linear_velocity
 		player.linear_velocity = Vector2(0.0, 0.0)
+		player.pauseJumpTimer()
 		
-		yield(get_tree().create_timer(0.8), "timeout")
+		yield(cameraTween, "tween_all_completed")
 		
+		player.resumeJumpTimer()
 		player.gravity_scale = gravScaleMem
+		player.linear_velocity = velMem
 		player.set_physics_process(true)
 		player.set_process(true)
+		
+		camera.limit_left = pos.x
+		camera.limit_top = pos.y
+		camera.limit_right = pos.x + size.x
+		camera.limit_bottom = pos.y + size.y
 		
 	else:
 		camera.limit_left = pos.x
@@ -111,21 +134,25 @@ func _process(delta):
 	$Postprocess._local_process(delta)
 	_updateMovingBetweenLevels()
 
+func convertPosToLevelIdx(pos : Vector2):
+	var idx = pos / (Vector2(1280.0, 720.0) * 0.5)
+	idx.x = floor(idx.x)
+	idx.y = floor(idx.y)
+	return idx
 
 func _updateMovingBetweenLevels():
 	
 	var player = getPlayer()
 	
-	var idx = player.global_position / (Vector2(1280.0, 720.0) * 0.5)
-	idx.x = floor(idx.x)
-	idx.y = floor(idx.y)
-#	idx = idx * Vector2(1280.0, 720.0) * 0.5
+	var idx = convertPosToLevelIdx(player.global_position)
 
 	var nextLevel = getLevelFromIdx(idx)
 
 	if nextLevel != currentLevel:
 		currentIdx = idx
 		switchLevel(getLevelFromIdx(idx))
+	else:
+		prevIdx = idx
 	
 	
 	

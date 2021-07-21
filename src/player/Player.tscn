@@ -4,7 +4,7 @@
 [ext_resource path="res://src/Player.gd" type="Script" id=2]
 [ext_resource path="res://src/player/LiquidImpulsor.gd" type="Script" id=3]
 
-[sub_resource type="PhysicsMaterial" id=5]
+[sub_resource type="PhysicsMaterial" id=1]
 friction = 0.0
 
 [sub_resource type="CircleShape2D" id=2]
@@ -13,10 +13,10 @@ radius = 7.33953
 [sub_resource type="CircleShape2D" id=3]
 radius = 8.23423
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 6.52054, 4.05608 )
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 resource_name = "Fall"
 length = 0.1
 loop = true
@@ -33,8 +33,7 @@ tracks/0/keys = {
 "values": [ 17 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "Idle"
+[sub_resource type="Animation" id=6]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -67,7 +66,7 @@ tracks/0/keys = {
 "values": [ 16 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=8]
 length = 1.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -86,7 +85,7 @@ tracks/0/keys = {
 position = Vector2( 24.9782, 19.1795 )
 collision_layer = 2
 mode = 2
-physics_material_override = SubResource( 5 )
+physics_material_override = SubResource( 1 )
 gravity_scale = 4.0
 contacts_reported = 5
 contact_monitor = true
@@ -121,14 +120,14 @@ script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GroundDetector"]
 position = Vector2( 0, 5 )
-shape = SubResource( 8 )
+shape = SubResource( 4 )
 
 [node name="Anim" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
-anims/Fall = SubResource( 6 )
-anims/Idle = SubResource( 4 )
+anims/Fall = SubResource( 5 )
+anims/Idle = SubResource( 6 )
 anims/Jump = SubResource( 7 )
-anims/Running = SubResource( 9 )
+anims/Running = SubResource( 8 )
 
 [node name="JumpTimer" type="Timer" parent="."]
 wait_time = 0.2

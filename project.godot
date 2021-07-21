@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "LevelBase",
+"language": "GDScript",
+"path": "res://src/levels/LevelBase.gd"
+}, {
 "base": "RigidBody2D",
 "class": "Liquid",
 "language": "GDScript",
 "path": "res://src/liquid/LiquidCell.gd"
 } ]
 _global_script_class_icons={
+"LevelBase": "",
 "Liquid": ""
 }
 
