@@ -153,9 +153,9 @@ func _physics_process(delta):
 		var dir = cellData.dir + rotationPower
 		
 #		var targetPos = indicatorPos + Vector2(cos(dir), sin(dir)) * (order * 0.7 + focusedCells.size() * 0.8)
-		var targetPos = playerPos + Vector2(cos(dir), sin(dir)) * (28.0 + order * 0.16)
+		var targetPos = playerPos + Vector2(cos(dir), sin(dir)) * (28.0 + order * 0.14)
 		var finalVec = targetPos - cell.global_position
-		var power = clamp(pow(finalVec.length(), 1.2) * 0.4, 0.0, 120.0)
+		var power = clamp(pow(finalVec.length(), 1.2) * 0.4, 50.0, 120.0)
 		
 #		if vec.length_squared() > 400.0:
 		cell.impulse(finalVec.normalized() * power)
