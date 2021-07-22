@@ -39,7 +39,6 @@ corner_radius_bottom_left = 5
 [node name="Lever" type="Node2D"]
 position = Vector2( 740.825, 319.902 )
 script = ExtResource( 1 )
-playerRef = NodePath(".")
 actionableDistance = 32.0
 
 [node name="LeverSprite" type="AnimatedSprite" parent="."]

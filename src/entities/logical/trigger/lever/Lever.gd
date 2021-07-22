@@ -1,7 +1,7 @@
 tool
 extends ControlledTrigger
 
-export var playerRef: NodePath 
+#export var playerRef: NodePath 
 export var actionableDistance:float = 1.0 setget _toolDistanceChange
 
 func _toolDistanceChange(dst):
@@ -9,7 +9,8 @@ func _toolDistanceChange(dst):
 		update()
 	actionableDistance = dst
 
-onready var player: Node2D = get_node(playerRef)
+onready var player: Node2D = Game.getPlayer()
+#onready var player: Node2D = get_node(playerRef)
 
 var inRange:bool = false
 

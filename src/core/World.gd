@@ -5,6 +5,7 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
+
 var currentLevel = null
 var currentIdx := Vector2(0, 0)
 var prevIdx := currentIdx
