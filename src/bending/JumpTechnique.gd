@@ -79,12 +79,17 @@ func _updateAttractorsPos():
 	for attractor in $Attractors.get_children():
 		var n = attractor.get_index() - floor(attractorsCount / 2)
 		
-		var vec = Vector2.DOWN.rotated(0.3 * n) * 240.0
+		var vec = Vector2.DOWN.rotated(0.3 * n) * 80.0
 		var result = space2d.intersect_ray(startPos, startPos + vec, [], 1)
 		
 		if result:
 			var finalPos = result.position + Vector2.UP.normalized() * 10.0
-			var finalPos2 = finalPos - vec.normalized() * 20.0 
+			var finalPos2 = finalPos - vec.normalized() * 30.0 
+			attractor.global_position = finalPos
+			$Attractors2.get_child(attractor.get_index()).global_position = finalPos2
+		else:
+			var finalPos = startPos + vec + Vector2.UP.normalized() * 10.0
+			var finalPos2 = finalPos - vec.normalized() * 30.0 
 			attractor.global_position = finalPos
 			$Attractors2.get_child(attractor.get_index()).global_position = finalPos2
 	
@@ -123,21 +128,22 @@ func _physics_process(delta):
 #					cell.contact_monitor = true
 #					cell.contacts_reported = 3
 #					cell.connect("body_entered", self, "onCellCollision", [cell])
-				var timer = get_tree().create_timer(0.2)
+				var timer = get_tree().create_timer(0.3)
 				timer.connect("timeout", self, "onCellTimeout", [cell])
 				
 			
 #				inactiveCells = cellsForJump
 			var jumpPower = 140.0
-#			if player.linear_velocity.y < 0.0:
-#				player.linear_velocity.y *= 0.5
+			if player.linear_velocity.y < 0.0:
+				player.linear_velocity.y *= 0.5
 
-			var dir = player.linear_velocity
-			dir.y = -abs(dir.y)
-			dir = (dir + Vector2.UP * 10.0).normalized()
-			player.linear_velocity = dir * jumpPower *  pow(power + 0.8, 1.3)
-#			player.impulse(dir * jumpPower *  pow(power + 0.8, 1.3))
-#			player.impulse(Vector2.UP * jumpPower *  pow(power + 0.8, 1.3))
+#			var dir = player.linear_velocity
+#			dir.y = -abs(dir.y)
+#			dir = (dir.normalized() + Vector2.UP * 3.0).normalized()
+#			player.linear_velocity.y = 0
+#			player.linear_velocity = dir * jumpPower *  pow(power + 0.8, 1.3)
+#			player.impulse(dir * jumpPower *  pow(power + 0.4, 1.3))
+			player.impulse(Vector2.UP * jumpPower *  pow(power + 0.8, 1.3))
 #				player.jump(jumpPower * pow(power + 0., 2.0), false)
 			
 			cellsForJump = []
