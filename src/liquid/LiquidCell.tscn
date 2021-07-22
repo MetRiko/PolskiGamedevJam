@@ -12,7 +12,7 @@ radius = 2.5
 [node name="LiquidCell" type="RigidBody2D"]
 position = Vector2( 22.7512, 23.568 )
 collision_layer = 4
-collision_mask = 5
+collision_mask = 21
 mode = 2
 physics_material_override = SubResource( 1 )
 gravity_scale = 6.0

@@ -10,6 +10,9 @@ func getColorId():
 
 func changeColor(newColorId : int):
 	colorId = newColorId
+	var isNormalCell = colorId == 0
+	set_collision_layer_bit(4, !isNormalCell)
+	set_collision_layer_bit(2, isNormalCell)
 
 func impulse(vel):
 #	var newVel = Vector2(vel.x, -abs(vel.y))
@@ -26,9 +29,15 @@ func resetDamp():
 
 func disableCollisionWithCells():
 	set_collision_mask_bit(2, false)
+	set_collision_mask_bit(4, false)
+#	var isNormalCell = colorId == 0
+#	set_collision_mask_bit(4, false)
 	
 func enableCollisionWithCells():
 	set_collision_mask_bit(2, true)
+	set_collision_mask_bit(4, true)
+#	var isNormalCell = colorId == 0
+#	set_collision_mask_bit(4, isNormalCell)
 
 #func _ready():
 #	linear_velocity.y = 10.0

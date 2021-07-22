@@ -34,7 +34,7 @@ frame = 1
 
 [node name="Area2D" type="Area2D" parent="Indicator"]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Indicator/Area2D"]
 shape = SubResource( 1 )
