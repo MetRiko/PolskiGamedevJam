@@ -6,7 +6,7 @@ var attractMode = true
 
 var indicatorRotationSpeed = 0.1
 
-var attracted = {}
+var attractedCells = {}
 
 var focusLevel := 4
 
@@ -26,64 +26,53 @@ func _ready():
 	$Indicator/Area2D.connect("body_exited", self, "_onCellExited")
 
 func detachRandomCells(maxAmount : int):
+	var cells = []
+	for dataCell in attractedCells.values():
+		cells.append(dataCell.cell)
 	
-	var allDataCells = attracted.values()
+	var randomCells = Utils.getRandomElementsFromArray(cells, maxAmount)
 	
-	if allDataCells.size() > maxAmount:
-		var randomizedDataCells = []
-		
-		for i in range(maxAmount):
-			var randId = randi() % allDataCells.size()
-			randomizedDataCells.append(allDataCells[randId])
-			allDataCells.remove(randId)
-			
-		var allCells = []
-		for dataCell in randomizedDataCells:
-			var cell = dataCell.ref
-			var cellId = cell.get_instance_id()
-			_detachCell(cell)
-			allCells.append(cell)
-			attracted.erase(cellId)
-		return allCells
-	
-	else:
-		var allCells = []
-		for dataCell in allDataCells:
-			var cell = dataCell.ref
-			_detachCell(cell)
-			allCells.append(cell)
-		attracted = {}
-		return allCells
+	for cell in randomCells:
+		detachCell(cell)
 
-func _attachCell(cell):
-#	cell.disableCollisionWithCells()
-	cell.changeColor(1)
-	cell.disableGravity()
-	cell.linear_damp = 7.0
+	return randomCells
+
+func attachCell(cell):
+	if cell.getColorId() == 0:
+		var cellId = cell.get_instance_id()
+		var cellData = attractedCells.get(cellId)
+		if cellData == null:
+			attractedCells[cellId] = {
+				cell = cell,
+				attached = true
+			}
+		#	cell.disableCollisionWithCells()
+			cell.changeColor(1)
+			cell.disableGravity()
+			cell.linear_damp = 7.0
 	
-func _detachCell(cell):
+func detachCell(cell, ignoreChecking := false):
+	var cellId = cell.get_instance_id()
+	if ignoreChecking == false:
+		var cellData = attractedCells.get(cellId)
+		if cellData == null:
+			return
+	attractedCells.erase(cellId)
 #	cell.enableCollisionWithCells()
+	_resetCell(cell)
+
+func _resetCell(cell):
 	cell.changeColor(0)
 	cell.enableGravity()
 	cell.resetDamp()
 
-func addCellToAttracted(cell, returnToGroup : bool = false):
-	if cell.getColorId() == 0:
-		var id = cell.get_instance_id()
-		_attachCell(cell)
-		attracted[id] = {
-			ref = cell,
-			attached = true,
-			returnToGroup = returnToGroup
-		}
-
 func _onCellEntered(cell):
 	if attractMode == true:
-		addCellToAttracted(cell)
+		attachCell(cell)
 
 func _onCellExited(cell):
 	var id = cell.get_instance_id()
-	var cellData = attracted.get(id)
+	var cellData = attractedCells.get(id)
 	if cellData:
 		var timer = get_tree().create_timer(0.4)
 		timer.connect("timeout", self, "_onCellDetached", [cell])
@@ -91,33 +80,16 @@ func _onCellExited(cell):
 
 func _onCellDetached(cell):
 	var id = cell.get_instance_id()
-	var obj = attracted.get(id)
+	var obj = attractedCells.get(id)
 	if obj and obj.attached == false:
-		attracted.erase(id)
-		_detachCell(cell)
+		detachCell(cell, true)
 		
 func _physics_process(delta):
-	
 	var indicatorPos = $Indicator.global_position
-
-	for cellData in attracted.values():
-		var cell = cellData.ref
+	for cellData in attractedCells.values():
+		var cell = cellData.cell
 		var vec = indicatorPos - cell.global_position
-#		var vel = vec.normalized() * clamp(vec.length_squared(), 0.0, 40.0 + focusLevel * 20.0) * 0.4
 		cell.impulse(vec * 4.0)
-#		cell.linear_velocity = vec * 13.0
-
-#	for cellData in attracted.values():
-#		if cellData.returnToGroup == false:
-#			var cell = cellData.ref
-#			var vec = indicatorPos - cell.global_position
-#			var vel = vec.normalized() * clamp(vec.length_squared(), 0.0, 40.0 + focusLevel * 20.0) * 0.4
-#			cell.impulse(vel)
-#		else:
-#			var cell = cellData.ref
-#			var vec = indicatorPos - cell.global_position
-#			var vel = vec.normalized() * clamp(vec.length_squared(), 0.0, 40.0 + focusLevel * 20.0) * 0.4
-#			cell.linear_velocity = vel * 20.0
 
 func _process(delta):
 	_updateIndicatorPos()
@@ -161,8 +133,10 @@ func enableAttractMode():
 		indicatorTween.interpolate_method(self, "onIndicatorRotationChanging", indicatorRotationSpeed, 0.32, 0.15, Tween.TRANS_SINE, Tween.EASE_IN)
 		indicatorTween.start()
 		
+		attractedCells = {}
+		
 		for cell in $Indicator/Area2D.get_overlapping_bodies():
-			addCellToAttracted(cell)
+			attachCell(cell)
 			
 		emit_signal("attract_mode_changed", true)
 	
@@ -176,12 +150,13 @@ func disableAttractMode():
 		indicatorTween.interpolate_method(self, "onIndicatorRotationChanging", indicatorRotationSpeed, 0.08, 0.15, Tween.TRANS_SINE, Tween.EASE_IN)
 		indicatorTween.start()
 		
-		for cellData in attracted.values():
-			var cell = cellData.ref
-			_detachCell(cell)
+		for cellData in attractedCells.values():
+			var cell = cellData.cell
+			_resetCell(cell)
 		
 		emit_signal("attract_mode_changed", false)
-		attracted = {}
+		
+		attractedCells = {}
 		
 func changeAttractMode(flag : bool):
 	if flag == true:
