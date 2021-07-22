@@ -8,6 +8,13 @@ var indicatorRotationSpeed = 0.1
 
 var attracted = {}
 
+var focusLevel := 4
+
+var maxBendingRange = 100.0
+
+func setFocusLevel(level : int):
+	focusLevel = level
+
 func getIndicator():
 	return $Indicator
 
@@ -52,11 +59,13 @@ func _attachCell(cell):
 #	cell.disableCollisionWithCells()
 	cell.changeColor(1)
 	cell.disableGravity()
+	cell.linear_damp = 7.0
 	
 func _detachCell(cell):
 #	cell.enableCollisionWithCells()
 	cell.changeColor(0)
 	cell.enableGravity()
+	cell.resetDamp()
 
 func addCellToAttracted(cell, returnToGroup : bool = false):
 	if cell.getColorId() == 0:
@@ -90,17 +99,25 @@ func _onCellDetached(cell):
 func _physics_process(delta):
 	
 	var indicatorPos = $Indicator.global_position
+
 	for cellData in attracted.values():
-		if cellData.returnToGroup == false:
-			var cell = cellData.ref
-			var vec = indicatorPos - cell.global_position
-			var vel = vec.normalized() * clamp(vec.length_squared(), 0.0, 40.0) * 0.4
-			cell.impulse(vel)
-		else:
-			var cell = cellData.ref
-			var vec = indicatorPos - cell.global_position
-			var vel = vec.normalized() * clamp(vec.length_squared(), 0.0, 40.0) * 0.4
-			cell.linear_velocity = vel * 20.0
+		var cell = cellData.ref
+		var vec = indicatorPos - cell.global_position
+#		var vel = vec.normalized() * clamp(vec.length_squared(), 0.0, 40.0 + focusLevel * 20.0) * 0.4
+		cell.impulse(vec * 4.0)
+#		cell.linear_velocity = vec * 13.0
+
+#	for cellData in attracted.values():
+#		if cellData.returnToGroup == false:
+#			var cell = cellData.ref
+#			var vec = indicatorPos - cell.global_position
+#			var vel = vec.normalized() * clamp(vec.length_squared(), 0.0, 40.0 + focusLevel * 20.0) * 0.4
+#			cell.impulse(vel)
+#		else:
+#			var cell = cellData.ref
+#			var vec = indicatorPos - cell.global_position
+#			var vel = vec.normalized() * clamp(vec.length_squared(), 0.0, 40.0 + focusLevel * 20.0) * 0.4
+#			cell.linear_velocity = vel * 20.0
 
 func _process(delta):
 	_updateIndicatorPos()
@@ -120,7 +137,7 @@ func _updateIndicatorPos():
 	
 	var player = get_parent().getPlayer()
 	var vec = mousePos - player.global_position
-	var dis = clamp(vec.length(), 0.0, 100.0)
+	var dis = clamp(vec.length(), 0.0, maxBendingRange)
 	var reducedVec = vec.normalized() * dis
 	var targetPos = player.global_position + reducedVec
 	var pos = $Indicator.global_position
@@ -163,9 +180,8 @@ func disableAttractMode():
 			var cell = cellData.ref
 			_detachCell(cell)
 		
-		attracted = {}
-		
 		emit_signal("attract_mode_changed", false)
+		attracted = {}
 		
 func changeAttractMode(flag : bool):
 	if flag == true:

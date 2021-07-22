@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://res/bending/bending_indicator.png" type="Texture" id=1]
 [ext_resource path="res://src/bending/JumpTechnique.gd" type="Script" id=2]
 [ext_resource path="res://src/bending/BendingController.gd" type="Script" id=3]
+[ext_resource path="res://src/bending/BazookaTechnique.gd" type="Script" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 30.0
@@ -127,3 +128,8 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpTechnique/Attractors2/Attractor5"]
 shape = SubResource( 2 )
+
+[node name="BazookaTechnique" type="Node2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="Bullets" type="Node2D" parent="BazookaTechnique"]

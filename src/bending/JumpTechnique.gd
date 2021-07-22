@@ -142,7 +142,6 @@ func _physics_process(delta):
 #				inactiveCells = cellsForJump
 #			var power = (cellsForJump.size() / 20.0)
 			var power = (cellsCloseToPlayer / 20.0)
-			print(cellsCloseToPlayer)
 			
 			var jumpPower = 480.0
 			if player.linear_velocity.y < 0.0:
@@ -206,7 +205,6 @@ func enableJumpMode():
 		var allCellsFromGround = getCellsFromAttractors()
 #		var cells = Utils.getRandomElementsFromArray(allCellsFromGround, 20)
 		var cells = allCellsFromGround
-		print(cells)
 		cellsForJump = cells
 		for cell in cellsForJump:
 			cell.disableGravity()

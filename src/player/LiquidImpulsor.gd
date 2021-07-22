@@ -9,7 +9,8 @@ onready var liquidImpulsor = player.get_node("LiquidImpulsor")
 func _physics_process(delta):
 	for body in get_overlapping_bodies():
 		if body is Liquid:
-			_updateCell(body)
+			if body.getColorId() == 0:
+				_updateCell(body)
 
 #func onBodyEntered(body):
 #	if body is Liquid:
