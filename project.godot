@@ -9,19 +9,55 @@
 config_version=4
 
 _global_script_classes=[ {
+<<<<<<< HEAD
 "base": "Node2D",
 "class": "LevelBase",
 "language": "GDScript",
 "path": "res://src/levels/LevelBase.gd"
+=======
+"base": "Trigger",
+"class": "ControlledTrigger",
+"language": "GDScript",
+"path": "res://src/entities/logical/trigger/ControlledTrigger.gd"
+>>>>>>> 2c6e1e7... Finished Finally
 }, {
 "base": "RigidBody2D",
 "class": "Liquid",
 "language": "GDScript",
 "path": "res://src/liquid/LiquidCell.gd"
+}, {
+"base": "Triggerable",
+"class": "SignalTriggerable",
+"language": "GDScript",
+"path": "res://src/entities/logical/triggered/SignalTriggerable.gd"
+}, {
+"base": "Node2D",
+"class": "Trigger",
+"language": "GDScript",
+"path": "res://src/entities/logical/trigger/Trigger.gd"
+}, {
+"base": "Node2D",
+"class": "Triggerable",
+"language": "GDScript",
+"path": "res://src/entities/logical/triggered/Triggerable.gd"
+}, {
+"base": "Node2D",
+"class": "Triggers",
+"language": "GDScript",
+"path": "res://src/levels/Triggers.gd"
 } ]
 _global_script_class_icons={
+<<<<<<< HEAD
 "LevelBase": "",
 "Liquid": ""
+=======
+"ControlledTrigger": "",
+"Liquid": "",
+"SignalTriggerable": "",
+"Trigger": "",
+"Triggerable": "",
+"Triggers": ""
+>>>>>>> 2c6e1e7... Finished Finally
 }
 
 [application]
@@ -106,6 +142,7 @@ num_3={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":51,"unicode":0,"echo":false,"script":null)
  ]
 }
+<<<<<<< HEAD
 q={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":81,"unicode":0,"echo":false,"script":null)
@@ -114,6 +151,11 @@ q={
 x={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":88,"unicode":0,"echo":false,"script":null)
+=======
+Interact={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
+>>>>>>> 2c6e1e7... Finished Finally
  ]
 }
 lmb={
