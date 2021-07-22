@@ -55,7 +55,7 @@ func onCellTimer(cell, vel):
 func attachCell(cell):
 	var cellId = cell.get_instance_id()
 	cellAttached[cellId] = cell
-	cell.changeColor(2)
+	cell.changeColor(3)
 	cell.disableGravity()
 	cell.linear_damp = 7.0
 #	cell.disableCollisionWithCells()
