@@ -23,7 +23,11 @@ func _updateCell(body):
 	
 	var dot = cellVec.dot(velVec)
 
-	var vel = velVec.normalized() * sqrt(velVec.length())
+	var power = sqrt(velVec.length())
+	if power < 4.0:
+		power = 4.0
+
+	var vel = velVec.normalized() * power
 
 #	print(dot)
 #	body.impulse(sign(dot) * vel * 5.0)

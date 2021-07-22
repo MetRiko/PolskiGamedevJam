@@ -97,6 +97,10 @@ func pauseJumpTimer():
 func resumeJumpTimer():
 	$JumpTimer.paused = false
 
+func jump(power : float):
+	linear_velocity.y = -jumpPower
+	$JumpTimer.start()
+
 func _updateJump():
 #	print(isOnFloor)
 	if canJump == true:

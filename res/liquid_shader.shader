@@ -36,7 +36,30 @@ void fragment() {
 	float collidingCells = 0.0;
 		
 	float m = 1.0;
-		
+	
+	vec4 cellColors[3] = {
+		vec4(235. / 255., 205. / 255., 194. / 255., 1.0) * 1.0,
+		vec4(205. / 255., 235. / 255., 194. / 255., 1.0) * 1.0,
+		vec4(205. / 255., 194. / 255., 235. / 255., 1.0) * 1.0
+	};
+	
+	vec4 cellColors2[3] = {
+		vec4(235. / 255., 225. / 255., 215. / 255., 1.0) * 1.0,
+		vec4(105. / 255., 235. / 255., 124. / 255., 1.0) * 1.0,
+		vec4(105. / 255., 124. / 255., 235. / 255., 1.0) * 1.0
+//		vec4(235. / 255., 105. / 255., 124. / 255., 1.0) * 1.0, red
+	};
+	
+	float colorIntencities[3] = {
+		1.0,
+		1.8,
+		1.8
+	};
+	
+	vec4 cellCol = vec4(0.0, 0.0, 0.0, 0.0);
+	vec4 cellCol2 = vec4(0.0, 0.0, 0.0, 0.0);
+	float colorIntencity = 0.0;
+	
 	for (int i = 0; i < cellsCount; ++i) {
 
 		float xh1 = texelFetch(cellsPos, ivec2(i * 3, 0), 0).r * 255.0;
@@ -51,6 +74,7 @@ void fragment() {
 		y = screenSize.y * 0.5 - y;
 
 		vec2 cellPos = vec2(x, y);
+
 		
 		float len = length(pixelPos - cellPos);
 //		vec4 cellCol = vec4(0.0, 0.0, 0.0, 1.0);
@@ -64,22 +88,37 @@ void fragment() {
 			mFinalIntencity += pow(1.0 - intencity * t, 2.0);
 			collidingCells += 1.0;
 			
+			int colorId = int(texelFetch(cellsPos, ivec2(i * 3, 2), 0).r * 255.0);
+			cellCol += cellColors[colorId];
+			cellCol2 += cellColors2[colorId];
+			colorIntencity += colorIntencities[colorId];
 			
 		}
 		
 	}
 	
-	if (collidingCells > 1.0) {
-		finalIntencity = mFinalIntencity;
-	}
+//	if (collidingCells > 1.0) {
+//		finalIntencity = mFinalIntencity;
+//	}
 	
 	finalIntencity = clamp(finalIntencity, 0.0, 1.0);
 	
-	vec4 cellCol = vec4(235. / 255., 205. / 255., 194. / 255., 1.0) * 1.0;
-	vec4 cellCol2 = vec4(235. / 255., 105. / 255., 124. / 255., 1.0) * 1.0;
+	if (collidingCells < 1.0) {
+		cellCol = cellColors[0];
+		cellCol2 = cellColors2[0];
+		colorIntencity = colorIntencities[0];
+	}
+	else {
+		cellCol /= vec4(collidingCells);
+		cellCol2 /= vec4(collidingCells);
+		colorIntencity /= collidingCells;
+	}
 	
-	finalCol = mix(finalCol, pow(texl, vec4(0.8)) + cellCol2 * finalIntencity * 0.7, clamp(pow(finalIntencity, 0.5), 0.0, 1.0));
-	finalCol = mix(finalCol, pow(texl, vec4(0.8)) + cellCol * finalIntencity * 0.6, floor(finalIntencity * 1.6));
+//	cellCol.a = 1.0;
+//	cellCol2.a = 1.0;
+	
+	finalCol = mix(finalCol, pow(texl, vec4(0.8)) + cellCol2 * finalIntencity * 0.7 * pow(colorIntencity, 2.0), clamp(pow(finalIntencity, 0.5), 0.0, 1.0));
+	finalCol = mix(finalCol, pow(texl, vec4(0.8)) + cellCol * (colorIntencity - finalIntencity) * 0.6, floor(finalIntencity * 1.6));
 	
 	COLOR = finalCol;
 	

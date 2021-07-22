@@ -7,30 +7,64 @@ var indicatorRotationSpeed = 0.1
 var attracted = {}
 
 func _ready():
+	randomize()
 	changeAttractMode(false)
 	
 	$Indicator/Area2D.connect("body_entered", self, "_onCellEntered")
 	$Indicator/Area2D.connect("body_exited", self, "_onCellExited")
 
+func detachRandomCells(maxAmount : int):
+	
+	var allDataCells = attracted.values()
+	
+	if allDataCells.size() > maxAmount:
+		var randomizedDataCells = []
+		
+		for i in range(maxAmount):
+			var randId = randi() % allDataCells.size()
+			randomizedDataCells.append(allDataCells[randId])
+			allDataCells.remove(randId)
+			
+		var allCells = []
+		for dataCell in randomizedDataCells:
+			var cell = dataCell.ref
+			var cellId = cell.get_instance_id()
+			_detachCell(cell)
+			allCells.append(cell)
+			attracted.erase(cellId)
+		return allCells
+	
+	else:
+		var allCells = []
+		for dataCell in allDataCells:
+			var cell = dataCell.ref
+			_detachCell(cell)
+			allCells.append(cell)
+		attracted = {}
+		return allCells
+
 func _attachCell(cell):
 #	cell.disableCollisionWithCells()
+	cell.changeColor(1)
 	cell.disableGravity()
 	
 func _detachCell(cell):
 #	cell.enableCollisionWithCells()
+	cell.changeColor(0)
 	cell.enableGravity()
 
-func _addCellToAttracted(cell):
+func addCellToAttracted(cell, returnToGroup : bool = false):
 	var id = cell.get_instance_id()
 	_attachCell(cell)
 	attracted[id] = {
 		ref = cell,
-		attached = true
+		attached = true,
+		returnToGroup = returnToGroup
 	}
 
 func _onCellEntered(cell):
 	if attractMode == true:
-		_addCellToAttracted(cell)
+		addCellToAttracted(cell)
 
 func _onCellExited(cell):
 	var id = cell.get_instance_id()
@@ -51,11 +85,16 @@ func _physics_process(delta):
 	
 	var indicatorPos = $Indicator.global_position
 	for cellData in attracted.values():
-		var cell = cellData.ref
-		var vec = indicatorPos - cell.global_position
-		var vel = vec.normalized() * clamp(vec.length_squared(), 0.0, 40.0) * 0.4
-		cell.impulse(vel)
-#		cell.linear_velocity = vel * 1.0
+		if cellData.returnToGroup == false:
+			var cell = cellData.ref
+			var vec = indicatorPos - cell.global_position
+			var vel = vec.normalized() * clamp(vec.length_squared(), 0.0, 40.0) * 0.4
+			cell.impulse(vel)
+		else:
+			var cell = cellData.ref
+			var vec = indicatorPos - cell.global_position
+			var vel = vec.normalized() * clamp(vec.length_squared(), 0.0, 40.0) * 0.4
+			cell.linear_velocity = vel * 20.0
 
 func _process(delta):
 	_updateIndicatorPos()
@@ -100,7 +139,7 @@ func enableAttractMode():
 		indicatorTween.start()
 		
 		for cell in $Indicator/Area2D.get_overlapping_bodies():
-			_addCellToAttracted(cell)
+			addCellToAttracted(cell)
 	
 func disableAttractMode():
 	if attractMode == true:

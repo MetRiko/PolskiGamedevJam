@@ -44,8 +44,14 @@ func setCells(cells):
 		array.append(secondHalf)
 		array.append(signBit)
 	
+	for cell in cells:
+		var colorId = cell.colorId
+		array.append(colorId)
+		array.append(0)
+		array.append(0)
+		
 	var array_width = cellsCount * 3
-	var array_height = 2
+	var array_height = 3
 
 	var byte_array = PoolByteArray(array)
 	var img = Image.new()

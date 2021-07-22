@@ -3,6 +3,11 @@ class_name Liquid
 
 onready var memGrav = gravity_scale
 
+var colorId := 0
+
+func changeColor(newColorId : int):
+	colorId = newColorId
+
 func impulse(vel):
 #	var newVel = Vector2(vel.x, -abs(vel.y))
 	apply_central_impulse(vel)
@@ -12,6 +17,9 @@ func enableGravity():
 	
 func disableGravity():
 	gravity_scale = 0.0
+
+func resetDamp():
+	linear_damp = -1.0
 
 func disableCollisionWithCells():
 	set_collision_mask_bit(2, false)
