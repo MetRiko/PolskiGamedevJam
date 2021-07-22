@@ -11,11 +11,10 @@ shader_param/cellsCount = 0
 
 [sub_resource type="NoiseTexture" id=2]
 width = 640
-height = 360
+height = 368
 
 [node name="LiquidEffect" type="Sprite"]
 material = SubResource( 1 )
-position = Vector2( 17, 15 )
 texture = SubResource( 2 )
 centered = false
 script = ExtResource( 2 )

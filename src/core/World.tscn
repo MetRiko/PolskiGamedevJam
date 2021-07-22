@@ -1943,7 +1943,6 @@ script = ExtResource( 5 )
 
 [node name="LiquidEffect" parent="Postprocess" instance=ExtResource( 3 )]
 material = SubResource( 3 )
-position = Vector2( 0.840881, 0 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Postprocess/LiquidEffect"]
 environment = SubResource( 4 )

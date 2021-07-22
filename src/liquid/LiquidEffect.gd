@@ -24,26 +24,32 @@ func setCells(cells):
 	
 	for cell in cells:
 		
-		var div := int(cell.global_position.x / 255)
+		var value = abs(cell.global_position.x)
+		var div := int(value / 255)
 		var firstHalf := div
-		var secondHalf := int(cell.global_position.x) - (div * 255)
+		var secondHalf := int(value) - (div * 255)
+		var signBit := int(sign(cell.global_position.x) + 1)
 		array.append(firstHalf)
 		array.append(secondHalf)
+		array.append(signBit)
 		
 	for cell in cells:
 		
-		var div := int(cell.global_position.y / 255)
+		var value := abs(cell.global_position.y)
+		var div := int(value / 255)
 		var firstHalf := div
-		var secondHalf := int(cell.global_position.y) - (div * 255)
+		var secondHalf := int(value) - (div * 255)
+		var signBit := int(sign(cell.global_position.y) + 1)
 		array.append(firstHalf)
 		array.append(secondHalf)
+		array.append(signBit)
 	
-	var array_width = cellsCount * 2
-	var array_heigh = 2
+	var array_width = cellsCount * 3
+	var array_height = 2
 
 	var byte_array = PoolByteArray(array)
 	var img = Image.new()
-	img.create_from_data(array_width, array_heigh, false, Image.FORMAT_R8, byte_array)
+	img.create_from_data(array_width, array_height, false, Image.FORMAT_R8, byte_array)
 	var texture = ImageTexture.new()
 	texture.create_from_image(img, 0)
 	shader.set_shader_param("cellsPos", texture)

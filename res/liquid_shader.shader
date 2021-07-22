@@ -18,8 +18,10 @@ void fragment() {
 	
 	vec2 offset = globalPos * vec2(1.0, -1.0);
 	
-	vec2 correctedMousePos = mousePos;
-	correctedMousePos.y = screenSize.y * 0.5 - mousePos.y;
+//	vec2 correctedMousePos = mousePos;
+//	correctedMousePos.y = screenSize.y * 0.5 - mousePos.y;
+	
+//	vec2 suv = vec2(SCREEN_UV.x, SCREEN_UV.y);
 	
 	vec2 pixelPos = SCREEN_UV * screenSize * 0.5 + offset;
 	pixelPos = floor(pixelPos);
@@ -37,13 +39,15 @@ void fragment() {
 		
 	for (int i = 0; i < cellsCount; ++i) {
 
-		float xh1 = texelFetch(cellsPos, ivec2(i * 2, 0), 0).r * 255.0;
-		float xh2 = texelFetch(cellsPos, ivec2(i * 2 + 1, 0), 0).r * 255.0;
-		float yh1 = texelFetch(cellsPos, ivec2(i * 2, 1), 0).r * 255.0;
-		float yh2 = texelFetch(cellsPos, ivec2(i * 2 + 1, 1), 0).r * 255.0;
+		float xh1 = texelFetch(cellsPos, ivec2(i * 3, 0), 0).r * 255.0;
+		float xh2 = texelFetch(cellsPos, ivec2(i * 3 + 1, 0), 0).r * 255.0;
+		float xsign = texelFetch(cellsPos, ivec2(i * 3 + 2, 0), 0).r * 255.0 - 1.0;
+		float yh1 = texelFetch(cellsPos, ivec2(i * 3, 1), 0).r * 255.0;
+		float yh2 = texelFetch(cellsPos, ivec2(i * 3 + 1, 1), 0).r * 255.0;
+		float ysign = texelFetch(cellsPos, ivec2(i * 3 + 2, 1), 0).r * 255.0 - 1.0;
 
-		float x = xh1 * 255.0 + xh2;
-		float y = yh1 * 255.0 + yh2;
+		float x = (xh1 * 255.0 + xh2) * xsign;
+		float y = (yh1 * 255.0 + yh2) * ysign;
 		y = screenSize.y * 0.5 - y;
 
 		vec2 cellPos = vec2(x, y);
