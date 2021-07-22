@@ -11,6 +11,9 @@ var canJump := false
 
 var currSpeed := 0.0 
 
+func impulse(vel):
+	apply_central_impulse(vel)
+
 func _physics_process(delta):
 	var dir := Vector2()
 	if Input.is_action_pressed("move_left"):
@@ -97,9 +100,12 @@ func pauseJumpTimer():
 func resumeJumpTimer():
 	$JumpTimer.paused = false
 
-func jump(power : float):
+func jump(power : float, longJump : bool = true):
 	linear_velocity.y = -jumpPower
-	$JumpTimer.start()
+	if longJump:
+		$JumpTimer.start()
+	else:
+		$JumpTimer.stop()
 
 func _updateJump():
 #	print(isOnFloor)

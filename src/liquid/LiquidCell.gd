@@ -5,6 +5,9 @@ onready var memGrav = gravity_scale
 
 var colorId := 0
 
+func getColorId():
+	return colorId
+
 func changeColor(newColorId : int):
 	colorId = newColorId
 

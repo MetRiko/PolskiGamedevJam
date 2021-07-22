@@ -1,5 +1,7 @@
 extends Node2D
 
+signal attract_mode_changed
+
 var attractMode = true
 
 var indicatorRotationSpeed = 0.1
@@ -54,13 +56,14 @@ func _detachCell(cell):
 	cell.enableGravity()
 
 func addCellToAttracted(cell, returnToGroup : bool = false):
-	var id = cell.get_instance_id()
-	_attachCell(cell)
-	attracted[id] = {
-		ref = cell,
-		attached = true,
-		returnToGroup = returnToGroup
-	}
+	if cell.getColorId() == 0:
+		var id = cell.get_instance_id()
+		_attachCell(cell)
+		attracted[id] = {
+			ref = cell,
+			attached = true,
+			returnToGroup = returnToGroup
+		}
 
 func _onCellEntered(cell):
 	if attractMode == true:
@@ -140,6 +143,8 @@ func enableAttractMode():
 		
 		for cell in $Indicator/Area2D.get_overlapping_bodies():
 			addCellToAttracted(cell)
+			
+		emit_signal("attract_mode_changed", true)
 	
 func disableAttractMode():
 	if attractMode == true:
@@ -156,6 +161,8 @@ func disableAttractMode():
 			_detachCell(cell)
 		
 		attracted = {}
+		
+		emit_signal("attract_mode_changed", false)
 		
 func changeAttractMode(flag : bool):
 	if flag == true:
