@@ -1,12 +1,26 @@
 extends RigidBody2D
 class_name Liquid
 
+onready var memGrav = gravity_scale
+
 func impulse(vel):
 #	var newVel = Vector2(vel.x, -abs(vel.y))
 	apply_central_impulse(vel)
 	
-func _ready():
-	linear_velocity.y = 10.0
+func enableGravity():
+	gravity_scale = memGrav
+	
+func disableGravity():
+	gravity_scale = 0.0
+
+func disableCollisionWithCells():
+	set_collision_mask_bit(2, false)
+	
+func enableCollisionWithCells():
+	set_collision_mask_bit(2, true)
+
+#func _ready():
+#	linear_velocity.y = 10.0
 	
 #func _process(delta):
 #	if linear_velocity.length_squared() < 4.0:
