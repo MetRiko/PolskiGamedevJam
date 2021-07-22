@@ -7,10 +7,10 @@ func _ready():
 		onFallingEdge()
 		
 
-func onRisingEdge():
+func onFallingEdge():
 	$VanisherTex.modulate.a = 1
 	$CollisionShape2D.disabled = false
 	
-func onFallingEdge():
+func onRisingEdge():
 	$VanisherTex.modulate.a = 0.5
 	$CollisionShape2D.disabled = true
