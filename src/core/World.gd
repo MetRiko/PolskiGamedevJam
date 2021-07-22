@@ -39,6 +39,9 @@ func _ready():
 	levelSwitchingEnabled = true
 	
 	switchLevel(nextLevel)
+	
+	$BendingController.getIndicator().global_position = getPlayer().global_position
+	
 #	switchLevel(level)
 	
 func getPlayer():

@@ -1,4 +1,4 @@
 extends Node
 
 func getWorld():
-	return $World
+	return get_child(0)
