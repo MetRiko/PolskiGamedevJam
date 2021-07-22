@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/tiles/BasicTileSet.tres" type="TileSet" id=1]
 [ext_resource path="res://src/core/World.gd" type="Script" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://src/core/Liquid.gd" type="Script" id=11]
 [ext_resource path="res://src/core/Border.gd" type="Script" id=12]
 [ext_resource path="res://res/blank sprites 2.png" type="Texture" id=13]
+[ext_resource path="res://src/bending/BendingController.tscn" type="PackedScene" id=14]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.398773 )
@@ -1946,3 +1947,5 @@ material = SubResource( 3 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Postprocess/LiquidEffect"]
 environment = SubResource( 4 )
+
+[node name="BendingController" parent="." instance=ExtResource( 14 )]
