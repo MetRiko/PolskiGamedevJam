@@ -7,6 +7,8 @@ var jumpMode = false
 
 var cellsForJump = []
 
+var cellsCloseToPlayer = 0
+
 #var inactiveCells = []
 
 var shouldUpdateCellsForJump := false
@@ -35,7 +37,7 @@ func onCellAttractorEntered(body):
 
 func _updateCellsForJump():
 	var allCellsFromGround = getCellsFromAttractors()
-	var cellsLeftToAttract = clamp(20 - cellsForJump.size(), 0, 20)
+	var cellsLeftToAttract = clamp(15 - cellsForJump.size(), 0, 15)
 	var cells = Utils.getRandomElementsFromArray(allCellsFromGround, cellsLeftToAttract)
 	cellsForJump.append_array(cells)
 #	var cells = allCellsFromGround
@@ -115,14 +117,19 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump"):
 		if cellsForJump.size() > 0:
 			
-			var power = (cellsForJump.size() / 20.0)
 			
+			cellsCloseToPlayer = 0
 			for cell in cellsForJump:
 				cell.enableGravity()
 				cell.resetDamp()
 				
 				var vec = cell.global_position - player.global_position
+				
 				var vel = vec.normalized().rotated(rand_range(-0.2, 0.2)) * rand_range(30.0, 40.0)
+				
+				var cellDis = (cell.global_position - targetPos).length_squared()
+				if cellDis < 484.0:
+					cellsCloseToPlayer += 1
 				
 				cell.linear_velocity = vel * 10.0
 #					cell.contact_monitor = true
@@ -133,9 +140,13 @@ func _physics_process(delta):
 				
 			
 #				inactiveCells = cellsForJump
-			var jumpPower = 140.0
+#			var power = (cellsForJump.size() / 20.0)
+			var power = (cellsCloseToPlayer / 20.0)
+			print(cellsCloseToPlayer)
+			
+			var jumpPower = 480.0
 			if player.linear_velocity.y < 0.0:
-				player.linear_velocity.y *= 0.5
+				player.linear_velocity.y *= 0.3
 
 #			var dir = player.linear_velocity
 #			dir.y = -abs(dir.y)
@@ -143,7 +154,8 @@ func _physics_process(delta):
 #			player.linear_velocity.y = 0
 #			player.linear_velocity = dir * jumpPower *  pow(power + 0.8, 1.3)
 #			player.impulse(dir * jumpPower *  pow(power + 0.4, 1.3))
-			player.impulse(Vector2.UP * jumpPower *  pow(power + 0.8, 1.3))
+			player.impulse(Vector2.UP * jumpPower *  pow(power, 0.7))
+#			player.jump(jumpPower *  pow(power, 0.8), false)
 #				player.jump(jumpPower * pow(power + 0., 2.0), false)
 			
 			cellsForJump = []

@@ -8,6 +8,9 @@ var indicatorRotationSpeed = 0.1
 
 var attracted = {}
 
+func getIndicator():
+	return $Indicator
+
 func _ready():
 	randomize()
 	changeAttractMode(false)
