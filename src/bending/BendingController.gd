@@ -30,6 +30,9 @@ func getShieldTechnique():
 func getSwordTechnique():
 	return $SwordTechnique
 	
+func getFistsTechnique():
+	return $FistsTechnique
+	
 func _process(delta):
 	_updateIndicatorPos()
 	
@@ -38,14 +41,14 @@ func _process(delta):
 	
 	var bendingTech = getBendingTechnique()
 	var shieldTech = getShieldTechnique()
-	var swordTech = getSwordTechnique()
+	var fistsTech = getFistsTechnique()
 	
+	var enableFists = (lmb and not rmb) or (lmb and fistsTech.swordMode == true)
+	var enableShield = lmb and rmb and fistsTech.swordMode == false
 	var enableBending = not lmb and rmb
-	var enableSword = lmb and not rmb
-	var enableShield = lmb and rmb
 	
 	bendingTech.changeAttractMode(enableBending)
-	swordTech.changeSwordMode(enableSword)
+	fistsTech.changeSwordMode(enableFists)
 	shieldTech.changeFocusMode(enableShield)
 	
 	var indicatorSprite = $Indicator/Sprite
@@ -57,12 +60,13 @@ func _updateIndicatorPos():
 	
 	var bendingTech = getBendingTechnique()
 	var shieldTech = getShieldTechnique()
-	var swordTech = getSwordTechnique()
+#	var swordTech = getSwordTechnique()
+	var fistsTech = getFistsTechnique()
 
 	if bendingTech.attractMode == true:
 		bendingTech._updateIndicatorPosForAttractMode()
-	elif swordTech.swordMode == true:
-		swordTech._updateIndicatorPosForSwordMode()
+	elif fistsTech.swordMode == true:
+		fistsTech._updateIndicatorPosForSwordMode()
 	elif shieldTech.focusMode == true:
 		shieldTech._updateIndicatorPosForFocusMode()
 	else:

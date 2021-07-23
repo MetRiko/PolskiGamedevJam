@@ -47,9 +47,10 @@ func setCells(cells):
 	for cell in cells:
 		var colorId : int = cell.colorId
 		var intencity := int(floor(cell.intencity * 10.0))
+		var thickness := int(floor(cell.thickness * 5.0))
 		array.append(colorId)
 		array.append(intencity)
-		array.append(0)
+		array.append(thickness)
 		
 	var array_width = cellsCount * 3
 	var array_height = 3

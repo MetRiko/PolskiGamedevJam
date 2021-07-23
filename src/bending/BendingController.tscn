@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://res/bending/bending_indicator.png" type="Texture" id=1]
 [ext_resource path="res://src/bending/JumpTechnique.gd" type="Script" id=2]
@@ -7,14 +7,15 @@
 [ext_resource path="res://src/bending/ShieldTechnique.gd" type="Script" id=5]
 [ext_resource path="res://src/bending/BendingTechnique.gd" type="Script" id=6]
 [ext_resource path="res://src/bending/SwordTechnique.gd" type="Script" id=7]
+[ext_resource path="res://src/bending/FistsTechnique.gd" type="Script" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 30.0
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=2]
 radius = 48.4795
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=3]
 radius = 20.3512
 
 [node name="BendingController" type="Node2D"]
@@ -43,7 +44,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Indicator/FocusModeArea2D"]
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="JumpTechnique" type="Node2D" parent="."]
 script = ExtResource( 2 )
@@ -57,7 +58,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpTechnique/Attractors/Attractor"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Attractor2" type="Area2D" parent="JumpTechnique/Attractors"]
 modulate = Color( 0.568627, 0.717647, 1, 1 )
@@ -66,7 +67,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpTechnique/Attractors/Attractor2"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Attractor3" type="Area2D" parent="JumpTechnique/Attractors"]
 modulate = Color( 0.568627, 0.717647, 1, 1 )
@@ -75,7 +76,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpTechnique/Attractors/Attractor3"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Attractor4" type="Area2D" parent="JumpTechnique/Attractors"]
 modulate = Color( 0.568627, 0.717647, 1, 1 )
@@ -84,7 +85,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpTechnique/Attractors/Attractor4"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Attractor5" type="Area2D" parent="JumpTechnique/Attractors"]
 modulate = Color( 0.568627, 0.717647, 1, 1 )
@@ -93,7 +94,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpTechnique/Attractors/Attractor5"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Attractors2" type="Node2D" parent="JumpTechnique"]
 
@@ -104,7 +105,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpTechnique/Attractors2/Attractor"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Attractor2" type="Area2D" parent="JumpTechnique/Attractors2"]
 modulate = Color( 0.568627, 0.717647, 1, 1 )
@@ -113,7 +114,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpTechnique/Attractors2/Attractor2"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Attractor3" type="Area2D" parent="JumpTechnique/Attractors2"]
 modulate = Color( 0.568627, 0.717647, 1, 1 )
@@ -122,7 +123,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpTechnique/Attractors2/Attractor3"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Attractor4" type="Area2D" parent="JumpTechnique/Attractors2"]
 modulate = Color( 0.568627, 0.717647, 1, 1 )
@@ -131,7 +132,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpTechnique/Attractors2/Attractor4"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Attractor5" type="Area2D" parent="JumpTechnique/Attractors2"]
 modulate = Color( 0.568627, 0.717647, 1, 1 )
@@ -140,7 +141,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpTechnique/Attractors2/Attractor5"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="BazookaTechnique" type="Node2D" parent="."]
 script = ExtResource( 4 )
@@ -165,9 +166,26 @@ wait_time = 0.02
 autostart = true
 
 [node name="JiggleTimer" type="Timer" parent="SwordTechnique"]
-wait_time = 0.08
+wait_time = 0.12
 autostart = true
 
 [node name="OverheatTimer" type="Timer" parent="SwordTechnique"]
-wait_time = 1.2
+wait_time = 2.5
 one_shot = true
+
+[node name="FistsTechnique" type="Node2D" parent="."]
+script = ExtResource( 8 )
+
+[node name="FocusTimer" type="Timer" parent="FistsTechnique"]
+wait_time = 0.02
+autostart = true
+
+[node name="JiggleTimer" type="Timer" parent="FistsTechnique"]
+wait_time = 0.12
+autostart = true
+
+[node name="OverheatTimer" type="Timer" parent="FistsTechnique"]
+wait_time = 2.5
+one_shot = true
+
+[node name="LoadingTween" type="Tween" parent="FistsTechnique"]

@@ -43,7 +43,7 @@ void fragment() {
 		vec4(105. / 255., 094. / 255., 235. / 255., 1.0) * 2.0,
 		vec4(235. / 255., 105. / 255., 094. / 255., 1.0) * 2.0,
 		vec4(235. / 255., 205. / 255., 094. / 255., 1.0) * 2.0,
-		vec4(235. / 255., 094. / 255., 205. / 255., 1.0) * 2.0
+		vec4(094. / 255., 235. / 255., 205. / 255., 1.0) * 2.0
 	};
 	
 	vec4 cellColors2[6] = {
@@ -52,7 +52,7 @@ void fragment() {
 		vec4(105. / 255., 124. / 255., 235. / 255., 1.0) * 1.0,
 		vec4(235. / 255., 125. / 255., 115. / 255., 1.0) * 1.0,
 		vec4(235. / 255., 225. / 255., 115. / 255., 1.0) * 1.0,
-		vec4(235. / 255., 115. / 255., 225. / 255., 1.0) * 1.0
+		vec4(115. / 255., 235. / 255., 225. / 255., 1.0) * 1.0
 //		vec4(235. / 255., 105. / 255., 124. / 255., 1.0) * 1.0, red
 	};
 	
@@ -88,11 +88,13 @@ void fragment() {
 		float len = length(pixelPos - cellPos);
 //		vec4 cellCol = vec4(0.0, 0.0, 0.0, 1.0);
 		
-		if (len <= 12.0) {
+		float thickness = texelFetch(cellsPos, ivec2(i * 3 + 2, 2), 0).r * 255.0 * 0.2; // 12 default
+			
+		if (len <= thickness) {
 			float t = (sin(TIME * 4.0 + float(i) * 3.14159 * 0.2) + 1.0) * 0.5;
 			t = 0.7 + t * 0.3;
 	
-			float intencity = len / 12.0;// * ((sin(cellPos.x * 0.1) + 1.0) * 0.5) * t;
+			float intencity = len / thickness;// * ((sin(cellPos.x * 0.1) + 1.0) * 0.5) * t;
 			finalIntencity += pow(1.0 - intencity, 2.0);
 			mFinalIntencity += pow(1.0 - intencity * t, 2.0);
 			collidingCells += 1.0;

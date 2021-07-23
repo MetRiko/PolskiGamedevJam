@@ -45,7 +45,7 @@ func _updateCellsForJump():
 	for cell in cells:
 		cell.disableGravity()
 		cell.linear_damp = 8.0
-		cell.changeColor(2)
+		cell.changeColor(5)
 
 func _clearCellsForJump():
 	if cellsForJump.empty() == false:
@@ -209,7 +209,7 @@ func enableJumpMode():
 		for cell in cellsForJump:
 			cell.disableGravity()
 			cell.linear_damp = 8.0
-			cell.changeColor(2)
+			cell.changeColor(5)
 
 func disableJumpMode():
 	if jumpMode == true:
