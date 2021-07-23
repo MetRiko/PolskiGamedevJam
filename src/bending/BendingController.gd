@@ -36,15 +36,13 @@ func _process(delta):
 	var bendingTech = $BendingTechnique
 	var shieldTech = $ShieldTechnique
 	
-	if lmb and not rmb:
-		shieldTech.changeFocusMode(true)
-	elif not lmb and rmb:
-		bendingTech.changeAttractMode(true)
-	elif lmb and rmb:
-		pass
-	else:
-		bendingTech.changeAttractMode(false)
-		shieldTech.changeFocusMode(false)
+	var enableBending = not lmb and rmb
+	var enableSword = lmb and not rmb
+	var enableShield = lmb and rmb
+	
+	bendingTech.changeAttractMode(enableBending)
+#	swordTech.changeSwordMode(false)
+	shieldTech.changeFocusMode(enableShield)
 	
 	var indicatorSprite = $Indicator/Sprite
 	indicatorSprite.rotate(indicatorRotationSpeed * 60 * delta)
