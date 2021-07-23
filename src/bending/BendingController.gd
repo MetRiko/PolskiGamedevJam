@@ -27,21 +27,25 @@ func getBazookaTechnique():
 func getShieldTechnique():
 	return $ShieldTechnique
 
+func getSwordTechnique():
+	return $SwordTechnique
+	
 func _process(delta):
 	_updateIndicatorPos()
 	
 	var lmb = Input.is_action_pressed("lmb")
 	var rmb = Input.is_action_pressed("rmb")
 	
-	var bendingTech = $BendingTechnique
-	var shieldTech = $ShieldTechnique
+	var bendingTech = getBendingTechnique()
+	var shieldTech = getShieldTechnique()
+	var swordTech = getSwordTechnique()
 	
 	var enableBending = not lmb and rmb
 	var enableSword = lmb and not rmb
 	var enableShield = lmb and rmb
 	
 	bendingTech.changeAttractMode(enableBending)
-#	swordTech.changeSwordMode(false)
+	swordTech.changeSwordMode(enableSword)
 	shieldTech.changeFocusMode(enableShield)
 	
 	var indicatorSprite = $Indicator/Sprite
@@ -51,12 +55,15 @@ func _process(delta):
 
 func _updateIndicatorPos():
 	
-	var bendingTech = $BendingTechnique
-	var shieldTech = $ShieldTechnique
-	
-	if shieldTech.focusMode == false:
+	var bendingTech = getBendingTechnique()
+	var shieldTech = getShieldTechnique()
+	var swordTech = getSwordTechnique()
+
+	if bendingTech.attractMode == true:
 		bendingTech._updateIndicatorPosForAttractMode()
-	elif bendingTech.attractMode == false:
+	elif swordTech.swordMode == true:
+		swordTech._updateIndicatorPosForSwordMode()
+	elif shieldTech.focusMode == true:
 		shieldTech._updateIndicatorPosForFocusMode()
 	else:
-		pass
+		bendingTech._updateIndicatorPosForAttractMode()

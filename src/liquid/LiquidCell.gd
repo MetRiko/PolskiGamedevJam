@@ -4,6 +4,7 @@ class_name Liquid
 onready var memGrav = gravity_scale
 
 var colorId := 0
+var intencity := 1.0
 
 func getColorId():
 	return colorId
@@ -13,6 +14,10 @@ func changeColor(newColorId : int):
 	var isNormalCell = colorId == 0
 	set_collision_layer_bit(4, !isNormalCell)
 	set_collision_layer_bit(2, isNormalCell)
+	if isNormalCell:
+		intencity = 1.0
+	else:
+		intencity = 1.4
 
 func impulse(vel):
 #	var newVel = Vector2(vel.x, -abs(vel.y))

@@ -37,25 +37,28 @@ void fragment() {
 		
 	float m = 1.0;
 	
-	vec4 cellColors[5] = {
+	vec4 cellColors[6] = {
 		vec4(235. / 255., 205. / 255., 194. / 255., 1.0) * 1.0,
 		vec4(105. / 255., 235. / 255., 094. / 255., 1.0) * 2.0,
 		vec4(105. / 255., 094. / 255., 235. / 255., 1.0) * 2.0,
 		vec4(235. / 255., 105. / 255., 094. / 255., 1.0) * 2.0,
-		vec4(235. / 255., 205. / 255., 094. / 255., 1.0) * 2.0
+		vec4(235. / 255., 205. / 255., 094. / 255., 1.0) * 2.0,
+		vec4(235. / 255., 094. / 255., 205. / 255., 1.0) * 2.0
 	};
 	
-	vec4 cellColors2[5] = {
+	vec4 cellColors2[6] = {
 		vec4(235. / 255., 225. / 255., 215. / 255., 1.0) * 1.0,
 		vec4(105. / 255., 235. / 255., 124. / 255., 1.0) * 1.0,
 		vec4(105. / 255., 124. / 255., 235. / 255., 1.0) * 1.0,
 		vec4(235. / 255., 125. / 255., 115. / 255., 1.0) * 1.0,
-		vec4(235. / 255., 225. / 255., 115. / 255., 1.0) * 1.0
+		vec4(235. / 255., 225. / 255., 115. / 255., 1.0) * 1.0,
+		vec4(235. / 255., 115. / 255., 225. / 255., 1.0) * 1.0
 //		vec4(235. / 255., 105. / 255., 124. / 255., 1.0) * 1.0, red
 	};
 	
-	float colorIntencities[5] = {
+	float colorIntencities[6] = {
 		1.0,
+		1.4,
 		1.4,
 		1.4,
 		1.4,
@@ -95,9 +98,11 @@ void fragment() {
 			collidingCells += 1.0;
 			
 			int colorId = int(texelFetch(cellsPos, ivec2(i * 3, 2), 0).r * 255.0);
+			float cellIntenticy = texelFetch(cellsPos, ivec2(i * 3 + 1, 2), 0).r * 255.0 * 0.1;
 			cellCol += cellColors[colorId];
 			cellCol2 += cellColors2[colorId];
-			colorIntencity += colorIntencities[colorId];
+//			colorIntencity += colorIntencities[colorId];
+			colorIntencity += cellIntenticy;
 			
 		}
 		

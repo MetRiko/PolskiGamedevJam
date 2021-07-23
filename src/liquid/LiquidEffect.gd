@@ -45,9 +45,10 @@ func setCells(cells):
 		array.append(signBit)
 	
 	for cell in cells:
-		var colorId = cell.colorId
+		var colorId : int = cell.colorId
+		var intencity := int(floor(cell.intencity * 10.0))
 		array.append(colorId)
-		array.append(0)
+		array.append(intencity)
 		array.append(0)
 		
 	var array_width = cellsCount * 3
