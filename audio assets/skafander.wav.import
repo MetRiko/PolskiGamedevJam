@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/skafander.wav-a3dc7d68e0dd72bd888e66d23f4ff5cb.sample"
+
+[deps]
+
+source_file="res://audio assets/skafander.wav"
+dest_files=[ "res://.import/skafander.wav-a3dc7d68e0dd72bd888e66d23f4ff5cb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
