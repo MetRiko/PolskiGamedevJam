@@ -5,6 +5,8 @@ signal sword_mode_changed
 var swordMode = true
 var swordedCells = {}
 
+var freeOrders = []
+
 var maxSwordRange = 50.0
 
 onready var bendingCtrl = get_parent()
@@ -25,14 +27,34 @@ func _calculateBaseCellPosVec(cell, index : int):
 		var order = floor(index / 2)
 		var vec = Vector2.RIGHT.rotated(angle * angleSign) * order * 6.2
 		return vec
-	else:
+	elif index < 16:
 #		index = floor(index / 3) * 3.0
 		var order = index - 4 - 11
 		var vec = Vector2.RIGHT * order * 3.7
 		return vec
+#	elif index < 24:
+#		var maxLength = swordedCells.size() - 16
+#		var lengthProgress = 1.0 - ((index - 16) / maxLength)
+#		var signRadius = (index % 2) * 2.0 - 1.0
+#		var maxRadius = 10.0 * signRadius
+#
+#		var order = index - 4 - 11
+#		var vec = Vector2.RIGHT * order * 3.7 + Vector2.UP * lengthProgress * maxRadius
+#		return vec
+#
+	else:
+		var maxLength = swordedCells.size() - 15 + 1
+		var lengthProgress = 1.0 - ((index - 15) / maxLength)
+		var signRadius = (index % 2) * 2.0 - 1.0
+		var maxRadius = 8.0 * signRadius
+		
+		var order = index - 4 - 11
+		var vec = Vector2.RIGHT * order * 2.7 + Vector2.UP * lengthProgress * maxRadius
+		return vec
+		
 
 func focusCell(cell):
-	if cell.getColorId() == 0 and swordedCells.size() < maxSwordRange:
+	if cell.getColorId() == 0:# and swordedCells.size() < maxSwordRange:
 		var cellId = cell.get_instance_id()
 		var cellData = swordedCells.get(cellId)
 		if cellData == null:
@@ -41,15 +63,21 @@ func focusCell(cell):
 			var order = swordedCells.size()
 #			var baseVec = _calculateBaseCellPosVec(cell, order)
 			
-			for cellData2 in swordedCells.values():
-				cellData2.order += 1
+#			for cellData2 in swordedCells.values():
+#				cellData2.order += 1
+			
+			var nextOrder = swordedCells.size()
+#			if freeOrders.size() > 0:
+#				nextOrder = freeOrders[0]
+#				freeOrders.remove(0)
 			
 			swordedCells[cellId] = {
 				cell = cell,
-				order = 0
+				order = nextOrder
 #				baseVec = baseVec
 			}
-			cell.changeColor(5)
+			cell.changeColor(2)
+			cell.thickness = 8.0
 			cell.disableGravity()
 			cell.linear_damp = 8.0
 			cell.disableCollisionWithCells()
@@ -62,12 +90,14 @@ func defocusCell(cell):
 	var cellId = cell.get_instance_id()
 	var cellData = swordedCells.get(cellId)
 	if cellData != null:
+		freeOrders.append(cellData.order)
 		swordedCells.erase(cellId)
 	#	cell.enableCollisionWithCells()
 		_resetCell(cell)
 
 func _resetCell(cell):
 	cell.linear_velocity = Vector2()
+	cell.thickness = 12.0
 	cell.changeColor(0)
 	cell.enableGravity()
 	cell.resetDamp()
@@ -101,7 +131,7 @@ func _onJiggleTimer():
 			jiggleSwitcher = (jiggleSwitcher + 1) % 4
 			var randomVec = Vector2.RIGHT.rotated(rand_range(0.0, PI * 2.0))
 			
-			var power = overheatProgress * 300.0 + 30.0
+			var power = overheatProgress * 60.0 + 90.0
 			cell.impulse(randomVec * power)
 		
 #		cell.intencity = intencity * 0.5 + 1.2
@@ -112,7 +142,7 @@ var lastCellVel := Vector2()
 func _onCellCollision(body, cell):
 	if body is TileMap:
 		var cellData = swordedCells[cell.get_instance_id()]
-		if cellData.order > 12:
+		if cellData.order > 16:
 			var player = Game.getPlayer()
 			var vel = -cell.linear_velocity * 6.0
 			
@@ -131,13 +161,13 @@ func _onCellCollision(body, cell):
 #			player.linear_velocity = Vector2()
 #			player.linear_damp = 10.0
 #			player.impulse(normal * cell.linear_velocity.length())
-			if $OverheatTimer.is_stopped():
-#				print(lastCellVel.length())
-				player.linear_velocity.y = 0.0
-				var playerVel = -lastCellVel.normalized()
-				var power = clamp(pow(lastCellVel.length(), 1.4) * 0.25, 250.0, 350.0)
-				player.impulse(playerVel * power)
-				$OverheatTimer.start()
+#			if $OverheatTimer.is_stopped():
+##				print(lastCellVel.length())
+#				player.linear_velocity.y = 0.0
+#				var playerVel = -lastCellVel.normalized()
+#				var power = clamp(pow(lastCellVel.length(), 1.4) * 0.25, 250.0, 350.0)
+#				player.impulse(playerVel * power)
+#			$OverheatTimer.start()
 			
 func _physics_process(delta):
 	var indicatorPos = indicator.global_position
@@ -158,9 +188,10 @@ func _physics_process(delta):
 		var targetPos = indicatorPos + finalVec - indicatorVec.normalized() * 20.0
 		var vec = targetPos - cell.global_position
 		
-		vec = vec.normalized() * clamp(vec.length() * 8.0, 0.0, 40.0 + overheatProgress * 700.0)
+		vec = vec.normalized() * clamp(pow(vec.length(), 3.0) * 0.5, 0.0, 40.0 + overheatProgress * 800.0)
 		
 		cell.impulse(vec)
+#		cell.linear_velocity = vec
 		lastCellVel = cell.linear_velocity
 		
 #		var rotationSign = (int(order) % 2) * 2.0 - 1.0
@@ -229,6 +260,8 @@ func disableSwordMode():
 		for cellData in swordedCells.values():
 			var cell = cellData.cell
 			_resetCell(cell)
+		
+		freeOrders = []
 		
 		emit_signal("sword_mode_changed", false)
 		
