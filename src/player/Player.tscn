@@ -7,14 +7,14 @@
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.0
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 7.33953
+[sub_resource type="CircleShape2D" id=10]
+radius = 7.0
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 8.23423
 
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 6.52054, 4.05608 )
+[sub_resource type="CircleShape2D" id=9]
+radius = 6.92087
 
 [sub_resource type="Animation" id=5]
 resource_name = "Fall"
@@ -86,9 +86,11 @@ position = Vector2( 24.9782, 19.1795 )
 collision_layer = 2
 mode = 2
 physics_material_override = SubResource( 1 )
-gravity_scale = 4.0
+gravity_scale = 6.0
+continuous_cd = 1
 contacts_reported = 5
 contact_monitor = true
+linear_damp = 0.8
 script = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": ""
@@ -101,8 +103,9 @@ hframes = 18
 frame = 17
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+modulate = Color( 0.592157, 0.32549, 0.858824, 1 )
 position = Vector2( 0, 8 )
-shape = SubResource( 2 )
+shape = SubResource( 10 )
 
 [node name="LiquidImpulsor" type="Area2D" parent="."]
 position = Vector2( 0, 8 )
@@ -119,8 +122,8 @@ collision_layer = 0
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GroundDetector"]
-position = Vector2( 0, 5 )
-shape = SubResource( 4 )
+position = Vector2( 0, 2.10332 )
+shape = SubResource( 9 )
 
 [node name="Anim" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
@@ -131,4 +134,8 @@ anims/Running = SubResource( 8 )
 
 [node name="JumpTimer" type="Timer" parent="."]
 wait_time = 0.2
+one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.07
 one_shot = true
