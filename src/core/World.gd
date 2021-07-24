@@ -136,6 +136,7 @@ func _setupCamera(border, insta := false):
 		
 		var nextPos = currentIdx * levelSize
 		
+		cameraTween.remove_all()
 		cameraTween.interpolate_property($Camera2D, "limit_left", null, nextPos.x, 0.8, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 		cameraTween.start()
 		cameraTween.interpolate_property($Camera2D, "limit_top", null, nextPos.y, 0.8, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
@@ -148,7 +149,7 @@ func _setupCamera(border, insta := false):
 		player.set_physics_process(false)
 		player.set_process(false)
 		var gravScaleMem = player.gravity_scale
-		player.gravity_scale = 0.0
+		player.switchGravity(false)
 		var velMem = player.linearVelocity
 		player.linearVelocity = Vector2(0.0, 0.0)
 		player.pauseJumpTimer()
@@ -156,7 +157,7 @@ func _setupCamera(border, insta := false):
 		yield(cameraTween, "tween_all_completed")
 		
 		player.resumeJumpTimer()
-		player.gravity_scale = gravScaleMem
+		player.switchGravity(true)
 		player.linearVelocity = velMem
 		player.set_physics_process(true)
 		player.set_process(true)
