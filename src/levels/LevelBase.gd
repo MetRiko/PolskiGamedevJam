@@ -39,7 +39,7 @@ func _ready():
 	debugTimer.wait_time = 0.03
 	debugTimer.autostart = true
 	add_child(debugTimer)
-	debugTimer.connect("timeout", self, "onDebugTimer")
+#	debugTimer.connect("timeout", self, "onDebugTimer")
 
 	fadeTween = Tween.new()
 	add_child(fadeTween)
@@ -51,16 +51,16 @@ func _ready():
 func getBorder():
 	return $Border
 
-func onDebugTimer():
-	if enabled == true:
-		if Input.is_action_pressed("num_1"):
-			createLiquidCell()
-
-func createLiquidCell():
-	var pos = get_global_mouse_position()
-	var cell = sceneLiquidCell.instance()
-	$Liquid/LiquidCells.add_child(cell)
-	cell.global_position = pos
+#func onDebugTimer():
+#	if enabled == true:
+#		if Input.is_action_pressed("num_1"):
+#			createLiquidCell()
+#
+#func createLiquidCell():
+#	var pos = get_global_mouse_position()
+#	var cell = sceneLiquidCell.instance()
+#	$Liquid/LiquidCells.add_child(cell)
+#	cell.global_position = pos
 #	print($Liquid/LiquidCells.get_child_count())
 
 #var cellShape = null

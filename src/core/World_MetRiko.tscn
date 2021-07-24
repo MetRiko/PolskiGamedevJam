@@ -124,6 +124,14 @@ position = Vector2( 896, 272 )
 [node name="NotGate" parent="Interactables" instance=ExtResource( 20 )]
 position = Vector2( 608, 216 )
 
+[node name="Liquid" type="Node2D" parent="."]
+
+[node name="LiquidCells" type="Node2D" parent="Liquid"]
+
+[node name="LiquidDebugTimer" type="Timer" parent="Liquid"]
+wait_time = 0.03
+autostart = true
+
 [node name="Player" parent="." instance=ExtResource( 9 )]
 position = Vector2( 357.289, 199.458 )
 

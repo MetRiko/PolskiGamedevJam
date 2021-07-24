@@ -5,6 +5,7 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
+const sceneLiquidCell = preload("res://src/liquid/LiquidCell.tscn")
 
 var currentLevel = null
 var currentIdx := Vector2(0, 0)
@@ -22,6 +23,9 @@ func getCamera():
 	
 func getCurrentLevel():
 	return currentLevel
+
+func getLiquidCells():
+	return $Liquid/LiquidCells.get_children()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -46,7 +50,19 @@ func _ready():
 	
 	$Camera2D.setTarget(getPlayer())
 	
+	$Liquid/LiquidDebugTimer.connect("timeout", self, "_onLiquidDebugTimer")
 #	switchLevel(level)
+	
+func _onLiquidDebugTimer():
+	if Input.is_action_pressed("num_1"):
+		createLiquidCell(get_global_mouse_position())
+
+func createLiquidCell(pos : Vector2):
+	var cell = sceneLiquidCell.instance()
+	$Liquid/LiquidCells.add_child(cell)
+	cell.global_position = pos
+#	print($Liquid/LiquidCells.get_child_count())
+
 	
 func getPlayer():
 	return $Player
