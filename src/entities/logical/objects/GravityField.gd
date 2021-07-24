@@ -1,5 +1,6 @@
 tool
 extends SignalTriggerable
+class_name GravityField
 
 export var maxRange := 100
 
@@ -35,7 +36,10 @@ func _draw():
 #func _updateParticles():
 #	$Particles2D
 
-func _process(delta):
+
+var playerInGravityFieldsCount = 0
+
+func _physics_process(delta):
 	if Engine.editor_hint == true or Game.editorHints == true:
 		update()
 	if Engine.editor_hint == false:
@@ -71,9 +75,18 @@ func _process(delta):
 			
 			var finalSideVec = sideVec.normalized() * pow(sideVec.length() / 16.0, 2.4) * 15.0 #. player.linearVelocity.length() # 0.0 - 1.0
 			
-			player.impulse(finalSideVec)
+#			player.impulse(finalSideVec)
 			
-			player.impulse($Area2D.gravity_vec * $Area2D.gravity * 0.06)
+			var gravityVecProj = player.linearVelocity.project(gravVec.normalized())
+#			print(gravityVecProj.length())
+			
+			var gravPower = 1.0 - clamp(gravityVecProj.length() / 500.0, 0.0, 1.0)
+			
+			var antyGravForce = max(player.linearVelocity.y, player.gravityForce)
+			
+			player.impulse($Area2D.gravity_vec * ($Area2D.gravity * 0.2 * gravPower - antyGravForce * 0.6)) 
+#			player.linearVelocity = Vector2()
+#			player.impulse($Area2D.gravity_vec * gravityVecProj.length())
 			
 #			var angleSign = sign(gravVec.angle_to(playerVec))
 			
@@ -106,10 +119,13 @@ func changePlayerEntered(flag : bool):
 	if flag != playerEntered:
 		playerEntered = flag
 		var player = Game.getPlayer()
-		if flag == true:
-			player.linearVelocity *= 0.3
+#		if flag == true:
+#			player.linearVelocity *= 0.3
 #		player.switchFriction(not playerEntered)
 #		player.switchGravity(not playerEntered)
+
+#func _calculateNumberOfFields():
+	
 
 func _onBodyEntered(body):
 	if body is Player:
