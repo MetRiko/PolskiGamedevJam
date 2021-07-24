@@ -1,14 +1,11 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://res/player/player.png" type="Texture" id=1]
 [ext_resource path="res://src/Player.gd" type="Script" id=2]
 [ext_resource path="res://src/player/LiquidImpulsor.gd" type="Script" id=3]
 
-[sub_resource type="PhysicsMaterial" id=1]
-friction = 0.0
-
-[sub_resource type="CircleShape2D" id=10]
-radius = 7.0
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 7, 7 )
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 8.23423
@@ -81,16 +78,9 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ]
 }
 
-[node name="Player" type="RigidBody2D"]
+[node name="Player" type="KinematicBody2D"]
 position = Vector2( 24.9782, 19.1795 )
 collision_layer = 2
-mode = 2
-physics_material_override = SubResource( 1 )
-gravity_scale = 6.0
-continuous_cd = 1
-contacts_reported = 5
-contact_monitor = true
-linear_damp = 0.8
 script = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": ""
@@ -137,5 +127,5 @@ wait_time = 0.2
 one_shot = true
 
 [node name="CoyoteTimer" type="Timer" parent="."]
-wait_time = 0.07
+wait_time = 0.11
 one_shot = true
