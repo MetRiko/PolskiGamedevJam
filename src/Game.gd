@@ -8,3 +8,5 @@ onready var world = root.getWorld()
 func getPlayer():
 	return world.getPlayer()
 
+func getWorld():
+	return world

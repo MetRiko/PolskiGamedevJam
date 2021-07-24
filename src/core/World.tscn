@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://src/tiles/BasicTileSet.tres" type="TileSet" id=1]
 [ext_resource path="res://src/core/World.gd" type="Script" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://src/entities/logical/objects/BigVanisher.tscn" type="PackedScene" id=23]
 [ext_resource path="res://res/blank sprites 4.png" type="Texture" id=24]
 [ext_resource path="res://src/entities/logical/gates/NotGate.tscn" type="PackedScene" id=25]
+[ext_resource path="res://src/entities/spawners/LiquidSpawner.tscn" type="PackedScene" id=26]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.398773 )
@@ -57,7 +58,7 @@ zoom = Vector2( 0.5, 0.5 )
 script = ExtResource( 6 )
 
 [node name="Player" parent="." instance=ExtResource( 7 )]
-position = Vector2( 920, -2264 )
+position = Vector2( 1160.58, -169.784 )
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -85,6 +86,11 @@ tile_data = PoolIntArray( -10551298, 0, 0, -10551297, 0, 1, -10616832, 0, 1, -10
 [node name="LiquidDebugTimer" type="Timer" parent="Liquid"]
 wait_time = 0.03
 autostart = true
+
+[node name="Spawners" type="Node2D" parent="."]
+
+[node name="LiquidSpawner" parent="Spawners" instance=ExtResource( 26 )]
+position = Vector2( 952.426, -64.2382 )
 
 [node name="Levels" type="Node2D" parent="."]
 

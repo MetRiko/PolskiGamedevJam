@@ -36,6 +36,7 @@ func _ready():
 		
 	_updateMap()
 	_copyTilesToLevels()
+	_moveSpawnersToLevels()
 	
 	currentIdx = convertPosToLevelIdx(getPlayer().global_position)
 	prevIdx = currentIdx
@@ -52,12 +53,22 @@ func _ready():
 	
 	$Liquid/LiquidDebugTimer.connect("timeout", self, "_onLiquidDebugTimer")
 #	switchLevel(level)
+
+func _moveSpawnersToLevels():
+	for spawner in $Spawners.get_children():
+		var idx = convertPosToLevelIdx(spawner.global_position)
+		var level = getLevelFromIdx(idx)
+		var mem = spawner.global_position
+		spawner.get_parent().remove_child(spawner)
+		level.addSpawner(spawner)
+		spawner.global_position = mem
 	
 func _onLiquidDebugTimer():
 	if Input.is_action_pressed("num_1"):
 		createLiquidCell(get_global_mouse_position())
 
 func createLiquidCell(pos : Vector2):
+	print(pos)
 	var cell = sceneLiquidCell.instance()
 	$Liquid/LiquidCells.add_child(cell)
 	cell.global_position = pos
@@ -68,19 +79,22 @@ func getPlayer():
 	return $Player
 	
 func switchLevel(level):
-	if currentLevel != null:
-		currentLevel.disable()
+	if level != currentLevel:
+		if currentLevel != null:
+			currentLevel.disable()
 
-	level.enable()
-	var instaCameraSwitch : bool = currentLevel == null
-	_setupCamera(level.getBorder(), instaCameraSwitch)
-#	$Camera2D.setTarget(getPlayer())
-	
-	for cell in getLiquidCells():
-		if cell.getColorId() == 0:
-			cell.queue_free()
+		level.enable()
+		var instaCameraSwitch : bool = currentLevel == null
+		_setupCamera(level.getBorder(), instaCameraSwitch)
+	#	$Camera2D.setTarget(getPlayer())
+		
+		for cell in getLiquidCells():
+			if cell.getColorId() == 0:
+				cell.queue_free()
+				
+		level.spawnAll()
 
-	currentLevel = level
+		currentLevel = level
 
 func getLevelFromIdx(idx : Vector2):
 	var hashedIdx = hashIdx(idx)
@@ -177,8 +191,6 @@ func _setupCamera(border, insta := false):
 		var nextLimitTop = min(camera.limit_top, currPos.y)
 		var nextLimitRight = max(camera.limit_right, currPos.x + levelSize.x)
 		var nextLimitBottom = max(camera.limit_bottom, currPos.y + levelSize.y)
-		
-		print(currentIdx)
 		
 		var nextPos = currentIdx * levelSize
 		

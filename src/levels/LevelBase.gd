@@ -7,6 +7,8 @@ var fadeTween = null
 
 var enabled = true
 
+var spawnersNode = null
+
 #func getPlayer():
 #	return $Player
 
@@ -16,12 +18,16 @@ func getLiquidCells():
 func getTileMap():
 	return $TileMap
 
+func spawnAll():
+	for spawner in spawnersNode.get_children():
+		spawner.spawn()
+
+func addSpawner(spawnerInstance):
+	spawnersNode.add_child(spawnerInstance) 
+
 func disable():
 	if enabled == true:
 		enabled = false
-		for cell in getLiquidCells():
-			cell.get_parent().remove_child(cell)
-			cell.queue_free()
 			
 		fadeTween.interpolate_property(self, "modulate:a", null, 0.0, 0.8, Tween.TRANS_SINE, Tween.EASE_OUT)
 		fadeTween.start()
@@ -43,6 +49,9 @@ func _ready():
 
 	fadeTween = Tween.new()
 	add_child(fadeTween)
+	
+	spawnersNode = Node2D.new()
+	add_child(spawnersNode)
 	
 #	liquidEffect.material = liquidEffect.material.duplicate()
 	disable()
