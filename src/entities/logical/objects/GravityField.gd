@@ -73,7 +73,7 @@ func _process(delta):
 			
 			player.impulse(finalSideVec)
 			
-			player.impulse($Area2D.gravity_vec * $Area2D.gravity * 0.07)
+			player.impulse($Area2D.gravity_vec * $Area2D.gravity * 0.06)
 			
 #			var angleSign = sign(gravVec.angle_to(playerVec))
 			
