@@ -2,8 +2,15 @@ extends Node2D
 class_name Triggerable
 
 export var connection: NodePath
-onready var _connected = get_node(connection)
+onready var _connected = null
 
+func _ready():
+	if connection:
+		connectTo(get_node(connection))
+		
+func connectTo(trigger):
+	_connected = trigger
+		
 func whenOn():
 	pass 
 	

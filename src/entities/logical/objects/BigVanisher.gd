@@ -5,12 +5,13 @@ func _ready():
 		onRisingEdge()
 	else:
 		onFallingEdge()
-		
 
 func onFallingEdge():
-	$VanisherTex.modulate.a = 1
+	$Sprite.frame = 9
+#	$VanisherTex.modulate.a = 1
 	$CollisionShape2D.disabled = false
 	
 func onRisingEdge():
-	$VanisherTex.modulate.a = 0.5
+	$Sprite.frame = 8
+#	$VanisherTex.modulate.a = 0.5
 	$CollisionShape2D.disabled = true

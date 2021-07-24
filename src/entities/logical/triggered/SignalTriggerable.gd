@@ -2,7 +2,11 @@ extends Triggerable
 class_name SignalTriggerable
 
 
-onready var state = self._connected.is_on()
+var state := false
+
+func _ready():
+	if self._connected:
+		state = self._connected.is_on()
 
 func whenOn():
 	if not state:
@@ -17,4 +21,4 @@ func whenOff():
 func onFallingEdge():
 	pass
 func onRisingEdge():
-	pass	
+	pass

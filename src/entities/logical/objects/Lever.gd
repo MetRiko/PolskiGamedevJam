@@ -15,6 +15,14 @@ var player: Node2D = null
 func _ready():
 	if not Engine.editor_hint:
 		player = Game.getPlayer()
+		connect("on_reset", self, "_onReset")
+		connect("on_trip", self, "_onTrip")
+
+func _onReset():
+	$Sprite.play("default", true)
+
+func _onTrip():
+	$Sprite.play("default", false)
 		
 var inRange:bool = false
 

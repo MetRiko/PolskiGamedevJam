@@ -5,12 +5,13 @@
 [ext_resource path="res://src/liquid/LiquidCell.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/levels/Level_Test_James.gd" type="Script" id=4]
 [ext_resource path="res://src/liquid/LiquidEffect.tscn" type="PackedScene" id=5]
-[ext_resource path="res://src/entities/logical/trigger/lever/Lever.tscn" type="PackedScene" id=6]
-[ext_resource path="res://src/entities/logical/triggered/vanisher/Vanisher.tscn" type="PackedScene" id=7]
-[ext_resource path="res://src/entities/logical/FlipFlop/FlipFlop.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/entities/logical/objects/Lever.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/entities/logical/objects/Vanisher.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/entities/logical/gates/FlipFlop.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/levels/Triggers.gd" type="Script" id=9]
-[ext_resource path="res://src/entities/logical/triggered/vanisher/Vanisher.gd" type="Script" id=10]
-[ext_resource path="res://src/entities/logical/NotGate/NotGate.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src/entities/logical/objects/Vanisher.gd" type="Script" id=10]
+[ext_resource path="res://src/entities/logical/gates/NotGate.tscn" type="PackedScene" id=11]
+
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.398773 )

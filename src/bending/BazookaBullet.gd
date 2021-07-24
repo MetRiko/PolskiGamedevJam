@@ -23,7 +23,10 @@ func _integrate_forces(state):
 			collision_mask = 0
 
 func onBodyEntered(body):
-	pass
+	
+	if body is Damagable:
+		if body.isBazookaOnly():
+			body.doDamage(1.0)
 
 func _updateOnCollision(collisionNormal):
 	var power = pow(cellAttached.size(), 0.4) * 270.0
