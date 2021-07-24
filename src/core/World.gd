@@ -75,6 +75,11 @@ func switchLevel(level):
 	var instaCameraSwitch : bool = currentLevel == null
 	_setupCamera(level.getBorder(), instaCameraSwitch)
 #	$Camera2D.setTarget(getPlayer())
+	
+	for cell in getLiquidCells():
+		if cell.getColorId() == 0:
+			cell.queue_free()
+
 	currentLevel = level
 
 func getLevelFromIdx(idx : Vector2):
