@@ -148,15 +148,14 @@ func _setupCamera(border, insta := false):
 		
 		player.set_physics_process(false)
 		player.set_process(false)
-		var gravScaleMem = player.gravity_scale
 		player.switchGravity(false)
+		player.switchControls(false)
 		var velMem = player.linearVelocity
 		player.linearVelocity = Vector2(0.0, 0.0)
-		player.pauseJumpTimer()
 		
 		yield(cameraTween, "tween_all_completed")
 		
-		player.resumeJumpTimer()
+		player.switchControls(true)
 		player.switchGravity(true)
 		player.linearVelocity = velMem
 		player.set_physics_process(true)
