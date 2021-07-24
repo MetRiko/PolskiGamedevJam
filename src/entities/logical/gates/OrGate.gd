@@ -19,9 +19,10 @@ func _draw():
 		
 		
 func _ready():
-	for nodePath in sources:
-		if nodePath != null:
-			nodes.append(get_node(nodePath))
+	if Engine.debug_hints == false:
+		for nodePath in sources:
+			if nodePath != null:
+				nodes.append(get_node(nodePath))
 	
 func is_on():
 	var q = false

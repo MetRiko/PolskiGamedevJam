@@ -1,4 +1,3 @@
-tool
 extends Trigger
 class_name ControlledTrigger
 

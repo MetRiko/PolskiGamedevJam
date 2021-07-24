@@ -41,20 +41,12 @@ func _updateForces(delta):
 	impulsesToApply = []
 	
 	var finalVel = Vector2()
-	var newForces = []
-	for i in range(forces.size()):
-		var force = forces[i]
-		finalVel += force
-#		var power = max(force.length() - damp * delta * 60.0, 0.0)
-#		if power > 0.0:
-#			newForces.append(force.normalized() * power)
-	forces = newForces
+	for force in forces:
+		finalVel += force * delta * 60.0
+	forces = []
 	
 	linearVelocity += finalVel 
-#	if forces.size() > 0:
-#		linearVelocity += finalVel * forces.size()
 	linearVelocity = linearVelocity.normalized() * max(linearVelocity.length() - damp * delta * 60.0, 0.0)
-#	print(linearVelocity)
 	var slide = move_and_slide(linearVelocity, Vector2.UP)
 	
 	isOnFloorAfterMove = is_on_floor() || $GroundDetector.get_overlapping_bodies().size() > 0
@@ -64,9 +56,6 @@ func _updateForces(delta):
 		var normal = collision.normal
 		var vel = -linearVelocity.project(-normal)
 		linearVelocity += vel
-#		impulse(vel)
-#		linearVelocity = Vector2()
-#		print("Collided with: ", collision.collider.name)
 
 func impulse(vel):
 	impulsesToApply.append(vel)
@@ -114,10 +103,10 @@ func _updateHorizontalMovement(delta):
 #		else:
 #			linear_velocity.x = 0.0
 
-func jump(power, coyoteJump := false):
+func jump(power, higherJump := false):
 	linearVelocity.y = 0.0
 	impulse(Vector2.UP * power)
-	if coyoteJump == true:
+	if higherJump == true:
 		$JumpTimer.start()
 
 func _updateJump(delta):
