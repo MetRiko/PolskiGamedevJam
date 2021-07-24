@@ -5,9 +5,10 @@ export var connection: NodePath
 onready var _connected = null
 
 func _ready():
-	if connection:
-		connectTo(get_node(connection))
-		
+	if Engine.editor_hint == false:
+		if connection:
+			connectTo(get_node(connection))
+			
 func connectTo(trigger):
 	_connected = trigger
 		
@@ -19,8 +20,9 @@ func whenOff():
 	
 
 func _process(delta):
-	if _connected:
-		if _connected.is_on():
-			whenOn()
-		else:
-			whenOff()
+	if Engine.editor_hint == false:
+		if _connected:
+			if _connected.is_on():
+				whenOn()
+			else:
+				whenOff()
