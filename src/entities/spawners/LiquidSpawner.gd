@@ -39,7 +39,7 @@ func spawnCells():
 	for x in range(hcells):
 		for y in range(vcells):
 			var offset = Vector2((x - hcells + 1.0) * 0.5, (y - vcells + 1.0) * 0.5) * span
-			var pos = global_position + offset
+			var pos = global_position + offset + Vector2(rand_range(-2.0, 2.0), rand_range(-2.0, 2.0))
 			world.createLiquidCell(pos)
 			
 	

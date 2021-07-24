@@ -90,7 +90,10 @@ autostart = true
 [node name="Spawners" type="Node2D" parent="."]
 
 [node name="LiquidSpawner" parent="Spawners" instance=ExtResource( 26 )]
-position = Vector2( 952.426, -64.2382 )
+position = Vector2( 951.041, -64.9984 )
+vcells = 6
+hcells = 10
+span = 6.083
 
 [node name="Levels" type="Node2D" parent="."]
 
