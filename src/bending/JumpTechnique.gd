@@ -117,7 +117,6 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump"):
 		if cellsForJump.size() > 0:
 			
-			
 			cellsCloseToPlayer = 0
 			for cell in cellsForJump:
 				cell.enableGravity()
@@ -144,18 +143,12 @@ func _physics_process(delta):
 			var power = (cellsCloseToPlayer / 20.0)
 			
 			var jumpPower = 480.0
-			if player.linear_velocity.y < 0.0:
-				player.linear_velocity.y *= 0.3
+#			if player.linearVelocity.y < 0.0:
+#				player.linearVelocity = player.linearVelocity * Vector2(1.0, 0.3)
+#				player.linearVelocity.y *= 0.3
 
-#			var dir = player.linear_velocity
-#			dir.y = -abs(dir.y)
-#			dir = (dir.normalized() + Vector2.UP * 3.0).normalized()
-#			player.linear_velocity.y = 0
-#			player.linear_velocity = dir * jumpPower *  pow(power + 0.8, 1.3)
-#			player.impulse(dir * jumpPower *  pow(power + 0.4, 1.3))
-			player.impulse(Vector2.UP * jumpPower *  pow(power, 0.7))
-#			player.jump(jumpPower *  pow(power, 0.8), false)
-#				player.jump(jumpPower * pow(power + 0., 2.0), false)
+#			player.impulse(Vector2.UP * jumpPower *  pow(power, 0.7))
+			player.jump(jumpPower *  pow(power, 0.7))
 			
 			cellsForJump = []
 			reEnableJumpMode()

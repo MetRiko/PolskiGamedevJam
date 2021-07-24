@@ -354,9 +354,10 @@ func _shootShotgun():
 		cell.enableGravity()
 		cell.impulse(vel)
 		
-	player.linear_velocity = Vector2()
-	var power = 50.0 + 60.0 * clamp(fists.size() - 1, 0.0, 5.0)
+	var power = 40.0 + 65.0 * clamp(fists.size() - 1, 0.0, 5.0)
+	player.linearVelocity = Vector2()
 	player.impulse(-vec.normalized() * power)
+#	player.dash(-vec.normalized() * power * 1.3, 0.2, 5.0)
 	
 	swordedCells = {}
 	fists = []

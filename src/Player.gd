@@ -8,8 +8,10 @@ var gravityForce := 120.0
 var jumpPower := 240.0
 
 var isOnFloor := false
-
 var isOnFloorAfterMove := false
+
+var gravityEnabled := true
+var controlsEnabled := true
 
 var dir := Vector2()
 
@@ -19,6 +21,12 @@ var damp = 1.0
 var impulsesToApply = []
 
 var linearVelocity : Vector2 setget setLinearVelocity, getLinearVelocity 
+
+func resetDamp():
+	damp = 1.0
+
+func setDamp(value):
+	damp = value
 
 func setLinearVelocity(value : Vector2):
 	forces = [value]
@@ -45,11 +53,11 @@ func _updateForces(delta):
 	linearVelocity += finalVel 
 #	if forces.size() > 0:
 #		linearVelocity += finalVel * forces.size()
-	linearVelocity = linearVelocity.normalized() * max(linearVelocity.length() - damp, 0.0)
+	linearVelocity = linearVelocity.normalized() * max(linearVelocity.length() - damp * delta * 60.0, 0.0)
 #	print(linearVelocity)
 	var slide = move_and_slide(linearVelocity, Vector2.UP)
 	
-	isOnFloorAfterMove = is_on_floor()
+	isOnFloorAfterMove = is_on_floor() || $GroundDetector.get_overlapping_bodies().size() > 0
 	
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
@@ -66,25 +74,25 @@ func impulse(vel):
 func _physics_process(delta):
 	
 	var prevIsOnFloor = isOnFloor
-	isOnFloor = isOnFloorAfterMove #$GroundDetector.get_overlapping_bodies().size() > 0
+	isOnFloor = isOnFloorAfterMove
 	if isOnFloor == false and prevIsOnFloor == true:
 		$CoyoteTimer.start()
-#	if isOnFloor == true and prevIsOnFloor == false:
-#		linear_velocity.y = 0.0
-#		impulse(Vector2.UP * abs(linear_velocity.y) * 2.0)
 	
-	dir = Vector2()
-	if Input.is_action_pressed("move_left"):
-		dir.x -= 1.0
-
-	if Input.is_action_pressed("move_right"):
-		dir.x += 1.0
+	_updateHorizontalMovement(delta)
+	_updateJump(delta)
+	if gravityEnabled == true:
+		_updateGravity(delta)
 		
-	if isOnFloor == true or $CoyoteTimer.is_stopped() == false:
-		if Input.is_action_just_pressed("jump"):
-			linearVelocity.y = 0.0
-			impulse(Vector2.UP * jumpPower * delta * 60.0)
-			$JumpTimer.start()
+	_updateForces(delta)
+
+func _updateHorizontalMovement(delta):
+	dir = Vector2()
+	
+	if controlsEnabled == true:
+		if Input.is_action_pressed("move_left"):
+			dir.x -= 1.0
+		if Input.is_action_pressed("move_right"):
+			dir.x += 1.0
 
 	if floor(dir.x) != 0:
 		var currSpeed = abs(linearVelocity.x)
@@ -105,10 +113,18 @@ func _physics_process(delta):
 			impulse(vel)
 #		else:
 #			linear_velocity.x = 0.0
-		
-	_updateGravity(delta)
 
-	_updateForces(delta)
+func jump(power, coyoteJump := false):
+	linearVelocity.y = 0.0
+	impulse(Vector2.UP * power)
+	if coyoteJump == true:
+		$JumpTimer.start()
+
+func _updateJump(delta):
+	if controlsEnabled == true:
+		if isOnFloor == true or $CoyoteTimer.is_stopped() == false:
+			if Input.is_action_just_pressed("jump"):
+				jump(jumpPower * delta * 60.0, true)
 
 func _updateGravity(delta):
 	if isOnFloor == false:
@@ -117,6 +133,11 @@ func _updateGravity(delta):
 func _process(delta):
 	_updateHigherJump()
 	_updateAnimations()
+	
+#	if Input.is_action_just_pressed("lmb"):
+#		var vec = get_global_mouse_position() - global_position
+#		var vel = vec.normalized() * 600.0
+#		dash(vel, 0.3, 30.0)
 
 func _updateHigherJump():
 	if $JumpTimer.is_stopped() == false:
@@ -142,6 +163,35 @@ func _updateAnimations():
 			$Anim.play("Jump", -1, 1.0)
 		else:
 			$Anim.play("Fall", -1, 1.0)
+	
+func _ready():
+	$DashTimer.connect("timeout", self, "_onDashTimer")
+			
+func dash(vel, disableTime := 0.2, dampForDash := 1.0):
+	# gravity disable
+	switchGravity(false)
+	# damp changed
+	setDamp(dampForDash)
+	# controls disable
+	switchControls(false)
+	# reset velocity
+	linearVelocity = Vector2()
+	# impulse
+	impulse(vel)
+	# disable time
+	$DashTimer.wait_time = disableTime
+	$DashTimer.start()
+
+func _onDashTimer():
+	resetDamp()
+	switchGravity(true)
+	switchControls(true)
+
+func switchControls(flag : bool):
+	controlsEnabled = flag
+
+func switchGravity(flag : bool):
+	gravityEnabled = flag
 
 #var speed := 160.0
 #var jumpPower := 150.0

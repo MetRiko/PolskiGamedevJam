@@ -19,7 +19,7 @@ func _physics_process(delta):
 func _updateCell(body):
 	
 	var cellVec = body.global_position - liquidImpulsor.global_position
-	var velVec = player.linear_velocity
+	var velVec = player.linearVelocity
 #	velVec.y *= 2.0
 	
 	var dot = cellVec.dot(velVec)

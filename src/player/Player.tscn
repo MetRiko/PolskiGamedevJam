@@ -129,3 +129,6 @@ one_shot = true
 [node name="CoyoteTimer" type="Timer" parent="."]
 wait_time = 0.11
 one_shot = true
+
+[node name="DashTimer" type="Timer" parent="."]
+one_shot = true
