@@ -79,6 +79,7 @@ func _physics_process(delta):
 	
 	_updateHorizontalMovement(delta)
 	_updateJump(delta)
+	_updateHigherJump()
 	if gravityEnabled == true:
 		_updateGravity(delta)
 		
@@ -132,7 +133,6 @@ func _updateGravity(delta):
 		impulse(Vector2.DOWN * gravityForce * delta * 60.0)
 
 func _process(delta):
-	_updateHigherJump()
 	_updateAnimations()
 	
 #	if Input.is_action_just_pressed("lmb"):
