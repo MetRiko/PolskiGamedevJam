@@ -75,7 +75,8 @@ func _physics_process(delta):
 	var prevIsOnFloor = isOnFloor
 	isOnFloor = isOnFloorAfterMove
 	if isOnFloor == false and prevIsOnFloor == true:
-		$CoyoteTimer.start()
+		if $JumpTimer.is_stopped() == true:
+			$CoyoteTimer.start()
 	
 	_updateHorizontalMovement(delta)
 	_updateJump(delta)
