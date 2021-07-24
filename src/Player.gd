@@ -45,7 +45,7 @@ func _updateForces(delta):
 	for i in range(forces.size()):
 		var force = forces[i]
 		finalVel += force
-		var power = max(force.length() - damp * delta * 60.0, 0.0)
+#		var power = max(force.length() - damp * delta * 60.0, 0.0)
 #		if power > 0.0:
 #			newForces.append(force.normalized() * power)
 	forces = newForces

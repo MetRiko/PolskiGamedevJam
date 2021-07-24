@@ -9,13 +9,17 @@ func _toolDistanceChange(dst):
 		update()
 	actionableDistance = dst
 
-onready var player: Node2D = Game.getPlayer()
+var player: Node2D = null
 #onready var player: Node2D = get_node(playerRef)
 
+func _ready():
+	if not Engine.editor_hint:
+		player = Game.getPlayer()
+		
 var inRange:bool = false
 
 func _draw():
-	if Engine.editor_hint or debug_hints and OS.is_debug_build():
+	if Engine.editor_hint or (debug_hints and OS.is_debug_build()):
 		draw_arc(Vector2.ZERO,actionableDistance,0,deg2rad(360),64,Color.red,1.0,true)
 	if debug_hints and OS.is_debug_build():
 		if inRange:
