@@ -52,7 +52,7 @@ func _process(delta):
 	shieldTech.changeFocusMode(enableShield)
 	
 	var indicatorSprite = $Indicator/Sprite
-	indicatorSprite.rotate(indicatorRotationSpeed * 60 * delta)
+	indicatorSprite.rotate(indicatorRotationSpeed * 60.0 * delta)
 
 # ----------- Indicator -----------
 
