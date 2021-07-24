@@ -13,6 +13,8 @@ onready var cameraTween = $CameraTween
 
 var levelSwitchingEnabled = false
 
+var idxOffsetBetweenLevels := Vector2(0, 0)
+
 var map = {}
 
 func getCamera():
@@ -42,6 +44,8 @@ func _ready():
 	
 	$BendingController.getIndicator().global_position = getPlayer().global_position
 	
+	$Camera2D.setTarget(getPlayer())
+	
 #	switchLevel(level)
 	
 func getPlayer():
@@ -54,7 +58,7 @@ func switchLevel(level):
 	level.enable()
 	var instaCameraSwitch : bool = currentLevel == null
 	_setupCamera(level.getBorder(), instaCameraSwitch)
-	$Camera2D.setTarget(getPlayer())
+#	$Camera2D.setTarget(getPlayer())
 	currentLevel = level
 
 func getLevelFromIdx(idx : Vector2):
@@ -117,6 +121,15 @@ func hashIdx(idx : Vector2) -> int:
 	var b = -2*y-1 if y < 0 else 2 * y
 	return (a + b) * (a + b + 1) * 0.5 + b
 
+func _closePosInView(point : Vector2, levelPos : Vector2, levelSize : Vector2):
+	var roomSize = Vector2(1280.0, 736.0) * 0.5
+	var viewStartPos = levelPos + roomSize * 0.5
+	var viewEndPos = levelPos + levelSize - roomSize * 0.5
+	var closedPoint = Vector2()
+	closedPoint.x = clamp(point.x, viewStartPos.x, viewEndPos.x)
+	closedPoint.y = clamp(point.y, viewStartPos.y, viewEndPos.y)
+	return closedPoint
+
 func _setupCamera(border, insta := false):
 	var size = border.getRealSize()
 	var pos = border.global_position
@@ -129,22 +142,72 @@ func _setupCamera(border, insta := false):
 		var levelSize = Vector2(1280.0, 736.0) * 0.5
 		var currPos = prevIdx * levelSize
 		
-		camera.limit_left = currPos.x
-		camera.limit_top = currPos.y
-		camera.limit_right = currPos.x + levelSize.x
-		camera.limit_bottom = currPos.y + levelSize.y
+#		camera.limit_left = currPos.x
+#		camera.limit_top = currPos.y
+#		camera.limit_right = currPos.x + levelSize.x
+#		camera.limit_bottom = currPos.y + levelSize.y
+		
+#		camera.limit_left = min(camera.limit_left, pos.x)
+#		camera.limit_top = min(camera.limit_top, pos.y)
+#		camera.limit_right = max(camera.limit_right, pos.x + size.x)
+#		camera.limit_bottom = max(camera.limit_bottom, pos.y + size.y)
+		
+		var nextLimitLeft = min(camera.limit_left, currPos.x)
+		var nextLimitTop = min(camera.limit_top, currPos.y)
+		var nextLimitRight = max(camera.limit_right, currPos.x + levelSize.x)
+		var nextLimitBottom = max(camera.limit_bottom, currPos.y + levelSize.y)
+		
+		print(currentIdx)
 		
 		var nextPos = currentIdx * levelSize
 		
+		var idxOffset = currentIdx - prevIdx
+		
+		camera.limit_left = -100000.0
+		camera.limit_top = -100000.0
+		camera.limit_right = 100000.0
+		camera.limit_bottom = 100000.0
+
+#		var startCameraPos = prevIdx * levelSize + levelSize * 0.5
+#		var endCameraPos = currentIdx * levelSize + levelSize * 0.5
+		
+#		var startCameraPos = prevIdx * levelSize + levelSize * 0.5
+#		var startCameraPos = camera.global_position# - idxOffset * levelSize * 0.5
+#		var startCameraPos = camera.get_camera_screen_center() #+ idxOffset * levelSize * 0.5# - idxOffset * levelSize * 0.5 #camera.global_position# - idxOffset * levelSize * 0.5
+#		var endCameraPos = camera.get_camera_screen_center() + idxOffset * levelSize
+#		var endCameraPos = camera.global_position + idxOffset * levelSize * 0.5
+		
+		var startCameraPos = camera.get_camera_screen_center()
+		var endCameraPos = _closePosInView(camera.global_position + idxOffset * levelSize * 0.5, pos, size)
+		
+#		if idxOffset.x > 0:
+#			camera.limit_right += levelSize.x
+#		elif idxOffset.x < 0:
+#			camera.limit_left -= levelSize.x
+#		elif idxOffset.y > 0:
+#			camera.limit_bottom += levelSize.y
+#		elif idxOffset.y < 0:
+#			camera.limit_top -= levelSize.y
+		
+		camera.global_position = startCameraPos
+		
+		camera.setTarget(null)
+		
+		player.pauseHigherJump()
+		
 		cameraTween.remove_all()
-		cameraTween.interpolate_property($Camera2D, "limit_left", null, nextPos.x, 0.8, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+		cameraTween.interpolate_property($Camera2D, "global_position", startCameraPos, endCameraPos, 0.8, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 		cameraTween.start()
-		cameraTween.interpolate_property($Camera2D, "limit_top", null, nextPos.y, 0.8, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-		cameraTween.start()
-		cameraTween.interpolate_property($Camera2D, "limit_right", null, nextPos.x + levelSize.x, 0.8, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-		cameraTween.start()
-		cameraTween.interpolate_property($Camera2D, "limit_bottom", null, nextPos.y + levelSize.y, 0.8, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-		cameraTween.start()
+		
+#		cameraTween.remove_all()
+#		cameraTween.interpolate_property($Camera2D, "limit_left", null, nextLimitLeft, 0.8, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+#		cameraTween.start()
+#		cameraTween.interpolate_property($Camera2D, "limit_top", null, nextLimitTop, 0.8, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+#		cameraTween.start()
+#		cameraTween.interpolate_property($Camera2D, "limit_right", null, nextLimitRight, 0.8, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+#		cameraTween.start()
+#		cameraTween.interpolate_property($Camera2D, "limit_bottom", null, nextLimitBottom, 0.8, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+#		cameraTween.start()
 		
 		player.set_physics_process(false)
 		player.set_process(false)
@@ -155,6 +218,8 @@ func _setupCamera(border, insta := false):
 		
 		yield(cameraTween, "tween_all_completed")
 		
+		player.resumeHigherJump()
+		camera.setTarget(player)
 		player.switchControls(true)
 		player.switchGravity(true)
 		player.linearVelocity = velMem
@@ -173,10 +238,25 @@ func _setupCamera(border, insta := false):
 		camera.limit_bottom = pos.y + size.y
 	
 func _input(event):
-	if event.is_action_pressed("num_2"):
-		switchLevel($Levels.get_child(0).getLevel())
-	if event.is_action_pressed("num_3"):
-		switchLevel($Levels.get_child(1).getLevel())
+	pass
+#	if event.is_action_pressed("num_2"):
+#		switchLevel($Levels.get_child(0).getLevel())
+#	if event.is_action_pressed("num_3"):
+#		switchLevel($Levels.get_child(1).getLevel())
+#	if event.is_action_pressed("num_2"):
+#		var camera = $Camera2D
+#		camera.target = null
+#
+#		var roomSize = Vector2(1280.0, 736.0) * 0.5
+#		var playerIdx = Vector2()
+#		playerIdx.x = 
+#
+#		camera.limit_left = -100000.0
+#		camera.limit_top = -100000.0
+#		camera.limit_right = 100000.0
+#		camera.limit_bottom = 100000.0
+#		camera.global_position = currentIdx * Vector2(1280.0, 736.0) * 0.5
+		
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("x"):
@@ -208,6 +288,7 @@ func _updateMovingBetweenLevels():
 	var nextLevel = getLevelFromIdx(idx)
 
 	if nextLevel != currentLevel:
+		idxOffsetBetweenLevels = idx - currentIdx
 		currentIdx = idx
 		switchLevel(getLevelFromIdx(idx))
 	else:

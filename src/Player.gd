@@ -189,6 +189,12 @@ func _onDashTimer():
 	switchGravity(true)
 	switchControls(true)
 
+func pauseHigherJump():
+	$JumpTimer.paused = true
+	
+func resumeHigherJump():
+	$JumpTimer.paused = false
+		
 #var speed := 160.0
 #var jumpPower := 150.0
 #
