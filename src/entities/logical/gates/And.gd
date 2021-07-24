@@ -19,7 +19,7 @@ func _draw():
 		
 		
 func _ready():
-	if Engine.debug_hints == false:
+	if Engine.editor_hint == false:
 		for nodePath in sources:
 			if nodePath != null:
 				nodes.append(get_node(nodePath))

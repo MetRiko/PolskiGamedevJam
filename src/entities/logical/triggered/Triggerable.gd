@@ -19,7 +19,8 @@ func whenOff():
 	
 
 func _process(delta):
-	if _connected.is_on():
-		whenOn()
-	else:
-		whenOff()
+	if _connected:
+		if _connected.is_on():
+			whenOn()
+		else:
+			whenOff()

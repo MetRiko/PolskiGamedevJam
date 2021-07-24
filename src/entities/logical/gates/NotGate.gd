@@ -2,9 +2,11 @@ tool
 extends Trigger
 
 export var source: NodePath
-onready var node  = get_node(source)
+var node = null
 
-
+func _ready():
+	if source:
+		node = get_node(source)
 
 func _draw():
 	if self.debug_hints and OS.is_debug_build():
@@ -20,7 +22,7 @@ func _draw():
 	
 func is_on():
 	if node == null:
-		return true	
+		return true
 	return not node.is_on()
 
 

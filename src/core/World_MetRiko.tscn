@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://src/tiles/BasicTileSet.tres" type="TileSet" id=1]
 [ext_resource path="res://src/core/World.gd" type="Script" id=2]
@@ -18,6 +18,8 @@
 [ext_resource path="res://src/entities/logical/objects/Vanisher.tscn" type="PackedScene" id=16]
 [ext_resource path="res://src/entities/logical/objects/BigVanisher.tscn" type="PackedScene" id=17]
 [ext_resource path="res://src/entities/logical/objects/HardRock.tscn" type="PackedScene" id=18]
+[ext_resource path="res://src/entities/logical/objects/GravityField.tscn" type="PackedScene" id=19]
+[ext_resource path="res://src/entities/logical/gates/NotGate.tscn" type="PackedScene" id=20]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.398773 )
@@ -70,6 +72,17 @@ tile_data = PoolIntArray( -131027, 0, 0, -131026, 0, 1, -131025, 0, 1, -131024, 
 
 [node name="Interactables" type="Node2D" parent="."]
 
+[node name="GravityField" parent="Interactables" instance=ExtResource( 19 )]
+position = Vector2( 664, 120 )
+rotation = 1.57079
+connection = NodePath("../NotGate")
+maxRange = 284
+
+[node name="GravityField2" parent="Interactables" instance=ExtResource( 19 )]
+position = Vector2( 704, 304 )
+connection = NodePath("../NotGate")
+maxRange = 182
+
 [node name="Button" parent="Interactables" instance=ExtResource( 13 )]
 position = Vector2( 955.362, 124.709 )
 rotation = -1.57079
@@ -78,7 +91,7 @@ rotation = -1.57079
 position = Vector2( 792.062, 295.03 )
 
 [node name="Connector" parent="Interactables" instance=ExtResource( 15 )]
-position = Vector2( 622, 220.5 )
+position = Vector2( 784, 144 )
 connection = NodePath("../LiquidDetector")
 
 [node name="Vanisher" parent="Interactables/Connector" instance=ExtResource( 16 )]
@@ -107,6 +120,9 @@ position = Vector2( 896, 256 )
 
 [node name="HardRock5" parent="Interactables" instance=ExtResource( 18 )]
 position = Vector2( 896, 272 )
+
+[node name="NotGate" parent="Interactables" instance=ExtResource( 20 )]
+position = Vector2( 608, 216 )
 
 [node name="Player" parent="." instance=ExtResource( 9 )]
 position = Vector2( 357.289, 199.458 )

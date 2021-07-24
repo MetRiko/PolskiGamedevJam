@@ -1,10 +1,10 @@
 extends KinematicBody2D
-
+class_name Player
 
 
 
 var maxSpeed := 200.0
-var gravityForce := 120.0
+var gravityForce := 12.0
 var jumpPower := 240.0
 
 var isOnFloor := false
@@ -12,6 +12,7 @@ var isOnFloorAfterMove := false
 
 var gravityEnabled := true
 var controlsEnabled := true
+var frictionEnabled := true
 
 var dir := Vector2()
 
@@ -22,6 +23,15 @@ var impulsesToApply = []
 
 var linearVelocity : Vector2 setget setLinearVelocity, getLinearVelocity 
 
+func switchControls(flag : bool):
+	controlsEnabled = flag
+
+func switchGravity(flag : bool):
+	gravityEnabled = flag
+	
+func switchFriction(flag : bool):
+	frictionEnabled = flag
+	
 func resetDamp():
 	damp = 1.0
 
@@ -90,7 +100,7 @@ func _updateHorizontalMovement(delta):
 		impulse(vel)
 #		if isOnFloor == true and prevIsOnFloor == true:
 #			impulse(Vector2.UP * 3.0)
-	else:
+	elif frictionEnabled == true:
 		var currSpeed = abs(linearVelocity.x)
 #		var currSpeed = linear_velocity.length()
 		if currSpeed > 5.0:
@@ -117,7 +127,7 @@ func _updateJump(delta):
 
 func _updateGravity(delta):
 	if isOnFloor == false:
-		impulse(Vector2.DOWN * gravityForce * delta * 6.0)
+		impulse(Vector2.DOWN * gravityForce * delta * 60.0)
 
 func _process(delta):
 	_updateHigherJump()
@@ -175,12 +185,6 @@ func _onDashTimer():
 	resetDamp()
 	switchGravity(true)
 	switchControls(true)
-
-func switchControls(flag : bool):
-	controlsEnabled = flag
-
-func switchGravity(flag : bool):
-	gravityEnabled = flag
 
 #var speed := 160.0
 #var jumpPower := 150.0
