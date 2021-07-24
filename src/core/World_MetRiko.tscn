@@ -79,7 +79,7 @@ connection = NodePath("../NotGate")
 maxRange = 284
 
 [node name="GravityField2" parent="Interactables" instance=ExtResource( 19 )]
-position = Vector2( 704, 304 )
+position = Vector2( 560, 64 )
 connection = NodePath("../NotGate")
 maxRange = 182
 
@@ -121,8 +121,82 @@ position = Vector2( 896, 256 )
 [node name="HardRock5" parent="Interactables" instance=ExtResource( 18 )]
 position = Vector2( 896, 272 )
 
+[node name="HardRock6" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 696, 272 )
+
+[node name="HardRock7" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 696, 288 )
+
+[node name="HardRock8" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 696, 304 )
+
+[node name="HardRock9" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 680, 304 )
+
+[node name="HardRock10" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 680, 288 )
+
+[node name="HardRock11" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 680, 272 )
+
+[node name="HardRock12" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 728, 272 )
+
+[node name="HardRock13" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 728, 288 )
+
+[node name="HardRock14" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 728, 304 )
+
+[node name="HardRock15" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 712, 304 )
+
+[node name="HardRock16" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 712, 288 )
+
+[node name="HardRock17" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 712, 272 )
+
+[node name="HardRock18" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 696, 224 )
+
+[node name="HardRock19" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 696, 240 )
+
+[node name="HardRock20" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 696, 256 )
+
+[node name="HardRock21" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 680, 256 )
+
+[node name="HardRock22" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 680, 240 )
+
+[node name="HardRock23" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 680, 224 )
+
+[node name="HardRock24" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 728, 224 )
+
+[node name="HardRock25" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 728, 240 )
+
+[node name="HardRock26" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 728, 256 )
+
+[node name="HardRock27" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 712, 256 )
+
+[node name="HardRock28" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 712, 240 )
+
+[node name="HardRock29" parent="Interactables" instance=ExtResource( 18 )]
+position = Vector2( 712, 224 )
+
 [node name="NotGate" parent="Interactables" instance=ExtResource( 20 )]
 position = Vector2( 608, 216 )
+
+[node name="Spawners" type="Node2D" parent="."]
 
 [node name="Liquid" type="Node2D" parent="."]
 

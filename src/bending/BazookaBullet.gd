@@ -18,15 +18,23 @@ func _integrate_forces(state):
 		if alive == true:
 			alive = false
 			var normal = state.get_contact_local_normal(0) 
+			
+			for body in $BigBazookaArea.get_overlapping_bodies():
+#				print(body)
+				if body is Damagable:
+					if body.isBazookaOnly():
+						body.doDamage(1.0)
+						
 			_updateOnCollision(normal)
 			linear_velocity = Vector2()
 			collision_mask = 0
 
 func onBodyEntered(body):
-	
-	if body is Damagable:
-		if body.isBazookaOnly():
-			body.doDamage(1.0)
+#	print($BigBazookaArea.get_overlapping_bodies())
+	return
+#	if body is Damagable:
+#		if body.isBazookaOnly():
+#			body.doDamage(1.0)
 
 func _updateOnCollision(collisionNormal):
 	var power = pow(cellAttached.size(), 0.4) * 270.0

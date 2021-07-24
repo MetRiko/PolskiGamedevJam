@@ -14,10 +14,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/entities/logical/trigger/ControlledTrigger.gd"
 }, {
-"base": "Node2D",
+"base": "PhysicsBody2D",
 "class": "Damagable",
 "language": "GDScript",
 "path": "res://src/entities/logical/damage/damagable.gd"
+}, {
+"base": "SignalTriggerable",
+"class": "GravityField",
+"language": "GDScript",
+"path": "res://src/entities/logical/objects/GravityField.gd"
 }, {
 "base": "Node2D",
 "class": "LevelBase",
@@ -52,6 +57,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "ControlledTrigger": "",
 "Damagable": "",
+"GravityField": "",
 "LevelBase": "",
 "Liquid": "",
 "Player": "",
