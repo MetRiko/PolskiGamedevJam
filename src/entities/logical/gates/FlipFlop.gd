@@ -12,9 +12,10 @@ var state = null
 var selfstate = null
 
 func _ready():
-	self.node  = get_node(source)
-	self.state = node.is_on()
-	self.selfstate = initial_state
+	if Engine.editor_hint == false:
+		self.node  = get_node(source)
+		self.state = node.is_on()
+		self.selfstate = initial_state
 
 
 func _draw():
