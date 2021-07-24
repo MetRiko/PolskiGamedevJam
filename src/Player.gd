@@ -92,6 +92,8 @@ func _updateHorizontalMovement(delta):
 			dir.x -= 1.0
 		if Input.is_action_pressed("move_right"):
 			dir.x += 1.0
+		if Input.is_action_pressed("move_down"):
+			impulse(Vector2.DOWN * 10.0)
 
 	if floor(dir.x) != 0:
 		var currSpeed = abs(linearVelocity.x)
@@ -139,11 +141,12 @@ func _process(delta):
 #		dash(vel, 0.3, 30.0)
 
 func _updateHigherJump():
-	if $JumpTimer.is_stopped() == false:
-		var timerProgress = 1.0 - ($JumpTimer.time_left / $JumpTimer.wait_time)
-		if timerProgress > 0.3:
-			if Input.is_action_pressed("jump"):
-				impulse(Vector2.UP * 16.0)
+	if controlsEnabled == true:
+		if $JumpTimer.is_stopped() == false:
+			var timerProgress = 1.0 - ($JumpTimer.time_left / $JumpTimer.wait_time)
+			if timerProgress > 0.3:
+				if Input.is_action_pressed("jump"):
+					impulse(Vector2.UP * 16.0)
 
 func _updateAnimations():
 
