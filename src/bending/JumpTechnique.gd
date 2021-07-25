@@ -111,9 +111,12 @@ func _physics_process(delta):
 #	if bendingCtrl.attractMode == true:
 	var targetPos = player.global_position + Vector2(0.0, 24.0)
 	for cell in cellsForJump:
-		var vec = targetPos - cell.global_position
-		var vel = vec.normalized() * clamp(vec.length_squared(), 0.0, 120.0)
-		cell.impulse(vel)
+		if is_instance_valid(cell):
+			var vec = targetPos - cell.global_position
+			var vel = vec.normalized() * clamp(vec.length_squared(), 0.0, 120.0)
+			cell.impulse(vel)
+		else:
+			cellsForJump.erase(cell)
 
 	if Input.is_action_just_pressed("jump"):
 		if cellsForJump.size() > 0:

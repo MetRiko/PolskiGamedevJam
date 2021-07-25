@@ -10,9 +10,9 @@ var unlockedBending = true
 var unlockedBullets = true
 var unlockedFists = true
 var unlockedShield = true
-var unlockedBetterBending = false
+var unlockedBetterBending = true
 var unlockedMultiJump = true
-var unlockedLiquidMaster = false
+var unlockedLiquidMaster = true
 var unlockedSword = false
 
 func isSkillUnlocked(skillId : int):
