@@ -23,6 +23,7 @@ func damagePlayer(value : float, knockback : Vector2 = Vector2.ZERO):
 		addPlayerHp(-damageAfterReduce)
 	var player = world.getPlayer()
 	player.impulse(knockback)
+	return damageAfterReduce > 0
 
 func addPlayerMaxHp(value : float):
 	setPlayerMaxHp(maxPlayerHp + value)

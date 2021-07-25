@@ -78,13 +78,14 @@ func _updateForces(delta):
 	
 	if damageFromSpikes == true:
 		damageFromSpikes = false
-		Game.getWorld().getGameplay().damagePlayer(4.0, spikesKnockback)
-		# Animation damage
-		$DamageTween.interpolate_property($Sprite, "modulate:r", null, 5.0, 0.1, Tween.TRANS_SINE, Tween.EASE_OUT)
-		$DamageTween.start()
-		yield($DamageTween, "tween_all_completed")
-		$DamageTween.interpolate_property($Sprite, "modulate:r", null, 1.0, 0.2, Tween.TRANS_SINE, Tween.EASE_IN)
-		$DamageTween.start()
+		var damaged = Game.getWorld().getGameplay().damagePlayer(4.0, spikesKnockback)
+		if damaged == true:
+			# Animation damage
+			$DamageTween.interpolate_property($Sprite, "modulate:r", null, 5.0, 0.1, Tween.TRANS_SINE, Tween.EASE_OUT)
+			$DamageTween.start()
+			yield($DamageTween, "tween_all_completed")
+			$DamageTween.interpolate_property($Sprite, "modulate:r", null, 1.0, 0.2, Tween.TRANS_SINE, Tween.EASE_IN)
+			$DamageTween.start()
 
 func _updateCollisionWithObjects(collision, delta):
 	if collision:
