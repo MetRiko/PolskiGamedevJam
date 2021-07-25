@@ -63,16 +63,17 @@ func _onBodyEntered(body):
 	
 func _physics_process(delta):
 	var modif = 1.0
-	if skillUnlocked == true:
+	if skillUnlocked == false:
 		modif = 0.1
-	for cell in cells:
-		if is_instance_valid(cell):
-			var vec = (global_position - cell.global_position)
-			var power = pow(vec.length() / 10.0, 2.0)
-			cell.impulse(vec.normalized() * power * modif)
+		for cell in cells:
+			if is_instance_valid(cell):
+				var vec = (global_position - cell.global_position)
+				var power = pow(vec.length() / 10.0, 2.0)
+				cell.impulse(vec.normalized() * power * modif)
 
 func onTimer():
-	for cell in cells:
-		if is_instance_valid(cell):
-			cell.impulse(Vector2.LEFT.rotated(rand_range(0.0, 2 * PI)) * 80.0)
+	if skillUnlocked == false:
+		for cell in cells:
+			if is_instance_valid(cell):
+				cell.impulse(Vector2.LEFT.rotated(rand_range(0.0, 2 * PI)) * 80.0)
 	
