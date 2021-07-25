@@ -40,6 +40,7 @@ func killPlayer():
 	player.visible = false
 	player.switchControls(false)
 	player.switchGravity(false)
+	player.linearVelocity = Vector2()
 	world.getBendingController().disableAllTechniques()
 
 	for i in range(30.0):

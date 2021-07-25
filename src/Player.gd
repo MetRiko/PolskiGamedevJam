@@ -45,6 +45,9 @@ func setLinearVelocity(value : Vector2):
 func getLinearVelocity():
 	return linearVelocity
 
+var latestVel := Vector2()
+var damageFromSpikes = false
+
 func _updateForces(delta):
 	for imp in impulsesToApply:
 		forces.append(imp)
@@ -61,11 +64,36 @@ func _updateForces(delta):
 	
 	isOnFloorAfterMove = is_on_floor() || $GroundDetector.get_overlapping_bodies().size() > 0
 	
+	latestVel = linearVelocity
+	
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
 		var normal = collision.normal
 		var vel = -linearVelocity.project(-normal)
 		linearVelocity += vel
+
+		_updateCollisionWithObjects(collision, delta)
+	
+	if damageFromSpikes == true:
+		damageFromSpikes = false
+		Game.getWorld().getGameplay().addPlayerHp(-4.0)
+		# Animation damage
+		$DamageTween.interpolate_property($Sprite, "modulate:r", null, 5.0, 0.1, Tween.TRANS_SINE, Tween.EASE_OUT)
+		$DamageTween.start()
+		yield($DamageTween, "tween_all_completed")
+		$DamageTween.interpolate_property($Sprite, "modulate:r", null, 1.0, 0.2, Tween.TRANS_SINE, Tween.EASE_IN)
+		$DamageTween.start()
+
+func _updateCollisionWithObjects(collision, delta):
+	if collision:
+		var collider = collision.collider
+		if collider != null:
+			var normal = collision.normal
+			var spikeBit = collider.get_collision_layer_bit(6)
+			if spikeBit == true:
+				linearVelocity += normal * 150.0 * delta * 60.0 #linearVelocity.length()
+				damageFromSpikes = true
+				
 
 func impulse(vel):
 	impulsesToApply.append(vel)

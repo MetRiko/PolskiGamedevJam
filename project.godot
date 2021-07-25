@@ -182,6 +182,7 @@ Interact={
 2d_physics/layer_3="Liquid"
 2d_physics/layer_4="Enemy"
 2d_physics/layer_5="DisabledLiquid"
+2d_physics/layer_7="Spikes"
 
 [physics]
 
