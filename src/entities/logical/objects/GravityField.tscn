@@ -36,6 +36,7 @@ maxRange = 42
 material = SubResource( 1 )
 position = Vector2( 0, -8 )
 amount = 12
+visibility_rect = Rect2( -100, -350, 200, 400 )
 process_material = SubResource( 2 )
 texture = ExtResource( 3 )
 

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://src/entities/logical/gates/OrGate.gd" type="Script" id=1]
 
-
 [node name="OrGate" type="Node2D"]
 position = Vector2( 372.517, 158.929 )
 script = ExtResource( 1 )
+debug_hints = false

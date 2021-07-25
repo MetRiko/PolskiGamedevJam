@@ -38,12 +38,14 @@ corner_radius_bottom_left = 5
 [node name="Lever" type="Node2D"]
 position = Vector2( 740.825, 319.902 )
 script = ExtResource( 1 )
+debug_hints = false
 actionableDistance = 32.0
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
 
 [node name="Panel" type="Panel" parent="."]
+visible = false
 margin_left = -26.3779
 margin_top = -74.0825
 margin_right = 13.6221

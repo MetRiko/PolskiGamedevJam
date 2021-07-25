@@ -1,6 +1,6 @@
 extends Node
 
-var editorHints = true
+var editorHints = false
 
 onready var root = get_tree().get_root().get_node("Root")
 onready var world = root.getWorld()
