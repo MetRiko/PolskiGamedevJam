@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://src/tiles/BasicTileSet.tres" type="TileSet" id=1]
 [ext_resource path="res://src/core/World.gd" type="Script" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://src/entities/symbols/SkillSymbol.tscn" type="PackedScene" id=24]
 [ext_resource path="res://src/entities/logical/gates/NotGate.tscn" type="PackedScene" id=25]
 [ext_resource path="res://src/entities/spawners/LiquidSpawner.tscn" type="PackedScene" id=26]
+[ext_resource path="res://src/entities/symbols/SkillPickup.tscn" type="PackedScene" id=27]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.398773 )
@@ -107,6 +108,9 @@ skillId = 5
 [node name="SkillSymbol7" parent="Symbols" instance=ExtResource( 24 )]
 position = Vector2( 1488, -360 )
 skillId = 6
+
+[node name="SkillPickup" parent="Symbols" instance=ExtResource( 27 )]
+position = Vector2( 384, -80 )
 
 [node name="Liquid" type="Node2D" parent="."]
 

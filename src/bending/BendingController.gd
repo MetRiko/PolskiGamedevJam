@@ -12,8 +12,27 @@ var unlockedFists = true
 var unlockedShield = true
 var unlockedBetterBending = true
 var unlockedMultiJump = true
-var unlockedLiquidMaster = true
+var unlockedLiquidMaster = false
 var unlockedSword = false
+
+func unlockSkill(skillId : int, flag : bool = true):
+	match skillId:
+		0:
+			unlockedBending = flag
+		1:
+			unlockedBullets = flag
+		2:
+			unlockedFists = flag
+		3:
+			unlockedShield = flag
+		4:
+			unlockedBetterBending = flag
+		5:
+			unlockedMultiJump = flag
+		6:
+			unlockedLiquidMaster = flag
+		7:
+			unlockedSword = flag
 
 func isSkillUnlocked(skillId : int):
 	match skillId:
