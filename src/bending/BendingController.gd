@@ -6,6 +6,35 @@ var indicatorRotationSpeed = 0.1
 
 var focusLevel := 4
 
+var unlockedBending = true
+var unlockedBullets = true
+var unlockedFists = true
+var unlockedShield = true
+var unlockedBetterBending = false
+var unlockedMultiJump = true
+var unlockedLiquidMaster = false
+var unlockedSword = false
+
+func isSkillUnlocked(skillId : int):
+	match skillId:
+		0:
+			return unlockedBending
+		1:
+			return unlockedBullets
+		2:
+			return unlockedFists
+		3:
+			return unlockedShield
+		4:
+			return unlockedBetterBending
+		5:
+			return unlockedMultiJump
+		6:
+			return unlockedLiquidMaster
+		7:
+			return unlockedSword
+	return false
+
 func setFocusLevel(level : int):
 	focusLevel = level
 
@@ -14,6 +43,7 @@ func getIndicator():
 
 func _ready():
 	randomize()
+	$LiquidMasterTimer.connect("timeout", self, "_onLiquidMasterTimer")
 	
 func getBendingTechnique():
 	return $BendingTechnique
@@ -33,6 +63,10 @@ func getSwordTechnique():
 func getFistsTechnique():
 	return $FistsTechnique
 	
+var enableFists = false
+var enableShield = false
+var enableBending = false
+	
 func _process(delta):
 	_updateIndicatorPos()
 	
@@ -43,9 +77,13 @@ func _process(delta):
 	var shieldTech = getShieldTechnique()
 	var fistsTech = getFistsTechnique()
 	
-	var enableFists = (lmb and not rmb) or (lmb and fistsTech.swordMode == true)
-	var enableShield = lmb and rmb and fistsTech.swordMode == false
-	var enableBending = not lmb and rmb
+	enableFists = (lmb and not rmb) or (lmb and fistsTech.swordMode == true)
+	enableShield = lmb and rmb and fistsTech.swordMode == false
+	enableBending = not lmb and rmb
+	
+	enableFists = enableFists and unlockedFists
+	enableShield = enableShield and unlockedShield
+	enableBending = enableBending and unlockedBending
 	
 	bendingTech.changeAttractMode(enableBending)
 	fistsTech.changeSwordMode(enableFists)
@@ -54,9 +92,18 @@ func _process(delta):
 	var indicatorSprite = $Indicator/Sprite
 	indicatorSprite.rotate(indicatorRotationSpeed * 60.0 * delta)
 
+func _onLiquidMasterTimer():
+	if unlockedLiquidMaster:
+		if enableFists or enableShield or enableBending:
+			var world = Game.getWorld()
+			var pos = $Indicator.global_position
+			world.createLiquidCell(pos)
+
 # ----------- Indicator -----------
 
 func _updateIndicatorPos():
+	
+	$Indicator.visible = unlockedBending
 	
 	var bendingTech = getBendingTechnique()
 	var shieldTech = getShieldTechnique()

@@ -10,6 +10,11 @@ var thickness := 12.0
 func getColorId():
 	return colorId
 
+func changeColliderRadius(radius):
+	var collider = $CollisionShape2D
+	collider.shape = collider.shape.duplicate()
+	collider.shape.radius = radius
+
 func changeColor(newColorId : int):
 	colorId = newColorId
 	var isNormalCell = colorId == 0

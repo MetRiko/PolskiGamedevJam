@@ -59,9 +59,10 @@ func _process(delta):
 	_updateAttractorsPos()
 	
 	if player.isOnFloor == false:
-		if shouldUpdateCellsForJump == true:
-			shouldUpdateCellsForJump = false
-			_updateCellsForJump()
+		if bendingCtrl.unlockedMultiJump:
+			if shouldUpdateCellsForJump == true:
+				shouldUpdateCellsForJump = false
+				_updateCellsForJump()
 	else:
 		_clearCellsForJump()
 	

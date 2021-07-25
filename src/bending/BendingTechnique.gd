@@ -32,6 +32,11 @@ func detachRandomCells(maxAmount : int):
 	return randomCells
 
 func attachCell(cell):
+	
+	var maxCells = 1000 if bendingCtrl.unlockedBetterBending else 40
+	if attractedCells.size() >= maxCells:
+		return
+	
 	if cell.getColorId() == 0:
 		var cellId = cell.get_instance_id()
 		var cellData = attractedCells.get(cellId)

@@ -191,3 +191,7 @@ wait_time = 2.5
 one_shot = true
 
 [node name="LoadingTween" type="Tween" parent="FistsTechnique"]
+
+[node name="LiquidMasterTimer" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true

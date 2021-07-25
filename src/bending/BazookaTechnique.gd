@@ -8,8 +8,9 @@ func _ready():
 	bendingCtrl.getBendingTechnique().connect("attract_mode_changed", self, "onAttractModeChanged")
 
 func onAttractModeChanged(state):
-	if state == false:
-		_tryShoot()
+	if bendingCtrl.unlockedBullets:
+		if state == false:
+			_tryShoot()
 
 func _tryShoot():
 	
@@ -39,6 +40,8 @@ func shoot(dir):
 	var vel = dir * 850.0
 #	var vel = dir * 200.0
 #	bullet.impulse(vel)
+	
+	var maxBullets = 200 if bendingCtrl.unlockedBetterBending else 40 
 	
 	var cells = bendingCtrl.getBendingTechnique().detachRandomCells(200)
 	for cell in cells:

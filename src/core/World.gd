@@ -24,6 +24,9 @@ func getCamera():
 func getCurrentLevel():
 	return currentLevel
 
+func getBendingController():
+	return $BendingController
+
 func getLiquidCells():
 	return $Liquid/LiquidCells.get_children()
 
@@ -62,17 +65,26 @@ func _moveSpawnersToLevels():
 		spawner.get_parent().remove_child(spawner)
 		level.addSpawner(spawner)
 		spawner.global_position = mem
+		
+	for spawner in $Symbols.get_children():
+		var idx = convertPosToLevelIdx(spawner.global_position)
+		var level = getLevelFromIdx(idx)
+		var mem = spawner.global_position
+		spawner.get_parent().remove_child(spawner)
+		level.addSpawner(spawner)
+		spawner.global_position = mem
 	
 func _onLiquidDebugTimer():
 	if Input.is_action_pressed("num_1"):
 		createLiquidCell(get_global_mouse_position())
 
 func createLiquidCell(pos : Vector2):
-	print(pos)
+#	print(pos)
 	var cell = sceneLiquidCell.instance()
 	$Liquid/LiquidCells.add_child(cell)
 	cell.global_position = pos
 #	print($Liquid/LiquidCells.get_child_count())
+	return cell
 
 	
 func getPlayer():
@@ -302,6 +314,7 @@ func _physics_process(delta):
 
 func _process(delta):
 	$Camera2D._local_process(delta)
+	$Camera2D.force_update_scroll()
 	$Postprocess._local_process(delta)
 	if levelSwitchingEnabled == true:
 		_updateMovingBetweenLevels()

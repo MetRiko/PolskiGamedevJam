@@ -48,6 +48,11 @@ func _calculateLocalSquarePos(pointAngle : float, radius : float, squareAngle : 
 	return vec
 
 func focusCell(cell):
+	
+	var maxFists = 100 if bendingCtrl.unlockedBetterBending else 4
+	if fists.size() > maxFists:
+		return
+	
 	if cell.getColorId() == 0:# and swordedCells.size() < maxSwordRange:
 		var cellId = cell.get_instance_id()
 		var cellData = swordedCells.get(cellId)
@@ -118,7 +123,7 @@ func _onFocusTimer():
 		for cell in cells:
 			if cell.getColorId() == 0:
 				normalCells.append(cell)
-		var randomCells = Utils.getRandomElementsFromArray(normalCells, (randi() % 3) + 2)
+		var randomCells = Utils.getRandomElementsFromArray(normalCells, (randi() % 4) + 3)
 		for cell in randomCells:
 			focusCell(cell)
 
@@ -196,6 +201,7 @@ func easeOutSine(x : float):
 var additionalTime = 0.0
 
 func _physics_process(delta):
+	
 	var indicatorPos = indicator.global_position
 
 	var player = Game.getPlayer()
@@ -354,7 +360,7 @@ func _shootShotgun():
 		cell.enableGravity()
 		cell.impulse(vel)
 		
-	var power = 40.0 + 65.0 * clamp(fists.size() - 1, 0.0, 5.0)
+	var power = 40.0 + 65.0 * clamp(fists.size() - 1, 0.0, 6.0)
 	player.linearVelocity = Vector2()
 	player.impulse(-vec.normalized() * power)
 #	player.dash(-vec.normalized() * power * 1.3, 0.2, 5.0)
@@ -466,6 +472,7 @@ func disableSwordMode():
 			_resetCell(cell)
 		
 		freeOrders = []
+		fists = []
 		fistsCount = 0
 		
 		emit_signal("sword_mode_changed", false)
