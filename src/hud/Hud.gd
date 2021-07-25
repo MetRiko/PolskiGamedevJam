@@ -22,6 +22,8 @@ func _ready():
 	$DeathScreen/Labels.modulate.a = 0.0
 
 func _onHpChanged(hp, maxHp):
+	if $HpBar/Tween.is_active():
+		yield($HpBar/Tween, "tween_all_completed")
 	$HpBar/Tween.interpolate_property(progress, "value", null, hp, 0.2, Tween.TRANS_SINE, Tween.EASE_OUT)
 	$HpBar/Tween.start()
 #	progress.value = hp
@@ -29,6 +31,8 @@ func _onHpChanged(hp, maxHp):
 func _onMaxHpChanged(hp, maxHp):
 #	progress.max_value = maxHp
 #	progress.rect_size.x = baseWidth + maxHp
+	if $HpBar/Tween.is_active():
+		yield($HpBar/Tween, "tween_all_completed")
 	$HpBar/Tween.interpolate_property(progress, "max_value", null, maxHp, 0.3, Tween.TRANS_SINE, Tween.EASE_IN)
 	$HpBar/Tween.interpolate_property(progress, "rect_size:x", null, maxHp * 4.0, 0.3, Tween.TRANS_SINE, Tween.EASE_IN)
 	$HpBar/Tween.start()
