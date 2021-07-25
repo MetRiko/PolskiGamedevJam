@@ -130,6 +130,12 @@ func _onLiquidMasterTimer():
 			var pos = $Indicator.global_position
 			world.createLiquidCell(pos)
 
+func reduceDamage(value : float, knockback : Vector2):
+	var shieldTech = getShieldTechnique()
+	var damageAfterReduce = shieldTech.reduceDamage(value, knockback)
+#	var damageAfterReduce = value
+	return damageAfterReduce
+
 # ----------- Indicator -----------
 
 func _updateIndicatorPos():

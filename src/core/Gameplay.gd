@@ -15,6 +15,15 @@ func _ready():
 func addPlayerHp(value : float):
 	setPlayerHp(playerHp + value)
 
+func damagePlayer(value : float, knockback : Vector2 = Vector2.ZERO):
+	var world = get_parent()
+	var bendingCtrl = world.getBendingController()
+	var damageAfterReduce = bendingCtrl.reduceDamage(value, knockback)
+	if damageAfterReduce > 0.0:
+		addPlayerHp(-damageAfterReduce)
+	var player = world.getPlayer()
+	player.impulse(knockback)
+
 func addPlayerMaxHp(value : float):
 	setPlayerMaxHp(maxPlayerHp + value)
 	

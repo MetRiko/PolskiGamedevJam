@@ -4,7 +4,7 @@
 [ext_resource path="res://src/Player.gd" type="Script" id=2]
 [ext_resource path="res://src/player/LiquidImpulsor.gd" type="Script" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 7, 7 )
 
 [sub_resource type="CircleShape2D" id=2]
@@ -95,7 +95,7 @@ frame = 17
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 modulate = Color( 0.592157, 0.32549, 0.858824, 1 )
 position = Vector2( 0, 8 )
-shape = SubResource( 1 )
+shape = SubResource( 8 )
 
 [node name="LiquidImpulsor" type="Area2D" parent="."]
 position = Vector2( 0, 8 )

@@ -7,6 +7,8 @@ var focusedCells = {}
 
 var maxFocusRange = 30.0
 
+var disabledCells = []
+
 onready var bendingCtrl = get_parent()
 onready var indicator = get_parent().getIndicator()
 onready var focusArea = $"../Indicator/FocusModeArea2D"
@@ -40,8 +42,8 @@ func defocusCell(cell):
 	#	cell.enableCollisionWithCells()
 		_resetCell(cell)
 
-func _resetCell(cell):
-	cell.changeColor(0)
+func _resetCell(cell, color : int = 0):
+	cell.changeColor(color)
 	cell.enableGravity()
 	cell.resetDamp()
 	cell.enableCollisionWithCells()
@@ -53,7 +55,7 @@ func _onFocusTimer():
 		for cell in cells:
 			if cell.getColorId() == 0:
 				normalCells.append(cell)
-		var randomCells = Utils.getRandomElementsFromArray(normalCells, (randi() % 3) + 1)
+		var randomCells = Utils.getRandomElementsFromArray(normalCells, (randi() % 2) + 1)
 		for cell in randomCells:
 			focusCell(cell)
 		
@@ -79,6 +81,46 @@ func _physics_process(delta):
 		
 #		if vec.length_squared() > 400.0:
 		cell.impulse(finalVec.normalized() * power)
+		
+		if finalVec.length() > 100.0:
+			defocusCell(cell)
+	
+func reduceDamage(value : float, knockback : Vector2):
+	var cells = getCellsFromAngle(-knockback, PI * 0.25)
+	var cellsNeeded = min(floor(value), cells.size())
+	
+	for i in range(cellsNeeded):
+		var cell = cells[i]
+		disableCell(cell)
+		cell.impulse(knockback * 4.0)
+		
+	var damageAfterReduce = value - cellsNeeded
+	
+	return damageAfterReduce
+	
+func getCellsFromAngle(vec : Vector2, spread : float):
+	var searchedCells = []
+	
+	var player = Game.getPlayer()
+	
+	for cellData in focusedCells.values():
+		var cell = cellData.cell
+		var cellVec = cell.global_position - player.global_position
+		
+		var angleBetween = abs(cellVec.angle_to(vec))
+		if angleBetween <= spread:
+			searchedCells.append(cell)
+	
+	return searchedCells
+	
+func disableCell(cellToDisable):
+	var cellId = cellToDisable.get_instance_id()
+	var cellData = focusedCells.get(cellId)
+	if cellData:
+		focusedCells.erase(cellId)
+		disabledCells.append(cellToDisable)
+		_resetCell(cellToDisable, 4)
+		cellToDisable.intencity = 0.9
 	
 # ----------- Indicator -----------
 
@@ -132,6 +174,12 @@ func disableFocusMode():
 		for cellData in focusedCells.values():
 			var cell = cellData.cell
 			_resetCell(cell)
+		
+		for cell in disabledCells:
+			_resetCell(cell)
+			cell.intencity = 1.0
+			
+		disabledCells = []
 		
 		emit_signal("focus_mode_changed", false)
 		
