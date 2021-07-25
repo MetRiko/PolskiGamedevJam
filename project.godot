@@ -34,11 +34,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/liquid/LiquidCell.gd"
 }, {
-"base": "KinematicBody2D",
-"class": "Player",
-"language": "GDScript",
-"path": "res://src/Player.gd"
-}, {
 "base": "Triggerable",
 "class": "SignalTriggerable",
 "language": "GDScript",
@@ -60,7 +55,6 @@ _global_script_class_icons={
 "GravityField": "",
 "LevelBase": "",
 "Liquid": "",
-"Player": "",
 "SignalTriggerable": "",
 "Trigger": "",
 "Triggerable": ""

@@ -5843,74 +5843,74 @@ position = Vector2( 2324.82, 2719.9 )
 
 [node name="GravityField" parent="Interactables/Final Interactables/Grav Well" instance=ExtResource( 9 )]
 position = Vector2( -2184, -24 )
-connection = NodePath("../../Logic/NotGate")
 maxRange = 275
+connection = NodePath("../../Logic/NotGate")
 
 [node name="GravityField2" parent="Interactables/Final Interactables/Grav Well" instance=ExtResource( 9 )]
 position = Vector2( -2040, 712 )
-connection = NodePath("../../Logic/NotGate")
 maxRange = 175
+connection = NodePath("../../Logic/NotGate")
 
 [node name="GravityField3" parent="Interactables/Final Interactables/Grav Well" instance=ExtResource( 9 )]
 position = Vector2( 120, 1640 )
-connection = NodePath("../../Levers/Lever4")
 maxRange = 650
+connection = NodePath("../../Levers/Lever4")
 
 [node name="GravityField5" parent="Interactables/Final Interactables/Grav Well" instance=ExtResource( 9 )]
 position = Vector2( 2232, 344 )
-connection = NodePath("../../Logic/NotGate")
 maxRange = 800
+connection = NodePath("../../Logic/NotGate")
 
 [node name="GravityField6" parent="Interactables/Final Interactables/Grav Well" instance=ExtResource( 9 )]
 position = Vector2( 2264, 344 )
-connection = NodePath("../../Logic/NotGate")
 maxRange = 800
+connection = NodePath("../../Logic/NotGate")
 
 [node name="GravityField7" parent="Interactables/Final Interactables/Grav Well" instance=ExtResource( 9 )]
 position = Vector2( 2296, 344 )
-connection = NodePath("../../Logic/NotGate")
 maxRange = 800
+connection = NodePath("../../Logic/NotGate")
 
 [node name="GravityField4" parent="Interactables/Final Interactables/Grav Well" instance=ExtResource( 9 )]
 position = Vector2( 760, 536 )
-connection = NodePath("../../Buttons/Button2")
 maxRange = 350
+connection = NodePath("../../Buttons/Button2")
 
 [node name="GravityField8" parent="Interactables/Final Interactables/Grav Well" instance=ExtResource( 9 )]
 position = Vector2( 2488, -760 )
-connection = NodePath("../../Logic/NotGate")
 maxRange = 255
+connection = NodePath("../../Logic/NotGate")
 
 [node name="GravityField9" parent="Interactables/Final Interactables/Grav Well" instance=ExtResource( 9 )]
 position = Vector2( 2504, -1016 )
 rotation = 4.71239
-connection = NodePath("../../Levers/Lever3")
 maxRange = 500
+connection = NodePath("../../Levers/Lever3")
 
 [node name="GravityField10" parent="Interactables/Final Interactables/Grav Well" instance=ExtResource( 9 )]
 position = Vector2( 1352, -776 )
-connection = NodePath("../../Logic/NotGate")
 maxRange = 290
+connection = NodePath("../../Logic/NotGate")
 
 [node name="GravityField11" parent="Interactables/Final Interactables/Grav Well" instance=ExtResource( 9 )]
 position = Vector2( 1512, -776 )
-connection = NodePath("../../LDs/LiquidDetector7")
 maxRange = 150
+connection = NodePath("../../LDs/LiquidDetector7")
 
 [node name="GravityField12" parent="Interactables/Final Interactables/Grav Well" instance=ExtResource( 9 )]
 position = Vector2( 3800, 712 )
-connection = NodePath("../../Logic/NotGate")
 maxRange = 300
+connection = NodePath("../../Logic/NotGate")
 
 [node name="GravityField13" parent="Interactables/Final Interactables/Grav Well" instance=ExtResource( 9 )]
 position = Vector2( 3160, 1080 )
-connection = NodePath("../../Logic/NotGate")
 maxRange = 830
+connection = NodePath("../../Logic/NotGate")
 
 [node name="GravityField14" parent="Interactables/Final Interactables/Grav Well" instance=ExtResource( 9 )]
 position = Vector2( 3128, 1080 )
-connection = NodePath("../../Logic/NotGate")
 maxRange = 830
+connection = NodePath("../../Logic/NotGate")
 
 [node name="Placeholder sprites" type="Node2D" parent="Interactables"]
 
