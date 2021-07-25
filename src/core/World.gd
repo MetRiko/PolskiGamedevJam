@@ -27,6 +27,9 @@ func getCurrentLevel():
 func getBendingController():
 	return $BendingController
 
+func getGameplay():
+	return $Gameplay
+
 func getLiquidCells():
 	return $Liquid/LiquidCells.get_children()
 
