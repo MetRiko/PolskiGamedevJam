@@ -19,7 +19,7 @@ func setHp(value):
 func isBazookaOnly():
 	return bazookaOnly
 
-func doDamage(value):
+func doDamage(value, hitDir):
 	setHp(hp - value)
 		
 func kill():

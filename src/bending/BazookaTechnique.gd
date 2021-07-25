@@ -37,10 +37,13 @@ func shoot(dir):
 	bullet.global_position = indicator.global_position
 	
 	var vel = dir * 850.0
-	bullet.impulse(vel)
+#	var vel = dir * 200.0
+#	bullet.impulse(vel)
 	
 	var cells = bendingCtrl.getBendingTechnique().detachRandomCells(200)
 	for cell in cells:
 		bullet.attachCell(cell)
+		
+	bullet.shoot(vel)
 	
 	

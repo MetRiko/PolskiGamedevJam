@@ -7,7 +7,7 @@
 extents = Vector2( 8, 8 )
 
 [sub_resource type="PhysicsMaterial" id=3]
-bounce = 0.2
+friction = 1.5
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 3.11777
@@ -26,12 +26,14 @@ vframes = 10
 frame = 24
 
 [node name="Particles" type="Node2D" parent="."]
+z_index = 1
 
 [node name="RigidBody2D" type="RigidBody2D" parent="Particles"]
 position = Vector2( -4, -4 )
 collision_layer = 0
+collision_mask = 0
 physics_material_override = SubResource( 3 )
-gravity_scale = 5.12
+gravity_scale = 16.0
 continuous_cd = 1
 can_sleep = false
 
@@ -47,8 +49,9 @@ shape = SubResource( 2 )
 [node name="RigidBody2D2" type="RigidBody2D" parent="Particles"]
 position = Vector2( 4, -4 )
 collision_layer = 0
+collision_mask = 0
 physics_material_override = SubResource( 3 )
-gravity_scale = 5.12
+gravity_scale = 16.0
 continuous_cd = 1
 can_sleep = false
 
@@ -64,8 +67,9 @@ shape = SubResource( 2 )
 [node name="RigidBody2D3" type="RigidBody2D" parent="Particles"]
 position = Vector2( -4, 4 )
 collision_layer = 0
+collision_mask = 0
 physics_material_override = SubResource( 3 )
-gravity_scale = 5.12
+gravity_scale = 16.0
 continuous_cd = 1
 can_sleep = false
 
@@ -81,8 +85,9 @@ shape = SubResource( 2 )
 [node name="RigidBody2D4" type="RigidBody2D" parent="Particles"]
 position = Vector2( 4, 4 )
 collision_layer = 0
+collision_mask = 0
 physics_material_override = SubResource( 3 )
-gravity_scale = 5.12
+gravity_scale = 16.0
 continuous_cd = 1
 can_sleep = false
 
@@ -94,3 +99,5 @@ frame = 53
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Particles/RigidBody2D4"]
 shape = SubResource( 2 )
+
+[node name="Tween" type="Tween" parent="."]
