@@ -30,6 +30,12 @@ func getBendingController():
 func getGameplay():
 	return $Gameplay
 
+func killPlayer():
+	$PlayerSpawner.killPlayer()
+	
+func respawnPlayer():
+	$PlayerSpawner.spawnPlayer()
+
 func getLiquidCells():
 	return $Liquid/LiquidCells.get_children()
 
@@ -58,6 +64,12 @@ func _ready():
 	$Camera2D.setTarget(getPlayer())
 	
 	$Liquid/LiquidDebugTimer.connect("timeout", self, "_onLiquidDebugTimer")
+	
+	$Gameplay.connect("player_died", self, "_onPlayerDied")
+	
+func _onPlayerDied():
+	killPlayer()
+	
 #	switchLevel(level)
 
 func _moveSpawnersToLevels():
@@ -93,13 +105,13 @@ func createLiquidCell(pos : Vector2):
 func getPlayer():
 	return $Player
 	
-func switchLevel(level):
+func switchLevel(level, instaCamera : bool = false):
 	if level != currentLevel:
 		if currentLevel != null:
 			currentLevel.disable()
 
 		level.enable()
-		var instaCameraSwitch : bool = currentLevel == null
+		var instaCameraSwitch : bool = currentLevel == null or instaCamera
 		_setupCamera(level.getBorder(), instaCameraSwitch)
 	#	$Camera2D.setTarget(getPlayer())
 		

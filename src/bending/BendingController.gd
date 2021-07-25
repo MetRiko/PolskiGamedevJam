@@ -82,6 +82,18 @@ func getSwordTechnique():
 func getFistsTechnique():
 	return $FistsTechnique
 	
+var skillMem = []
+	
+func disableAllTechniques():
+	skillMem = []
+	for i in range(8):
+		skillMem.append(isSkillUnlocked(i))
+		unlockSkill(i, false)
+	
+func enableAllTechniques():
+	for i in range(skillMem.size()):
+		unlockSkill(i, skillMem[i])
+	
 var enableFists = false
 var enableShield = false
 var enableBending = false
