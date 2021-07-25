@@ -6,12 +6,12 @@ var indicatorRotationSpeed = 0.1
 
 var focusLevel := 4
 
-var unlockedBending = true
-var unlockedBullets = true
-var unlockedFists = true
-var unlockedShield = true
-var unlockedBetterBending = true
-var unlockedMultiJump = true
+var unlockedBending = false
+var unlockedBullets = false
+var unlockedFists = false
+var unlockedShield = false
+var unlockedBetterBending = false
+var unlockedMultiJump = false
 var unlockedLiquidMaster = false
 var unlockedSword = false
 
