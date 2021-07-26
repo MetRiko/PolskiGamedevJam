@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/bullet.wav-3c45a7fe77b228d3fe826e53d2001954.sample"
+path="res://.import/shotgun.wav-68e985a99bfb01e067089dafc398895d.sample"
 
 [deps]
 
-source_file="res://audio assets/bullet.wav"
-dest_files=[ "res://.import/bullet.wav-3c45a7fe77b228d3fe826e53d2001954.sample" ]
+source_file="res://res/audio/shotgun.wav"
+dest_files=[ "res://.import/shotgun.wav-68e985a99bfb01e067089dafc398895d.sample" ]
 
 [params]
 

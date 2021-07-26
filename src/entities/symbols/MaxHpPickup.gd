@@ -43,6 +43,10 @@ func spawn(spawnNewCells = true):
 func _onBodyEntered(body):
 	if body is Player:
 		if orbPicked == false:
+			
+			Game.getSoundController().playNextModuleSound()
+			Game.currHpOrbs += 1
+			
 			#add hp
 			var world = Game.getWorld()
 			var gameplay = world.getGameplay()

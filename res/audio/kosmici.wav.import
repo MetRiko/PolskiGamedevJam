@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/optional.wav-0a7b92ad2fe67e84f1989e88acd9a266.sample"
+path="res://.import/kosmici.wav-0bd3fd5e21662a6d4efda0b3794172b0.sample"
 
 [deps]
 
-source_file="res://audio assets/optional.wav"
-dest_files=[ "res://.import/optional.wav-0a7b92ad2fe67e84f1989e88acd9a266.sample" ]
+source_file="res://res/audio/kosmici.wav"
+dest_files=[ "res://.import/kosmici.wav-0bd3fd5e21662a6d4efda0b3794172b0.sample" ]
 
 [params]
 

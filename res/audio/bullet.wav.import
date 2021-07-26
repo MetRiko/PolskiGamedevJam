@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/multijump.wav-735fdbad3ba39d78979e9da0a3de6e0d.sample"
+path="res://.import/bullet.wav-021c586436b197378378b03df631a6b4.sample"
 
 [deps]
 
-source_file="res://audio assets/multijump.wav"
-dest_files=[ "res://.import/multijump.wav-735fdbad3ba39d78979e9da0a3de6e0d.sample" ]
+source_file="res://res/audio/bullet.wav"
+dest_files=[ "res://.import/bullet.wav-021c586436b197378378b03df631a6b4.sample" ]
 
 [params]
 

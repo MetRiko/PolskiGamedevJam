@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/module 2.wav-8236d11d220e5163c1f90c85eb968fab.sample"
+path="res://.import/melee.wav-f6258a2ae708ad3a3213e5b005850a5c.sample"
 
 [deps]
 
-source_file="res://audio assets/module 2.wav"
-dest_files=[ "res://.import/module 2.wav-8236d11d220e5163c1f90c85eb968fab.sample" ]
+source_file="res://res/audio/melee.wav"
+dest_files=[ "res://.import/melee.wav-f6258a2ae708ad3a3213e5b005850a5c.sample" ]
 
 [params]
 

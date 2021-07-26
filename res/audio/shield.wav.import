@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/shield.wav-1399aa3dfaf563236742973405848584.sample"
+path="res://.import/shield.wav-f69200cb11aee36b747e6a2f0aa06d1c.sample"
 
 [deps]
 
-source_file="res://audio assets/shield.wav"
-dest_files=[ "res://.import/shield.wav-1399aa3dfaf563236742973405848584.sample" ]
+source_file="res://res/audio/shield.wav"
+dest_files=[ "res://.import/shield.wav-f69200cb11aee36b747e6a2f0aa06d1c.sample" ]
 
 [params]
 

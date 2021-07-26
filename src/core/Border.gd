@@ -35,9 +35,9 @@ func _draw():
 	
 	var corners = [leftTop, rightTop, rightBottom, leftBottom]
 	
-	for i in range(4):
-		var begin = corners[i]
-		var end = corners[(i + 1) % 4]
-		var color = Color.hotpink
-		color.a = 0.4
-		draw_line(begin, end, color, 2.0, true)
+#	for i in range(4):
+#		var begin = corners[i]
+#		var end = corners[(i + 1) % 4]
+#		var color = Color.hotpink
+#		color.a = 0.4
+#		draw_line(begin, end, color, 2.0, true)

@@ -79,10 +79,16 @@ func _onCellExited(cell):
 		cellData.attached = false
 
 func _onCellDetached(cell):
-	var id = cell.get_instance_id()
-	var obj = attractedCells.get(id)
-	if obj and obj.attached == false:
-		detachCell(cell, true)
+	if is_instance_valid(cell):
+		var id = cell.get_instance_id()
+		var obj = attractedCells.get(id)
+		if obj and obj.attached == false:
+			detachCell(cell, true)
+	else:
+		for cellId in attractedCells:
+			var cellData = attractedCells[cellId]
+			if not is_instance_valid(cellData.cell):
+				attractedCells.erase(cellId)
 
 func _physics_process(delta):
 	var indicatorPos = indicator.global_position

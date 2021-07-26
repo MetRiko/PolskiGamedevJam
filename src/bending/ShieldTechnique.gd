@@ -86,18 +86,20 @@ func _physics_process(delta):
 			defocusCell(cell)
 	
 func reduceDamage(value : float, knockback : Vector2):
-	var cells = getCellsFromAngle(-knockback, PI * 0.30)
-	var cellsNeeded = min(floor(value * 1.6), cells.size())
+	var cells = getCellsFromAngle(-knockback, PI) #PI * 0.30)
+#	var cellsNeeded = min(floor(value * 0.7), cells.size())
+	var damageLeft = value
+	var oneCellReduction = 1.3
 	
-	for i in range(cellsNeeded):
-		var cell = cells[i]
+	for cell in cells:
 		disableCell(cell)
 		cell.linear_velocity = Vector2()
 		cell.impulse(knockback.rotated(rand_range(-0.5, 0.5)) * 2.3)
-		
-	var damageAfterReduce = value - cellsNeeded
-	
-	return damageAfterReduce
+		damageLeft -= oneCellReduction
+		if damageLeft <= 0.0:
+			break
+			
+	return damageLeft
 	
 func getCellsFromAngle(vec : Vector2, spread : float):
 	var searchedCells = []

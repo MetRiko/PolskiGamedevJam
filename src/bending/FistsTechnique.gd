@@ -360,15 +360,15 @@ func _shootShotgun():
 		cell.enableGravity()
 		cell.impulse(vel)
 		
-	var power = 40.0 + 65.0 * clamp(fists.size() - 1, 0.0, 6.0)
-	player.linearVelocity = Vector2()
-	player.impulse(-vec.normalized() * power)
-#	player.dash(-vec.normalized() * power * 1.3, 0.2, 5.0)
+	var power = 60.0 + 82.0 * clamp(fists.size() - 1, 0.0, 6.0)
+#	player.linearVelocity = Vector2()
+#	player.impulse(-vec.normalized() * power)
+	player.dash(-vec.normalized() * power * 0.75, 0.14, 5.0)
 	
 	swordedCells = {}
 	fists = []
 	fistsCount = 0
-		
+	
 func _onShotgunTimer(cell):
 	cell.linear_velocity *= 0.9
 	_resetCell(cell)
@@ -424,7 +424,7 @@ func _updateIndicatorPosForSwordMode():
 	
 	var loadingProgresDis = clamp(loadingProgress - 0.5, 0.0, 1.0) * 2.0
 	
-	dis -= loadingProgresDis * maxSwordRange * 0.8
+	dis = max(dis - loadingProgresDis * maxSwordRange * 0.8, 0.1)
 	
 	var reducedVec = vec.normalized() * dis
 	var targetPos = player.global_position + reducedVec
@@ -474,6 +474,8 @@ func disableSwordMode():
 		freeOrders = []
 		fists = []
 		fistsCount = 0
+		_changeLoadingState(0)
+#		print('x')
 		
 		emit_signal("sword_mode_changed", false)
 		

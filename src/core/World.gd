@@ -333,6 +333,9 @@ func _process(delta):
 	$Postprocess._local_process(delta)
 	if levelSwitchingEnabled == true:
 		_updateMovingBetweenLevels()
+		
+	$OrbsCounter.text = "Zebrano modułów zdrowia: %s / %s" % [Game.currHpOrbs, Game.maxHpOrbs]
+		
 
 func convertPosToLevelIdx(pos : Vector2):
 	var idx = pos / (Vector2(1280.0, 736.0) * 0.5)

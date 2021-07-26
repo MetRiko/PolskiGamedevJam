@@ -158,7 +158,7 @@ func jump(power, higherJump := false):
 func _updateJump(delta):
 	if controlsEnabled == true:
 		if isOnFloor == true or $CoyoteTimer.is_stopped() == false:
-			if Input.is_action_just_pressed("jump"):
+			if Input.is_action_pressed("jump"):
 				jump(jumpPower * delta * 60.0, true)
 
 func _updateGravity(delta):
@@ -179,7 +179,7 @@ func _updateHigherJump():
 			var timerProgress = 1.0 - ($JumpTimer.time_left / $JumpTimer.wait_time)
 			if timerProgress > 0.3:
 				if Input.is_action_pressed("jump"):
-					impulse(Vector2.UP * 16.0)
+					impulse(Vector2.UP * 17.0)
 
 func _updateAnimations():
 
@@ -201,8 +201,11 @@ func _updateAnimations():
 	
 func _ready():
 	$DashTimer.connect("timeout", self, "_onDashTimer")
-			
+
+var latestDashArgs = []
+
 func dash(vel, disableTime := 0.2, dampForDash := 1.0):
+	latestDashArgs = [vel, disableTime, dampForDash]
 	# gravity disable
 	switchGravity(false)
 	# damp changed
@@ -217,16 +220,31 @@ func dash(vel, disableTime := 0.2, dampForDash := 1.0):
 	$DashTimer.wait_time = disableTime
 	$DashTimer.start()
 
+var latestVel2 = Vector2()
+
 func _onDashTimer():
 	resetDamp()
 	switchGravity(true)
 	switchControls(true)
+	latestDashArgs = []
 
 func pauseHigherJump():
 	$JumpTimer.paused = true
+	$DashTimer.paused = true
+	latestVel2 = linearVelocity
 	
 func resumeHigherJump():
 	$JumpTimer.paused = false
+	$DashTimer.paused = false
+	if $DashTimer.time_left > 0:
+		switchControls(false)
+		switchGravity(false)
+		setDamp(latestDashArgs[2])
+		linearVelocity = latestVel2
+		
+#	if latestDashArgs.size() > 0:
+#		dash(latestDashArgs[0], latestDashArgs[1], latestDashArgs[2])
+		
 		
 #var speed := 160.0
 #var jumpPower := 150.0

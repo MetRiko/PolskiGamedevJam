@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/skafander 2.wav-74f0db8ce457286532fcc49e0b1528e2.sample"
+path="res://.import/upgrade 4.wav-dd13bc07291773cefbce4391c4f4a8a9.sample"
 
 [deps]
 
-source_file="res://audio assets/skafander 2.wav"
-dest_files=[ "res://.import/skafander 2.wav-74f0db8ce457286532fcc49e0b1528e2.sample" ]
+source_file="res://res/audio/upgrade 4.wav"
+dest_files=[ "res://.import/upgrade 4.wav-dd13bc07291773cefbce4391c4f4a8a9.sample" ]
 
 [params]
 

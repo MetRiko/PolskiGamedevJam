@@ -8,7 +8,34 @@ var deathScreenDisplayed = false
 
 onready var progress = $HpBar/TextureProgress
 
+var gameState = 0
+
+func _setupIntro():
+	var player = Game.getPlayer()
+	player.switchControls(false)
+	$Intro/Black.modulate.a = 1.0
+	$Intro/StoryLabel.modulate.a = 0.0
+	$Intro/SpaceLabel.modulate.a = 1.0
+	$HpBar.modulate.a = 0.0
+	
+func startGame():
+	$Intro/SpaceLabel.modulate.a = 0.0
+	$Intro/StoryLabel.modulate.a = 1.0
+	Game.getSoundController().playNextIntroSound()
+	$Intro/Title.modulate.a = 0.0
+	yield(get_tree().create_timer(33.0), "timeout")
+	changeGameState(2)
+
+func skipDialog():
+	$Intro.modulate.a = 0.0
+	$HpBar.modulate.a = 1.0
+	Game.getSoundController().stopSound()
+	var player = Game.getPlayer()
+	player.switchControls(true)
+
 func _ready():
+	_setupIntro()
+	
 	$HpBar/AnimationPlayer.play("Idle", -1.0, 2.5)
 
 	var world = Game.getWorld()
@@ -37,10 +64,28 @@ func _onMaxHpChanged(hp, maxHp):
 	$HpBar/Tween.interpolate_property(progress, "rect_size:x", null, maxHp * 4.0, 0.3, Tween.TRANS_SINE, Tween.EASE_IN)
 	$HpBar/Tween.start()
 	
+func changeGameState(state):
+	if gameState != state:
+		gameState = state
+		if state == 1:
+			startGame()
+		elif state == 2:
+			skipDialog()
+	
 func _onPlayerDied():
 	displayDeathScreen()
 	
 func _input(event):
+	
+	if gameState == 0:
+		if event.is_action_pressed("jump"):
+			changeGameState(1)
+			
+	elif gameState == 1:
+		if event.is_action_pressed("jump"):
+			changeGameState(2)
+	
+	
 	if event.is_action_pressed("num_2"):
 		gameplay.addPlayerHp(-10.0)
 		

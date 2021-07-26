@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/upgrade 3.wav-563a88cc1ed4dcf32204e334428a1507.sample"
+path="res://.import/upgrade 3.wav-465c9916e27ffa86b6e5f9f9eb2777fb.sample"
 
 [deps]
 
-source_file="res://audio assets/upgrade 3.wav"
-dest_files=[ "res://.import/upgrade 3.wav-563a88cc1ed4dcf32204e334428a1507.sample" ]
+source_file="res://res/audio/upgrade 3.wav"
+dest_files=[ "res://.import/upgrade 3.wav-465c9916e27ffa86b6e5f9f9eb2777fb.sample" ]
 
 [params]
 

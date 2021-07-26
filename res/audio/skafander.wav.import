@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/melee.wav-9037a033725a93d6c06b5d9bacb7e379.sample"
+path="res://.import/skafander.wav-d564113460bc11d1a57b3b6bc36d26b1.sample"
 
 [deps]
 
-source_file="res://audio assets/melee.wav"
-dest_files=[ "res://.import/melee.wav-9037a033725a93d6c06b5d9bacb7e379.sample" ]
+source_file="res://res/audio/skafander.wav"
+dest_files=[ "res://.import/skafander.wav-d564113460bc11d1a57b3b6bc36d26b1.sample" ]
 
 [params]
 

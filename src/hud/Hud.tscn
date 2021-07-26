@@ -1,11 +1,52 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://res/hud/hp_bar.png" type="Texture" id=1]
 [ext_resource path="res://res/hud/hp_bar_back.png" type="Texture" id=2]
 [ext_resource path="res://res/hud/hp_bar_icon.png" type="Texture" id=3]
 [ext_resource path="res://src/hud/Hud.gd" type="Script" id=4]
-[ext_resource path="res://res/font/Cairo-SemiBold.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://res/font/Cairo-Light.ttf" type="DynamicFontData" id=6]
+
+[sub_resource type="Gradient" id=11]
+offsets = PoolRealArray( 0 )
+colors = PoolColorArray( 0.0823529, 0.0392157, 0.133333, 1 )
+
+[sub_resource type="GradientTexture" id=12]
+gradient = SubResource( 11 )
+
+[sub_resource type="DynamicFontData" id=10]
+font_path = "res://res/font/Cairo-SemiBold.ttf"
+
+[sub_resource type="DynamicFont" id=9]
+outline_color = Color( 0.243137, 0.160784, 0.109804, 1 )
+extra_spacing_bottom = -6
+extra_spacing_char = -1
+font_data = SubResource( 10 )
+
+[sub_resource type="DynamicFont" id=14]
+size = 11
+use_filter = true
+extra_spacing_bottom = -8
+font_data = SubResource( 10 )
+
+[sub_resource type="DynamicFont" id=13]
+size = 80
+outline_size = 5
+outline_color = Color( 0.184314, 0.113725, 0.345098, 1 )
+extra_spacing_bottom = -6
+extra_spacing_char = -1
+font_data = SubResource( 10 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 20
+outline_size = 1
+outline_color = Color( 0.129412, 0.356863, 0.439216, 1 )
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 17
+outline_size = 1
+outline_color = Color( 0.47451, 0.160784, 0.305882, 1 )
+font_data = ExtResource( 6 )
 
 [sub_resource type="Animation" id=1]
 resource_name = "Idle"
@@ -24,37 +65,132 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 0 ]
 }
 
-[sub_resource type="Gradient" id=5]
+[sub_resource type="Gradient" id=7]
 offsets = PoolRealArray( 0 )
 colors = PoolColorArray( 0, 0, 0, 1 )
 
-[sub_resource type="GradientTexture" id=6]
-gradient = SubResource( 5 )
-
-[sub_resource type="DynamicFont" id=2]
-size = 24
-outline_size = 2
-outline_color = Color( 0.243137, 0.160784, 0.109804, 1 )
-extra_spacing_char = -1
-font_data = ExtResource( 5 )
-
-[sub_resource type="DynamicFont" id=3]
-size = 20
-outline_size = 1
-outline_color = Color( 0.129412, 0.356863, 0.439216, 1 )
-font_data = ExtResource( 6 )
-
-[sub_resource type="DynamicFont" id=4]
-size = 17
-outline_size = 1
-outline_color = Color( 0.47451, 0.160784, 0.305882, 1 )
-font_data = ExtResource( 6 )
+[sub_resource type="GradientTexture" id=8]
+gradient = SubResource( 7 )
 
 [node name="Hud" type="Control"]
 margin_right = 40.0
 margin_bottom = 40.0
 rect_scale = Vector2( 2, 2 )
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Intro" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Black" type="TextureRect" parent="Intro"]
+margin_right = 647.0
+margin_bottom = 374.0
+mouse_filter = 2
+texture = SubResource( 12 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StoryLabel" type="Label" parent="Intro"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 65.5
+margin_top = 42.5
+margin_right = 544.5
+margin_bottom = 262.5
+custom_fonts/font = SubResource( 9 )
+custom_colors/font_color = Color( 0.921569, 0.803922, 0.760784, 1 )
+text = "Jest rok 2137, twoje imię to Karol W. Kryptonim „Orzeł II” i zostałeś wybrany do bojowego zadania, polegającego na skompletowaniu modułu szczytu polskiej inżynierii, tzw. Rękawicy Archimedesa, po to by uratować Polskę przed utratą wody. W tym celu udajesz się pod ziemię w czeluści Głogowa Głębokiego Przemysłowego gdzie odkryto resztki kosmicznej technologii sprzed milionów lat. W twoich rękach leżą losy Polskości. Nie zawiedź nas."
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StoryLabel2" type="Label" parent="Intro"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 70.0
+margin_top = -9.0
+margin_right = 609.0
+margin_bottom = 33.0
+custom_fonts/font = SubResource( 14 )
+custom_colors/font_color = Color( 0.47451, 0.337255, 0.780392, 1 )
+text = "Gra zrobiona podczas PolskiGamedev.pl Jam przez:
+Jakub \"MetRiko\" Majewski, Jakub \"Dualithe\" Michałowicz, Jakub \"james.san\" Rogacz"
+align = 2
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Intro"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 65.5
+margin_top = 22.5
+margin_right = 544.5
+margin_bottom = 242.5
+custom_fonts/font = SubResource( 13 )
+custom_colors/font_color = Color( 0.196078, 0.54902, 0.678431, 1 )
+text = "Aquality"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpaceLabel" type="Control" parent="Intro"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label5" type="Label" parent="Intro/SpaceLabel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 90.0
+margin_top = 241.754
+margin_right = 459.0
+margin_bottom = 302.754
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 0.45098, 0.745098, 0.854902, 1 )
+text = "[SPACJĘ]"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label6" type="Label" parent="Intro/SpaceLabel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 129.0
+margin_top = 246.253
+margin_right = 498.0
+margin_bottom = 307.254
+custom_fonts/font = SubResource( 6 )
+custom_colors/font_color = Color( 0.843137, 0.419608, 0.619608, 1 )
+text = "Naciśnij                       aby rozpocząć grę"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -107,7 +243,7 @@ __meta__ = {
 modulate = Color( 1, 1, 1, 0.32549 )
 margin_right = 647.0
 margin_bottom = 374.0
-texture = SubResource( 6 )
+texture = SubResource( 8 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -125,11 +261,11 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 129.0
-margin_top = 82.2535
-margin_right = 498.0
-margin_bottom = 143.253
-custom_fonts/font = SubResource( 2 )
+margin_left = 128.0
+margin_top = 84.0
+margin_right = 497.0
+margin_bottom = 145.0
+custom_fonts/font = SubResource( 9 )
 custom_colors/font_color = Color( 0.921569, 0.803922, 0.760784, 1 )
 text = "Nie możesz się jeszcze poddać!"
 align = 1
@@ -146,7 +282,7 @@ margin_left = 90.0
 margin_top = 141.754
 margin_right = 459.0
 margin_bottom = 202.754
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0.45098, 0.745098, 0.854902, 1 )
 text = "[SPACJĘ]"
 align = 1
@@ -163,7 +299,7 @@ margin_left = 129.0
 margin_top = 146.253
 margin_right = 498.0
 margin_bottom = 207.254
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 6 )
 custom_colors/font_color = Color( 0.843137, 0.419608, 0.619608, 1 )
 text = "Naciśnij                       aby się nie poddać"
 align = 1

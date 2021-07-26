@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/shotgun.wav-e00fd362c38bdb1722ad7acf79c5a38a.sample"
+path="res://.import/multijump.wav-4e87818e5667e90e2599fbfa11fe5122.sample"
 
 [deps]
 
-source_file="res://audio assets/shotgun.wav"
-dest_files=[ "res://.import/shotgun.wav-e00fd362c38bdb1722ad7acf79c5a38a.sample" ]
+source_file="res://res/audio/multijump.wav"
+dest_files=[ "res://.import/multijump.wav-4e87818e5667e90e2599fbfa11fe5122.sample" ]
 
 [params]
 

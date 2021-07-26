@@ -44,6 +44,8 @@ func spawn(spawnNewCells = true):
 func _onBodyEntered(body):
 	if body is Player:
 		if skillUnlocked == false:
+			Game.getSoundController().playSkillSound(skillId)
+			
 			var bendingCtrl = Game.getWorld().getBendingController()
 			bendingCtrl.unlockSkill(skillId)
 			skillUnlocked = bendingCtrl.isSkillUnlocked(skillId)
@@ -64,12 +66,12 @@ func _onBodyEntered(body):
 func _physics_process(delta):
 	var modif = 1.0
 	if skillUnlocked == false:
-		modif = 0.1
+		modif = 0.8
 		for cell in cells:
 			if is_instance_valid(cell):
 				var vec = (global_position - cell.global_position)
 				var power = pow(vec.length() / 10.0, 2.0)
-				cell.impulse(vec.normalized() * power * modif)
+				cell.impulse(vec.normalized() * power * modif * delta * 60.0)
 
 func onTimer():
 	if skillUnlocked == false:
