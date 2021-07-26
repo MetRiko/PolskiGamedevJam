@@ -24,6 +24,20 @@ var unlockedSword = false
 #var unlockedLiquidMaster = false
 #var unlockedSword = false
 
+var techniquesEnabled = true
+
+func getSkillsArray():
+	return [
+		unlockedBending,
+		unlockedBullets,
+		unlockedFists,
+		unlockedShield,
+		unlockedBetterBending,
+		unlockedMultiJump,
+		unlockedLiquidMaster,
+		unlockedSword 
+	]
+
 func unlockSkill(skillId : int, flag : bool = true):
 	match skillId:
 		0:
@@ -91,23 +105,23 @@ func getSwordTechnique():
 func getFistsTechnique():
 	return $FistsTechnique
 	
-var skillMem = []
-	
 func disableAllTechniques():
-	skillMem = []
-	for i in range(8):
-		skillMem.append(isSkillUnlocked(i))
-		unlockSkill(i, false)
+	techniquesEnabled = false
+	$BendingTechnique.disableAttractMode()
+	$JumpTechnique.disableJumpMode()
+	$ShieldTechnique.disableFocusMode()
+	$FistsTechnique.disableSwordMode()
 	
 func enableAllTechniques():
-	for i in range(skillMem.size()):
-		unlockSkill(i, skillMem[i])
+	techniquesEnabled = true
 	
 var enableFists = false
 var enableShield = false
 var enableBending = false
 	
 func _process(delta):
+	if techniquesEnabled == false:
+		return
 	_updateIndicatorPos()
 	
 	var lmb = Input.is_action_pressed("lmb")

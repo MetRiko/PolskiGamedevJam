@@ -6,50 +6,49 @@
 [ext_resource path="res://src/hud/Hud.gd" type="Script" id=4]
 [ext_resource path="res://res/font/Cairo-Light.ttf" type="DynamicFontData" id=6]
 
-[sub_resource type="Gradient" id=11]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0 )
 colors = PoolColorArray( 0.0823529, 0.0392157, 0.133333, 1 )
 
-[sub_resource type="GradientTexture" id=12]
-gradient = SubResource( 11 )
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 
-[sub_resource type="DynamicFontData" id=10]
+[sub_resource type="DynamicFontData" id=3]
 font_path = "res://res/font/Cairo-SemiBold.ttf"
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=4]
 outline_color = Color( 0.243137, 0.160784, 0.109804, 1 )
 extra_spacing_bottom = -6
 extra_spacing_char = -1
-font_data = SubResource( 10 )
+font_data = SubResource( 3 )
 
-[sub_resource type="DynamicFont" id=14]
+[sub_resource type="DynamicFont" id=5]
 size = 11
 use_filter = true
 extra_spacing_bottom = -8
-font_data = SubResource( 10 )
+font_data = SubResource( 3 )
 
-[sub_resource type="DynamicFont" id=13]
+[sub_resource type="DynamicFont" id=6]
 size = 80
 outline_size = 5
 outline_color = Color( 0.184314, 0.113725, 0.345098, 1 )
 extra_spacing_bottom = -6
 extra_spacing_char = -1
-font_data = SubResource( 10 )
+font_data = SubResource( 3 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=7]
 size = 20
 outline_size = 1
 outline_color = Color( 0.129412, 0.356863, 0.439216, 1 )
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=8]
 size = 17
 outline_size = 1
 outline_color = Color( 0.47451, 0.160784, 0.305882, 1 )
 font_data = ExtResource( 6 )
 
-[sub_resource type="Animation" id=1]
-resource_name = "Idle"
+[sub_resource type="Animation" id=9]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -65,12 +64,12 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 0 ]
 }
 
-[sub_resource type="Gradient" id=7]
+[sub_resource type="Gradient" id=10]
 offsets = PoolRealArray( 0 )
 colors = PoolColorArray( 0, 0, 0, 1 )
 
-[sub_resource type="GradientTexture" id=8]
-gradient = SubResource( 7 )
+[sub_resource type="GradientTexture" id=11]
+gradient = SubResource( 10 )
 
 [node name="Hud" type="Control"]
 margin_right = 40.0
@@ -93,7 +92,7 @@ __meta__ = {
 margin_right = 647.0
 margin_bottom = 374.0
 mouse_filter = 2
-texture = SubResource( 12 )
+texture = SubResource( 2 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -108,7 +107,7 @@ margin_left = 65.5
 margin_top = 42.5
 margin_right = 544.5
 margin_bottom = 262.5
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.921569, 0.803922, 0.760784, 1 )
 text = "Jest rok 2137, twoje imię to Karol W. Kryptonim „Orzeł II” i zostałeś wybrany do bojowego zadania, polegającego na skompletowaniu modułu szczytu polskiej inżynierii, tzw. Rękawicy Archimedesa, po to by uratować Polskę przed utratą wody. W tym celu udajesz się pod ziemię w czeluści Głogowa Głębokiego Przemysłowego gdzie odkryto resztki kosmicznej technologii sprzed milionów lat. W twoich rękach leżą losy Polskości. Nie zawiedź nas."
 align = 1
@@ -126,7 +125,7 @@ margin_left = 70.0
 margin_top = -9.0
 margin_right = 609.0
 margin_bottom = 33.0
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0.47451, 0.337255, 0.780392, 1 )
 text = "Gra zrobiona podczas PolskiGamedev.pl Jam przez:
 Jakub \"MetRiko\" Majewski, Jakub \"Dualithe\" Michałowicz, Jakub \"james.san\" Rogacz"
@@ -145,7 +144,7 @@ margin_left = 65.5
 margin_top = 22.5
 margin_right = 544.5
 margin_bottom = 242.5
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 6 )
 custom_colors/font_color = Color( 0.196078, 0.54902, 0.678431, 1 )
 text = "Aquality"
 align = 1
@@ -170,7 +169,7 @@ margin_left = 90.0
 margin_top = 241.754
 margin_right = 459.0
 margin_bottom = 302.754
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 0.45098, 0.745098, 0.854902, 1 )
 text = "[SPACJĘ]"
 align = 1
@@ -187,7 +186,7 @@ margin_left = 129.0
 margin_top = 246.253
 margin_right = 498.0
 margin_bottom = 307.254
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 0.843137, 0.419608, 0.619608, 1 )
 text = "Naciśnij                       aby rozpocząć grę"
 align = 1
@@ -221,7 +220,7 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HpBar"]
 autoplay = "Idle"
-anims/Idle = SubResource( 1 )
+anims/Idle = SubResource( 9 )
 
 [node name="Sprite" type="Sprite" parent="HpBar"]
 position = Vector2( 16.6496, 35.0161 )
@@ -243,7 +242,7 @@ __meta__ = {
 modulate = Color( 1, 1, 1, 0.32549 )
 margin_right = 647.0
 margin_bottom = 374.0
-texture = SubResource( 8 )
+texture = SubResource( 11 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -265,7 +264,7 @@ margin_left = 128.0
 margin_top = 84.0
 margin_right = 497.0
 margin_bottom = 145.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.921569, 0.803922, 0.760784, 1 )
 text = "Nie możesz się jeszcze poddać!"
 align = 1
@@ -282,7 +281,7 @@ margin_left = 90.0
 margin_top = 141.754
 margin_right = 459.0
 margin_bottom = 202.754
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 0.45098, 0.745098, 0.854902, 1 )
 text = "[SPACJĘ]"
 align = 1
@@ -299,7 +298,7 @@ margin_left = 129.0
 margin_top = 146.253
 margin_right = 498.0
 margin_bottom = 207.254
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 0.843137, 0.419608, 0.619608, 1 )
 text = "Naciśnij                       aby się nie poddać"
 align = 1
