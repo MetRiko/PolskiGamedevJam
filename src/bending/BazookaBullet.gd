@@ -18,7 +18,7 @@ func _updateOnCollision(collisionNormal):
 		alive = false
 	for body in $BigBazookaArea.get_overlapping_bodies():
 		if body is Damagable:
-			if body.isBazookaOnly() and cellAttached.size() >= 60.0:
+			if body.isBazookaOnly() and cellAttached.size() >= 50.0:
 				body.doDamage(1.0, bulletVel)
 	
 	var power = pow(cellAttached.size(), 0.4) * 270.0
@@ -84,7 +84,7 @@ func shoot(vel : Vector2):
 	impulse(vel)
 	_recalculateOffsets()
 	var maxRadius = 5.0 + pow(cellAttached.size(), 0.6) * 0.7
-	$BigBazookaArea/CollisionShape2D.shape.radius = maxRadius * 1.6
+	$BigBazookaArea/CollisionShape2D.shape.radius = maxRadius * 2.2
 
 func _recalculateOffsets():
 	var i = 0

@@ -6,23 +6,23 @@ var indicatorRotationSpeed = 0.1
 
 var focusLevel := 4
 
-var unlockedBending = false
-var unlockedBullets = false
-var unlockedFists = false
-var unlockedShield = false
-var unlockedBetterBending = false
-var unlockedMultiJump = false
-var unlockedLiquidMaster = false
-var unlockedSword = false
-
-#var unlockedBending = true
-#var unlockedBullets = true
-#var unlockedFists = true
-#var unlockedShield = true
-#var unlockedBetterBending = true
-#var unlockedMultiJump = true
+#var unlockedBending = false
+#var unlockedBullets = false
+#var unlockedFists = false
+#var unlockedShield = false
+#var unlockedBetterBending = false
+#var unlockedMultiJump = false
 #var unlockedLiquidMaster = false
 #var unlockedSword = false
+
+var unlockedBending = true
+var unlockedBullets = true
+var unlockedFists = true
+var unlockedShield = true
+var unlockedBetterBending = true
+var unlockedMultiJump = true
+var unlockedLiquidMaster = false
+var unlockedSword = false
 
 var techniquesEnabled = true
 
@@ -118,6 +118,7 @@ func enableAllTechniques():
 var enableFists = false
 var enableShield = false
 var enableBending = false
+var enableSword = false
 	
 func _process(delta):
 	if techniquesEnabled == false:
@@ -126,22 +127,27 @@ func _process(delta):
 	
 	var lmb = Input.is_action_pressed("lmb")
 	var rmb = Input.is_action_pressed("rmb")
+	var smb = Input.is_action_pressed("sword")
 	
 	var bendingTech = getBendingTechnique()
 	var shieldTech = getShieldTechnique()
 	var fistsTech = getFistsTechnique()
+	var swordTech = getSwordTechnique()
 	
 	enableFists = (lmb and not rmb) or (lmb and fistsTech.swordMode == true)
 	enableShield = lmb and rmb and fistsTech.swordMode == false
 	enableBending = not lmb and rmb
+	enableSword = smb
 	
 	enableFists = enableFists and unlockedFists
 	enableShield = enableShield and unlockedShield
 	enableBending = enableBending and unlockedBending
+	enableSword = enableSword and unlockedSword
 	
 	bendingTech.changeAttractMode(enableBending)
 	fistsTech.changeSwordMode(enableFists)
 	shieldTech.changeFocusMode(enableShield)
+	swordTech.changeSwordMode(enableSword)
 	
 	var indicatorSprite = $Indicator/Sprite
 	indicatorSprite.rotate(indicatorRotationSpeed * 60.0 * delta)
@@ -167,8 +173,8 @@ func _updateIndicatorPos():
 	
 	var bendingTech = getBendingTechnique()
 	var shieldTech = getShieldTechnique()
-#	var swordTech = getSwordTechnique()
 	var fistsTech = getFistsTechnique()
+	var swordTech = getSwordTechnique()
 
 	if bendingTech.attractMode == true:
 		bendingTech._updateIndicatorPosForAttractMode()
@@ -176,5 +182,8 @@ func _updateIndicatorPos():
 		fistsTech._updateIndicatorPosForSwordMode()
 	elif shieldTech.focusMode == true:
 		shieldTech._updateIndicatorPosForFocusMode()
+	elif swordTech.swordMode == true:
+		swordTech._updateIndicatorPosForSwordMode()
 	else:
 		bendingTech._updateIndicatorPosForAttractMode()
+		
