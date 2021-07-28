@@ -334,7 +334,7 @@ func _process(delta):
 	if levelSwitchingEnabled == true:
 		_updateMovingBetweenLevels()
 		
-	$OrbsCounter.text = "Zebrano modułów zdrowia: %s / %s" % [Game.currHpOrbs, Game.maxHpOrbs]
+	$OrbsCounter.text = "HP modules collected: %s / %s" % [Game.currHpOrbs, Game.maxHpOrbs]
 		
 
 func convertPosToLevelIdx(pos : Vector2):

@@ -41,7 +41,8 @@ var skillsSounds = [
 	soundFiles[14],
 	soundFiles[15],
 	soundFiles[16],
-	soundFiles[17]
+	soundFiles[17],
+	soundFiles[14]
 ]
 #var nextSkillSound = 0
 
