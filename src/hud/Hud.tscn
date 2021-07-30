@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://res/hud/hp_bar.png" type="Texture" id=1]
 [ext_resource path="res://res/hud/hp_bar_back.png" type="Texture" id=2]
 [ext_resource path="res://res/hud/hp_bar_icon.png" type="Texture" id=3]
 [ext_resource path="res://src/hud/Hud.gd" type="Script" id=4]
+[ext_resource path="res://src/hud/Minimap.tscn" type="PackedScene" id=5]
 [ext_resource path="res://res/font/Cairo-Light.ttf" type="DynamicFontData" id=6]
 
 [sub_resource type="Gradient" id=1]
@@ -307,3 +308,5 @@ __meta__ = {
 }
 
 [node name="Tween" type="Tween" parent="DeathScreen"]
+
+[node name="Minimap" parent="." instance=ExtResource( 5 )]
